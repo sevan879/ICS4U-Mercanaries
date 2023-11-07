@@ -1,2 +1,2 @@
 # ICS4U-Project-2
-Evan, Justin Arthur, Kennith, Nozomu
+Evan, Justin, Arthur, Kenneth, Nozomu
