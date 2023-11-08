@@ -17,5 +17,8 @@ public class Archer extends Enemy
         // Add your action code here.
     }
     
+    public Archer(int hp, int spd, int delay, int dmg, boolean movable){
+        super(hp, spd, delay, dmg, movable);
+    }
     
 }
