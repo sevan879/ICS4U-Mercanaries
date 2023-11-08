@@ -27,7 +27,7 @@ public abstract class Entity extends SuperSmoothMover
     * @param dmg damage that entity does
     * @param moveable can the entity move around
     */
-    public Entity   (int hp, int spd, int delay, int dmg, boolean movable)
+    public Entity(int hp, int spd, int delay, int dmg, boolean movable)
     {
         maxHealth = hp;
         health = maxHealth;
