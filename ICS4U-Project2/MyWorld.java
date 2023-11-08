@@ -7,15 +7,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MyWorld extends World
-{
-
-    /**
-     * Constructor for objects of class MyWorld.
-     * 
-     */
+{    
+    private Background b;
+    private Knight k;
+    
+    //constructor
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(543, 360, 1); 
+        b = new Background();
+        k = new Knight();
+        
+        addObject(b, 543, 180); //add background first, so its behind everything
+        addObject(k, 100, 305);
+    }
+    
+    //act method
+    public void act() {
     }
 }
