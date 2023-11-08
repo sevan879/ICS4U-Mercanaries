@@ -1,13 +1,13 @@
 #BlueJ class context
 comment0.target=Entity
-comment0.text=\r\n\ Entity\ class,\ superclass\ for\ all\ enemy\ and\ player\ classes.\r\n\ \r\n\ @author\ Evan\ Ma\r\n\ @version\ V1\r\n
+comment0.text=\n\ Entity\ class,\ superclass\ for\ all\ enemy\ and\ player\ classes.\n\ \n\ @author\ Evan\ Ma\n\ @version\ V1\n
 comment1.params=hp\ spd\ delay\ dmg\ movable
 comment1.target=Entity(int,\ int,\ int,\ int,\ boolean)
-comment1.text=\r\n\ Main\ Constructor\ for\ Entity\ Class\r\n\r\n\ @param\ hp\ entity's\ health\r\n\ @param\ spd\ entity's\ speed\r\n\ @param\ delay\ delay\ between\ actions\r\n\ @param\ dmg\ damage\ that\ entity\ does\r\n\ @param\ moveable\ can\ the\ entity\ move\ around\r\n
+comment1.text=\n\ Main\ Constructor\ for\ Entity\ Class\n\n\ @param\ hp\ entity's\ health\n\ @param\ spd\ entity's\ speed\n\ @param\ delay\ delay\ between\ actions\n\ @param\ dmg\ damage\ that\ entity\ does\n\ @param\ moveable\ can\ the\ entity\ move\ around\n
 comment2.params=dmg
 comment2.target=void\ takeDamage(int)
-comment2.text=\r\n\ Take\ damage\ for\ entity\r\n\r\n\ @param\ dmg\ Amount\ of\ damage\ entity\ takes.\r\n
+comment2.text=\n\ Take\ damage\ for\ entity\n\n\ @param\ dmg\ Amount\ of\ damage\ entity\ takes.\n
 comment3.params=heal
 comment3.target=void\ healDmg(int)
-comment3.text=\r\n\ Heal\ damage\ for\ entity\r\n\r\n\ @param\ heal\ Amount\ of\ damage\ entity\ heals.\r\n
+comment3.text=\n\ Heal\ damage\ for\ entity\n\n\ @param\ heal\ Amount\ of\ damage\ entity\ heals.\n
 numComments=4
