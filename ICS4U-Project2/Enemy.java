@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Enemy extends Entity
+public class Enemy extends Entity
 {
     /**
      * Act - do whatever the Enemy wants to do. This method is called whenever
@@ -14,6 +14,27 @@ public abstract class Enemy extends Entity
      */
     public void act()
     {
+        
         // Add your action code here.
     }
+    
+    public Enemy(int hp, int spd, int delay, int dmg, boolean movable)
+    {
+        super(hp, spd, delay, dmg, movable);
+    }
+    
+    public Party targetParty(){
+        
+    }
+    
+    public void moving(){
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 }
