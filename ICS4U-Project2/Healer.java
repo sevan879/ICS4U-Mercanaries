@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * Write a description of class Healer here.
  * 
@@ -43,9 +43,18 @@ public class Healer extends Party
     
     protected void mainAction(Enemy target)
     {
-        int dealtDamage = damage + Greenfoot.getRandomNumber(2);
-        target.takeDamage(dealtDamage);
-        //Make Enemy take damage
+        Party healTarget = findHealTarget();
+        if (healTarget != null)
+        {
+            if (Greenfoot.getRandomNumber(6) == 0)
+            {
+                bigHeal();
+            }
+            else
+            {
+                smallHeal();
+            }
+        }
     }
     
     protected void levelUpStats()
@@ -60,15 +69,40 @@ public class Healer extends Party
         attackRange += RANGE_INCREASE;
     }
     
-    private void smallSpell()
+    private void smallHeal()
     {
+        
         spendMana(smallSpellMana);
         // CREATE PROJECTILE OBJECT
     }
     
-    private void bigSpell()
+    private void bigHeal()
     {
         spendMana(bigSpellMana);
         // CREATE PROJECTILE OBJECT
+    }
+    
+    private Party findHealTarget()
+    {
+        ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
+        
+        Party target = null;
+        
+        for (Party p : pList)
+        {
+            if (target == null)
+            {
+                target = p;
+            }
+            else
+            {
+                if (p.getHP() < target.getHP())
+                {
+                    target = p;
+                }
+            }
+        }
+        
+        return target;
     }
 }

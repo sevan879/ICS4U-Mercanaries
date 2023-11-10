@@ -65,5 +65,14 @@ public abstract class Entity extends SuperSmoothMover
             health += heal;
         }
     }
+    /**
+    * Check HP for Entity
+    *
+    * @return int
+    */
+    public int getHP()
+    {
+        return health;
+    }
     
 }
