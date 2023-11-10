@@ -3,9 +3,9 @@ import java.util.concurrent.Phaser;
 import java.util.List;
 
 /**
- * Write a description of class Enemy here.
+ * Enemy class, superclass for all enemies
  * 
- * @author (your name) 
+ * @author (your name)
  * @version (a version number or a date)
  */
 public class Enemy extends Entity
@@ -30,22 +30,33 @@ public class Enemy extends Entity
     }
     
     public void move(){
-        //if no player is detected, move 
+        //if no player is detected within attack range, move 
         if(targetPlayer() = null){
             setLocation(getX() - speed, getY());
+            //moving animation
         }
     }
+
     
     public void attack(){
-        if(targetPlayer() != null){
-            Player player = targetPlayer();
         
-            player.takeDamage(damage);
-            //attack annimation
+        if(targetPlayer() != null){
+            
+            if(actionCounter == 0){
+                Player player = targetPlayer();
+                player.takeDamage(damage);
+                //attack animation
+                actionCounter = actionDelay;
+            } else{
+                actionCounter--;
+            }
+ 
         }
         
         
     }
+    
+    
     
     private Player targetPlayer() {
         List<Player> players = getObjectsInRange(attackRange, Player.class);

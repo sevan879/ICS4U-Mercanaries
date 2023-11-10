@@ -1,6 +1,6 @@
 Class documentation
 <---- javadoc command: ---->
-C:\Program Files\Greenfoot\jdk\bin\javadoc.exe
+javadoc
 -author
 -version
 -nodeprecated
@@ -11,31 +11,26 @@ C:\Program Files\Greenfoot\jdk\bin\javadoc.exe
 -nohelp
 -nonavbar
 -source
-11
+17
 -classpath
-C:\Program Files\Greenfoot\lib\greenfoot.jar;C:\Program Files\Greenfoot\lib\bluejcore.jar;C:\Program Files\Greenfoot\lib\bluejeditor.jar;C:\Program Files\Greenfoot\lib\bluejext2.jar;C:\Program Files\Greenfoot\lib\junit-jupiter-5.5.2.jar;C:\Program Files\Greenfoot\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\Greenfoot\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\Greenfoot\lib\junit-jupiter-migrationsupport-5.5.2.jar;C:\Program Files\Greenfoot\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-console-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-console-standalone-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-reporting-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-runner-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-platform-testkit-1.5.2.jar;C:\Program Files\Greenfoot\lib\junit-quickcheck-core-0.9.jar;C:\Program Files\Greenfoot\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\Greenfoot\lib\hamcrest-core-1.3.jar;C:\Program Files\Greenfoot\lib\bluej.jar;C:\Program Files\Greenfoot\lib\classgraph-4.8.90.jar;C:\Program Files\Greenfoot\lib\diffutils-1.2.1.jar;C:\Program Files\Greenfoot\lib\commons-logging-api-1.1.2.jar;C:\Program Files\Greenfoot\lib\jl1.0.1.jar;C:\Program Files\Greenfoot\lib\opencsv-2.3.jar;C:\Program Files\Greenfoot\lib\xom-1.3.7.jar;C:\Program Files\Greenfoot\lib\lang-stride.jar;C:\Program Files\Greenfoot\lib\nsmenufx-2.1.8.jar;C:\Program Files\Greenfoot\lib\wellbehavedfx-0.3.3.jar;C:\Program Files\Greenfoot\lib\guava-17.0.jar;C:\Program Files\Greenfoot\lib\httpclient-4.1.1.jar;C:\Program Files\Greenfoot\lib\httpcore-4.1.jar;C:\Program Files\Greenfoot\lib\httpmime-4.1.1.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.base.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.controls.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.fxml.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.graphics.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.media.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.properties.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.swing.jar;C:\Program Files\Greenfoot\lib\javafx\lib\javafx.web.jar;C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2
+/Applications/Greenfoot.app/Contents/Java/greenfoot.jar:/Applications/Greenfoot.app/Contents/Java/bluejcore.jar:/Applications/Greenfoot.app/Contents/Java/javafx-base-20.0.1.jar:/Applications/Greenfoot.app/Contents/Java/javafx-graphics-20.0.1.jar:/Applications/Greenfoot.app/Contents/Java/javafx-controls-20.0.1.jar:/Applications/Greenfoot.app/Contents/Java/javafx-fxml-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-controls-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-web-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-media-20.0.1.jar:/Applications/Greenfoot.app/Contents/Java/javafx-base-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-media-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-graphics-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/javafx-swing-20.0.1-mac.jar:/Applications/Greenfoot.app/Contents/Java/junit-4.12.jar:/Applications/Greenfoot.app/Contents/Java/junit-jupiter-params-5.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-jupiter-api-5.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-jupiter-engine-5.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-platform-suite-api-1.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-vintage-engine-5.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-jupiter-5.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-platform-engine-1.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-platform-launcher-1.5.2.jar:/Applications/Greenfoot.app/Contents/Java/junit-platform-commons-1.5.2.jar:/Applications/Greenfoot.app/Contents/Java/hamcrest-core-1.3.jar:/Applications/Greenfoot.app/Contents/Java/opentest4j-1.2.0.jar:/Applications/Greenfoot.app/Contents/Java/bluej.jar:/Applications/Greenfoot.app/Contents/Java/classgraph-4.8.90.jar:/Applications/Greenfoot.app/Contents/Java/diffutils-1.2.1.jar:/Applications/Greenfoot.app/Contents/Java/commons-logging-1.2.jar:/Applications/Greenfoot.app/Contents/Java/commons-logging-1.1.3.jar:/Applications/Greenfoot.app/Contents/Java/jl1.0.1.jar:/Applications/Greenfoot.app/Contents/Java/opencsv-2.3.jar:/Applications/Greenfoot.app/Contents/Java/opencsv-2.4.jar:/Applications/Greenfoot.app/Contents/Java/xom-1.3.7.jar:/Applications/Greenfoot.app/Contents/Java/lang-stride.jar:/Applications/Greenfoot.app/Contents/Java/nsmenufx-2.1.8.jar:/Applications/Greenfoot.app/Contents/Java/wellbehavedfx-0.3.3.jar:/Applications/Greenfoot.app/Contents/Java/guava-17.0.jar:/Applications/Greenfoot.app/Contents/Java/httpclient-4.3.6.jar:/Applications/Greenfoot.app/Contents/Java/httpcore-4.3.3.jar:/Applications/Greenfoot.app/Contents/Java/httpmime-4.1.1.jar:/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2
 -d
-C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc
+/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc
 -encoding
 windows-1252
 -charset
 windows-1252
-C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\Entity.java
+/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Spear.java
 <---- end of javadoc command ---->
-Loading source file C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\Entity.java...
+Loading source file /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Spear.java...
 Constructing Javadoc information...
+/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Enemy.java:54: error: cannot find symbol
+    private Player targetPlayer() {
+            ^
+  symbol:   class Player
+  location: class Enemy
 warning: unknown enum constant Tag.Any
   reason: class file for threadchecker.Tag not found
 warning: unknown enum constant Tag.Any
-Standard Doclet version 11.0.14.1
-Building tree for all the packages and classes...
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\Entity.html...
-C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\Entity.java:28: warning - @param argument "moveable" is not a parameter name.
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\package-summary.html...
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\constant-values.html...
-Building index for all the packages and classes...
-Building index for all classes...
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\allclasses.html...
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\allclasses.html...
-Generating C:\Users\mk\Documents\GitHub\ICS4U-Project-2\ICS4U-Project2\doc\index.html...
-3 warnings
+1 error
+2 warnings

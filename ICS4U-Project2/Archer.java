@@ -14,11 +14,17 @@ public class Archer extends Enemy
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
-    public Archer(int hp, int spd, int delay, int dmg, boolean movable){
-        super(hp, spd, delay, dmg, movable);
+    public Archer(){
+        super(3 + (int)Math.random() * 2, 1 + (int)Math.random() * 2, 20, 2 + (int)Math.random() * 2, true);
+        
+        attackRange = 200;
+        
+        
     }
+    
+    
     
 }
