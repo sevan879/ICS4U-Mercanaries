@@ -52,7 +52,7 @@ public class Healer extends Party
             }
             else
             {
-                smallHeal();
+                smallHeal(healTarget);
             }
         }
     }
@@ -69,17 +69,22 @@ public class Healer extends Party
         attackRange += RANGE_INCREASE;
     }
     
-    private void smallHeal()
+    private void smallHeal(Party healTarget)
     {
         
         spendMana(smallSpellMana);
-        // CREATE PROJECTILE OBJECT
+        healTarget.healDmg(damage);
+        
     }
     
     private void bigHeal()
     {
         spendMana(bigSpellMana);
-        // CREATE PROJECTILE OBJECT
+        ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
+        for (Party p : pList)
+        {
+            p.healDmg(damage);
+        }
     }
     
     private Party findHealTarget()

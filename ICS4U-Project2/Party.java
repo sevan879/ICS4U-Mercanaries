@@ -94,7 +94,7 @@ public abstract class Party extends Entity
     */
     private Enemy detectEnemy()
     {
-        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
+        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld  ().getObjects(Enemy.class));
         Enemy target = null;
         
         for (Enemy e : targetList)
