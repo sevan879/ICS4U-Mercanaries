@@ -24,6 +24,7 @@ public class Background extends Actor
     public Background() {
             
         forestBackground = new GreenfootImage("ForestBackground.png");
+        setImage(forestBackground);
         
         worldTracker = 0;
         changeBackground = true;
@@ -33,7 +34,6 @@ public class Background extends Actor
     public void act()
     {
         setBackground();
-        scrollBackground();
     }
 
     //change background based on the area we are in
@@ -47,8 +47,7 @@ public class Background extends Actor
     }
 
     //make the background have a scrolling effect
-    public void scrollBackground() {
-        int speed = 1;
+    public void scrollBackground(int speed) {
         if (getX() == 0) {
             setLocation(543, getY());
         }

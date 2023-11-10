@@ -20,10 +20,18 @@ public class MyWorld extends World
         k = new Knight();
         
         addObject(b, 543, 180); //add background first, so its behind everything
-        addObject(k, 100, 305);
+        addObject(k, 200, 305);
     }
     
     //act method
     public void act() {
+        if (partyIsRunning()) {
+            b.scrollBackground(k.getRunningSpeed());
+        }
+    }
+    
+    //tells us if the party members are running or not, info used by background class
+    public boolean partyIsRunning() {
+        return (k.runningSpeed != 0);
     }
 }
