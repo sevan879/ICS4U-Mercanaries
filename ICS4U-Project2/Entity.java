@@ -13,7 +13,6 @@ public abstract class Entity extends SuperSmoothMover
     protected int maxHealth;
     protected double speed;
     protected double maxSpeed;
-    protected int damage;
     // Action delay
     protected int actionDelay;
     protected int actionCounter;
@@ -27,7 +26,7 @@ public abstract class Entity extends SuperSmoothMover
     * @param dmg damage that entity does
     * @param moveable can the entity move around
     */
-    public Entity(int hp, int spd, int delay, int dmg, boolean movable)
+    public Entity(int hp, double spd, int delay, boolean movable)
     {
         maxHealth = hp;
         health = maxHealth;
@@ -35,7 +34,6 @@ public abstract class Entity extends SuperSmoothMover
         maxSpeed = speed;
         actionDelay = delay;
         actionCounter = actionDelay;
-        damage = dmg;
         canMove = movable;
     }
     /**
@@ -67,4 +65,5 @@ public abstract class Entity extends SuperSmoothMover
             health += heal;
         }
     }
+    
 }

@@ -26,7 +26,7 @@ public class Enemy extends Entity
     */
     public Enemy(int hp, int spd, int delay, int dmg, boolean movable, int xpIncreaseRate, int attackRange)
     {
-        super(hp, spd, delay, dmg, false);
+        super(hp, delay, dmg, false);
         experience = 0;
         xpToLevel = 1;
         level = 0;

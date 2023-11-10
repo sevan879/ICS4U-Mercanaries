@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Entity
 comment0.text=\r\n\ Entity\ class,\ superclass\ for\ all\ enemy\ and\ player\ classes.\r\n\ \r\n\ @author\ Evan\ Ma\r\n\ @version\ V1\r\n
-comment1.params=hp\ spd\ delay\ dmg\ movable
-comment1.target=Entity(int,\ int,\ int,\ int,\ boolean)
+comment1.params=hp\ spd\ delay\ movable
+comment1.target=Entity(int,\ double,\ int,\ boolean)
 comment1.text=\r\n\ Main\ Constructor\ for\ Entity\ Class\r\n\r\n\ @param\ hp\ entity's\ health\r\n\ @param\ spd\ entity's\ speed\r\n\ @param\ delay\ delay\ between\ actions\r\n\ @param\ dmg\ damage\ that\ entity\ does\r\n\ @param\ moveable\ can\ the\ entity\ move\ around\r\n
 comment2.params=dmg
 comment2.target=void\ takeDamage(int)
