@@ -20,9 +20,14 @@ public class Spear extends Enemy
     }
     
     public Spear(){
-        super(10 + (int)Math.random() * 2, 5 + (int)Math.random() * 2, 20, 1 + (int)Math.random() * 2, true);
+        super(10 + (int)Math.random() * 2, 5 + (int)Math.random() * 2, 20, 2 + (int)Math.random() * 2, true);
         attackRange = 50;
 
+    }
+    
+    public boolean canAttackPastTanks(){
+        
+       
     }
     
     

@@ -43,8 +43,8 @@ public class Enemy extends Entity
         if(targetPlayer() != null){
             
             if(actionCounter == 0){
-                Player player = targetPlayer();
-                player.takeDamage(damage);
+                Player p = targetPlayer();
+                p.takeDamage(damage);
                 //attack animation
                 actionCounter = actionDelay;
             } else{
@@ -52,12 +52,10 @@ public class Enemy extends Entity
             }
  
         }
-        
-        
+
     }
     
-    
-    
+
     private Player targetPlayer() {
         List<Player> players = getObjectsInRange(attackRange, Player.class);
 
@@ -67,6 +65,8 @@ public class Enemy extends Entity
 
         return null;
     }
+    
+    
     
     
     

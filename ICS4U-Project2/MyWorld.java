@@ -23,18 +23,17 @@ public class MyWorld extends World
     }
     
     private void spawnEnemies(){
-        if(wave == 4){
-            //spawnboss
-        }
-        
         if(!waveOver){
-            if(Greenfoot.getRandomNumber(20) == 0){
-                int enemyType = Greenfoot.getRandomNumber(2);
+            if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
+                int enemyType = Greenfoot.getRandomNumber(3);
                 if(enemyType == 0){
                     addObject(new Spear(), 0, 0); //modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 1){
                     addObject(new Archer(), 0, 0); // modify placement after
+                    enemiesSpawned++;
+                } else if(enemyType == 2){
+                    addObject(new Sword(), 0, 0);
                     enemiesSpawned++;
                 }
             }
@@ -58,7 +57,14 @@ public class MyWorld extends World
                 enemiesSpawned = 0;
                 wave = wave + 1;
             }
+        }else if(wave == 4){
+            //spawnboss
         }
         
+    }
+    
+    public static double getDistance (Actor a, Actor b)
+    {
+        return Math.hypot (a.getX() - b.getX(), a.getY() - b.getY());
     }
 }
