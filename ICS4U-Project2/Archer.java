@@ -40,7 +40,7 @@ public class Archer extends Enemy
         //attack animations
     }
     
-    public player targetPastTanks(){
+    public Player targetPastTanks(){
         List<Player> players = getObjectsInRange(attackRange, Player.class);
 
         if (!players.isEmpty()) {

@@ -39,7 +39,7 @@ public class Spear extends Enemy
         }
         
         if(playersFurtherAway() != null){
-            for(Player P: playersFurtherAway()){
+            for(Player p: playersFurtherAway()){
                 p.takeDamage(damage - 1);
             }
         }
