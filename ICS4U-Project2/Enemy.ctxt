@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Enemy
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Enemy\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=hp\ spd\ delay\ dmg\ movable\ xpIncreaseRate\ attackRange
+comment1.target=Enemy(int,\ int,\ int,\ int,\ boolean,\ int,\ int)
+comment1.text=\r\n\ Main\ Constructor\ for\ Player\ Class\r\n\r\n\ @param\ hp\ entity's\ health\r\n\ @param\ spd\ entity's\ speed\r\n\ @param\ delay\ delay\ between\ actions\r\n\ @param\ dmg\ damage\ that\ entity\ does\r\n\ @param\ moveable\ can\ the\ entity\ move\ around\r\n\ @param\ xpIncreaseRate\ how\ much\ the\ required\ XP\ to\ level\ increases\ after\ each\ Level\r\n\ @param\ attackRange\ Range\ of\ attacking\ enemies\r\n
+numComments=2

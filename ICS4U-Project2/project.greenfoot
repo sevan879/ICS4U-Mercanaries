@@ -1,5 +1,6 @@
 #Greenfoot project file
 class.Party.image=bananas.png
+<<<<<<< HEAD
 dependency1.from=MyWorld
 dependency1.to=Background
 dependency1.type=UsesDependency
@@ -16,6 +17,18 @@ editor.fx.0.y=0
 height=686
 package.numDependencies=3
 package.numTargets=7
+=======
+dependency1.from=Party
+dependency1.to=Enemy
+dependency1.type=UsesDependency
+editor.fx.0.height=686
+editor.fx.0.width=1294
+editor.fx.0.x=-7
+editor.fx.0.y=-7
+height=686
+package.numDependencies=1
+package.numTargets=6
+>>>>>>> Developing-Player-Class---Evan
 project.charset=windows-1252
 publish.hasSource=false
 publish.locked=true
@@ -31,16 +44,26 @@ readme.x=10
 readme.y=10
 simulation.speed=50
 target1.height=70
+<<<<<<< HEAD
 target1.name=Party
+=======
+target1.name=Entity
+>>>>>>> Developing-Player-Class---Evan
 target1.showInterface=false
 target1.type=AbstractTarget
 target1.width=120
 target1.x=0
 target1.y=0
 target2.height=70
+<<<<<<< HEAD
 target2.name=Background
 target2.showInterface=false
 target2.type=ClassTarget
+=======
+target2.name=Party
+target2.showInterface=false
+target2.type=AbstractTarget
+>>>>>>> Developing-Player-Class---Evan
 target2.width=120
 target2.x=0
 target2.y=0
@@ -72,6 +95,7 @@ target6.type=ClassTarget
 target6.width=120
 target6.x=0
 target6.y=0
+<<<<<<< HEAD
 target7.height=70
 target7.name=SkeletonKnight
 target7.showInterface=false
@@ -79,6 +103,8 @@ target7.type=ClassTarget
 target7.width=120
 target7.x=0
 target7.y=0
+=======
+>>>>>>> Developing-Player-Class---Evan
 version=3.0.0
 width=1294
 world.lastInstantiated=MyWorld
