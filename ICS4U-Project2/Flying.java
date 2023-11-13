@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Flying here.
@@ -14,6 +15,7 @@ public class Flying extends Enemy
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 25;
     
+    private boolean pickedUpEnemy = false;
     public Flying(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
     }
@@ -32,11 +34,22 @@ public class Flying extends Enemy
         
     }
     
-    public void pickUpEnemy(Enemy targetEnemy){
-        
+    public Enemy pickUpEnemy(){
+        List<Sword> swords = getWorld().getObjects(Sword.class);
+        int randomIndex = Greenfoot.getRandomNumber(swords.size());
+        Sword randomSword = swords.get(randomIndex);
+        turnTowards(randomSword.getX(), randomSword.getY());
+        if(!isTouching(randomSword)){
+            move(speed);
+        }
+        randomSword.pickUp();
+        //pickup animations
+        pickedUpEnemy = true;
+        return randomSword;
     }
     
     public void dropEnemy(){
+        
         
     }
     
