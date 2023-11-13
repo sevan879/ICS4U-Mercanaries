@@ -23,7 +23,7 @@
 hs_err_pid*
 
 # Greenfoot
-doc/
+*/doc/
 
 # Visual Studio Code
 .vscode/
