@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.concurrent.Phaser;
 
 /**
  * Write a description of class Sword here.
@@ -8,6 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Sword extends Enemy
 {
+    private static final int HP = 10;
+    private static final double SPEED = 4;
+    private static final int DELAY = 10;
+    private static final int DAMAGE = 2;
+    private static final int ATTACK_RANGE = 25;
     /**
      * Act - do whatever the Sword wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -18,8 +24,13 @@ public class Sword extends Enemy
     }
     
     public Sword(){
-        //health, speed, delay, damage, movable
-        super(20+ (int)Math.random() * 2, 4 + (int)Math.random() * 2, 10, 1 + (int)Math.random() * 2, true);
-        attackRange = 20;
+        
+        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        
+    }
+    
+    protected void action(Player targetPlayer){
+        targetPlayer.takeDamage(damage + Greenfoot.getRandomNumber(1));
+        //attack animations
     }
 }

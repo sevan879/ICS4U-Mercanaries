@@ -3,14 +3,30 @@ import java.util.concurrent.Phaser;
 import java.util.List;
 
 /**
- * Enemy class, superclass for all enemies
+ * Enemy class, superclass for all enemie classes
  * 
- * @author (your name)
- * @version (a version number or a date)
+ * @author Kenneth Jin
+ * @version V0
  */
-public class Enemy extends Entity
+public abstract class Enemy extends Entity
 {
     protected int attackRange;
+    /**
+     * Main constructor for Enemy class
+     * 
+     * @param hp enemie's health
+     * @param spd enemie's speed
+     * @param delay delay between actions
+     * @param dmg enemie's damage
+     * @param movable can the enemy move around
+     * @param attackRange enemie's attack range
+     */
+    
+    public Enemy(int hp, double spd, int delay, int dmg, boolean movable, int attackRange)
+    {
+        super(hp, spd, delay, dmg, true);
+        
+    }
     
     /**
      * Act - do whatever the Enemy wants to do. This method is called whenever
@@ -23,12 +39,7 @@ public class Enemy extends Entity
         // Add your action code here.
     }
     
-    public Enemy(int hp, int spd, int delay, int dmg, boolean movable)
-    {
-        super(hp, spd, delay, dmg, movable);
-        
-    }
-    
+
     public void move(){
         //if no player is detected within attack range, move 
         if(targetPlayer() = null){
@@ -36,16 +47,18 @@ public class Enemy extends Entity
             //moving animation
         }
     }
+    
 
+    protected abstract void action(Player targetPlayer);
     
     public void attack(){
         
         if(targetPlayer() != null){
-            
+            Player targetPlayer = targetPlayer();
             if(actionCounter == 0){
-                Player p = targetPlayer();
-                p.takeDamage(damage);
-                //attack animation
+                
+                action(targetPlayer);
+                
                 actionCounter = actionDelay;
             } else{
                 actionCounter--;
@@ -56,7 +69,7 @@ public class Enemy extends Entity
     }
     
 
-    private Player targetPlayer() {
+    public Player targetPlayer() {
         List<Player> players = getObjectsInRange(attackRange, Player.class);
 
         if (!players.isEmpty()) {

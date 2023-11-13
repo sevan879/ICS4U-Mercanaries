@@ -2,7 +2,7 @@
 comment0.target=Entity
 comment0.text=\n\ Entity\ class,\ superclass\ for\ all\ enemy\ and\ player\ classes.\n\ \n\ @author\ Evan\ Ma\n\ @version\ V1\n
 comment1.params=hp\ spd\ delay\ dmg\ movable
-comment1.target=Entity(int,\ int,\ int,\ int,\ boolean)
+comment1.target=Entity(int,\ double,\ int,\ int,\ boolean)
 comment1.text=\n\ Main\ Constructor\ for\ Entity\ Class\n\n\ @param\ hp\ entity's\ health\n\ @param\ spd\ entity's\ speed\n\ @param\ delay\ delay\ between\ actions\n\ @param\ dmg\ damage\ that\ entity\ does\n\ @param\ moveable\ can\ the\ entity\ move\ around\n
 comment2.params=dmg
 comment2.target=void\ takeDamage(int)

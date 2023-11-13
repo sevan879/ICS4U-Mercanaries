@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.concurrent.Phaser;
 
 /**
  * Write a description of class Archer here.
@@ -8,6 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Archer extends Enemy
 {
+    private static final int HP = 2;
+    private static final double SPEED = 3;
+    private static final int DELAY = 25;
+    private static final int DAMAGE = 3;
+    private static final int ATTACK_RANGE = 200;
+    
     private static final int RELOAD_TIME = 120; 
     private int reloadTimer = 0;
     /**
@@ -16,28 +23,37 @@ public class Archer extends Enemy
      */
     public void act()
     {
-        shoot();
+        
         move();
+        action(targetPastTanks());
         
     }
     
     public Archer(){
-        super(3 + (int)Math.random() * 2, 1 + (int)Math.random() * 2, 25, 3 + (int)Math.random() * 2, true);
-        
-        attackRange = 200;
-        
+        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         
     }
     
-    public void shoot(){
-        if(reloadTimer > 0){
-            reloadTimer--;
-        }else{
-            attack();
-            reloadTimer = RELOAD_TIME;
-            
-        }
+    protected void action(Player targetPlayer){
+        targetPlayer.takeDamage(damage + Greenfoot.getRandomNumber(1));
+        //attack animations
     }
+    
+    public player targetPastTanks(){
+        List<Player> players = getObjectsInRange(attackRange, Player.class);
+
+        if (!players.isEmpty()) {
+            if(targetPlayer() instanceof tank){
+                players.remove(0);
+            }
+            return players.get(0); 
+        }
+
+        return null;
+        
+    }
+    
+    
     
     
     

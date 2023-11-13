@@ -8,7 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Spear extends Enemy
 {
-    
+    private static final int HP = 5;
+    private static final double SPEED = 3;
+    private static final int DELAY = 20;
+    private static final int DAMAGE = 2;
+    private static final int ATTACK_RANGE = 50;
     
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
@@ -20,8 +24,8 @@ public class Spear extends Enemy
     }
     
     public Spear(){
-        super(10 + (int)Math.random() * 2, 5 + (int)Math.random() * 2, 20, 2 + (int)Math.random() * 2, true);
-        attackRange = 50;
+        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        
 
     }
     
