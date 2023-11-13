@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Spear here.
@@ -12,7 +13,7 @@ public class Spear extends Enemy
     private static final double SPEED = 3;
     private static final int DELAY = 20;
     private static final int DAMAGE = 2;
-    private static final int ATTACK_RANGE = 50;
+    private static final int ATTACK_RANGE = 25;
     
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
@@ -21,6 +22,7 @@ public class Spear extends Enemy
     public void act()
     {
         super.act();
+        
     }
     
     public Spear(){
@@ -29,10 +31,30 @@ public class Spear extends Enemy
 
     }
     
-    public boolean canAttackPastTanks(){
+    public void action(){
+        if(playersUpClose() != null){
+            for(Player p: playersUpClose()){
+                p.takeDamage(damage);
+            }
+        }
         
-       
+        if(playersFurtherAway() != null){
+            for(Player P: playersFurtherAway()){
+                p.takeDamage(damage - 1);
+            }
+        }
     }
+    
+    public List<Player> playersUpClose(){
+        List<Player> fullDamage = getObjectsInRange(attackRange, Player.Class);
+        return fullDamage;
+    }
+    
+    public List<Player> playersFurtherAway(){
+        List<Player> halfDamage = getObjectsInRange(attackRange + 25, Player.Class);
+    }
+    
+    
     
     
     

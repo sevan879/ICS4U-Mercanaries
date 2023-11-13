@@ -25,7 +25,7 @@ public class MyWorld extends World
     private void spawnEnemies(){
         if(!waveOver){
             if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                int enemyType = Greenfoot.getRandomNumber(3);
+                int enemyType = Greenfoot.getRandomNumber(4);
                 if(enemyType == 0){
                     addObject(new Spear(), 0, 0); //modify placement after
                     enemiesSpawned++;
@@ -33,7 +33,10 @@ public class MyWorld extends World
                     addObject(new Archer(), 0, 0); // modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 2){
-                    addObject(new Sword(), 0, 0);
+                    addObject(new Sword(), 0, 0); // modify placement after
+                    enemiesSpawned++;
+                } else if(enemyType == 3){
+                    addObject(new Flying(), 0, 0); //ylocation should be higher
                     enemiesSpawned++;
                 }
             }

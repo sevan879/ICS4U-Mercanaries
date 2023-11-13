@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.concurrent.Phaser;
+import java.util.List;
 
 /**
  * Write a description of class Archer here.
