@@ -71,4 +71,9 @@ public class Mage extends Party
         spendMana(bigSpellMana);
         // CREATE PROJECTILE OBJECT
     }
+    
+    public void running()
+    {
+        
+    }
 }

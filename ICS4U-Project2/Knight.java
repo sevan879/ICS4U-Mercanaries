@@ -43,7 +43,7 @@ public class Knight extends Party
     private int attackThreeAnimationCounter;
 
     public Knight() {
-        super();
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
         setImage(new GreenfootImage("KI1.png"));
 
         animationTracker = 0;
@@ -278,17 +278,6 @@ public class Knight extends Party
     
     private int spellLevel = 0;
     private int damage = 5;
-    
-    public Knight()
-    {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
-        
-    }
-    
-    public void act()
-    {
-        super.act();
-    }
     
     protected void mainAction(Enemy target)
     {

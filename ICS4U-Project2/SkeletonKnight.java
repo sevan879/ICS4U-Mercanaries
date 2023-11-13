@@ -19,6 +19,7 @@ public class SkeletonKnight extends Enemy
 
     //constructor
     public SkeletonKnight() {
+        super(10, 10, 10, 10, false, 10, 10);
         //running
         runningPics = new GreenfootImage[7];
         for (int i = 0; i < runningPics.length; i++) {

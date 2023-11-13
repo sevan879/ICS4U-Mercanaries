@@ -110,4 +110,9 @@ public class Healer extends Party
         
         return target;
     }
+    
+    public void running()
+    {
+        
+    }
 }

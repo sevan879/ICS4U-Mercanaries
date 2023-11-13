@@ -41,14 +41,16 @@ public class MyWorld extends World
                 addObject(new Knight() , 0, getHeight()/2 );
             }
             else if(type == 1){
-                addObject(new Archer(), 0, getHeight()/2 );
+                //addObject(new Archer(), 0, getHeight()/2 );
             }
+            /*
             else if(type == 2){
                 addObject(new , 0, getHeight()/2 );
             }
             else if(type == 3){
                 addObject(new , 0, getHeight()/2 );
             }
+            */
         }
     }
     public void spawnEnemy(){
@@ -57,6 +59,7 @@ public class MyWorld extends World
             if(type == 0){
                 addObject(new SkeletonKnight() , 0, getHeight()/2 );
             }
+            /*
             else if(type == 1){
                 addObject(new SkeletonArcher(), 0, getHeight()/2 );
             }
@@ -66,6 +69,7 @@ public class MyWorld extends World
             else if(type == 3){
                 addObject(new SkeletonCrow(), 0, getHeight()/2 );
             }
+            */
         }
     }
 }
