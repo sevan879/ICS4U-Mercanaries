@@ -1,5 +1,5 @@
 #Greenfoot project file
-<<<<<<< HEAD
+class.Party.image=bananas.png
 dependency1.from=MyWorld
 dependency1.to=Background
 dependency1.type=UsesDependency
@@ -9,36 +9,13 @@ dependency2.type=UsesDependency
 dependency3.from=MyWorld
 dependency3.to=SkeletonKnight
 dependency3.type=UsesDependency
-dependency4.from=Party
-dependency4.to=Enemy
-dependency4.type=UsesDependency
-dependency5.from=Mage
-dependency5.to=Enemy
-dependency5.type=UsesDependency
-dependency6.from=Knight
-dependency6.to=Enemy
-dependency6.type=UsesDependency
-dependency7.from=Healer
-dependency7.to=Enemy
-dependency7.type=UsesDependency
-=======
-class.Party.image=bananas.png
-dependency1.from=Party
-dependency1.to=Enemy
-dependency1.type=UsesDependency
->>>>>>> Developing-Player-Class---Evan
-editor.fx.0.height=686
-editor.fx.0.width=1294
-editor.fx.0.x=-7
-editor.fx.0.y=-7
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
 height=686
-<<<<<<< HEAD
-package.numDependencies=7
-package.numTargets=10
-=======
-package.numDependencies=1
-package.numTargets=6
->>>>>>> Developing-Player-Class---Evan
+package.numDependencies=3
+package.numTargets=7
 project.charset=windows-1252
 publish.hasSource=false
 publish.locked=true
@@ -54,47 +31,20 @@ readme.x=10
 readme.y=10
 simulation.speed=50
 target1.height=70
-target1.name=Entity
+target1.name=Party
 target1.showInterface=false
 target1.type=AbstractTarget
 target1.width=120
 target1.x=0
 target1.y=0
-<<<<<<< HEAD
-target10.height=70
-target10.name=SkeletonKnight
-target10.showInterface=false
-target10.type=ClassTarget
-target10.width=120
-target10.x=0
-target10.y=0
-=======
->>>>>>> Developing-Player-Class---Evan
 target2.height=70
-target2.name=Party
+target2.name=Background
 target2.showInterface=false
-target2.type=AbstractTarget
+target2.type=ClassTarget
 target2.width=120
 target2.x=0
 target2.y=0
 target3.height=70
-<<<<<<< HEAD
-target3.name=Background
-target3.showInterface=false
-target3.type=ClassTarget
-target3.width=120
-target3.x=0
-target3.y=0
-target4.height=70
-target4.name=SuperSmoothMover
-target4.showInterface=false
-target4.type=AbstractTarget
-target4.width=130
-target4.x=0
-target4.y=0
-target5.height=70
-target5.name=Mage
-=======
 target3.name=SuperSmoothMover
 target3.showInterface=false
 target3.type=AbstractTarget
@@ -110,47 +60,25 @@ target4.x=0
 target4.y=0
 target5.height=70
 target5.name=Knight
->>>>>>> Developing-Player-Class---Evan
 target5.showInterface=false
 target5.type=ClassTarget
 target5.width=120
 target5.x=0
 target5.y=0
 target6.height=70
-<<<<<<< HEAD
-target6.name=Enemy
-=======
 target6.name=MyWorld
->>>>>>> Developing-Player-Class---Evan
 target6.showInterface=false
 target6.type=ClassTarget
 target6.width=120
 target6.x=0
 target6.y=0
-<<<<<<< HEAD
 target7.height=70
-target7.name=Knight
+target7.name=SkeletonKnight
 target7.showInterface=false
 target7.type=ClassTarget
 target7.width=120
 target7.x=0
 target7.y=0
-target8.height=70
-target8.name=Healer
-target8.showInterface=false
-target8.type=ClassTarget
-target8.width=120
-target8.x=0
-target8.y=0
-target9.height=70
-target9.name=MyWorld
-target9.showInterface=false
-target9.type=ClassTarget
-target9.width=120
-target9.x=0
-target9.y=0
-=======
->>>>>>> Developing-Player-Class---Evan
 version=3.0.0
 width=1294
 world.lastInstantiated=MyWorld
