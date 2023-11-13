@@ -25,7 +25,7 @@ public abstract class Enemy extends Entity
     public Enemy(int hp, double spd, int delay, int dmg, boolean movable, int attackRange)
     {
         super(hp, spd, delay, dmg, true);
-        
+        this.attackRange = attackRange;
     }
     
     /**
