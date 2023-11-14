@@ -27,6 +27,7 @@ public class MyWorld extends World
         
         addObject(b, 543, 180); //add background first, so its behind everything
         addObject(k, 200, 305);
+        
     }
     
     //act method

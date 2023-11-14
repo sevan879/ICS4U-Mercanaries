@@ -32,10 +32,10 @@ public class Spear extends Enemy
     }
     
     protected void action(Party targetPlayer){
-        attack();
+        mainAction();
     }
     
-    public void attack(){
+    public void mainAction(){
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);

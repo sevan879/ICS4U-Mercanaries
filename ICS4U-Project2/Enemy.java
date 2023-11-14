@@ -42,11 +42,14 @@ public abstract class Enemy extends Entity
 
     public void move(){
         //if no player is detected within attack range, move 
-        
-        if(targetPlayer() == null){
-            setLocation(getX() - speed, getY());
-            //moving animation
+        List<Party> party = getWorld().getObjects(Party.class);
+        if(!party.isEmpty()){
+            if(targetPlayer() == null){
+                setLocation(getX() - speed, getY());
+                //moving animation
+            }
         }
+        
     }
     
 

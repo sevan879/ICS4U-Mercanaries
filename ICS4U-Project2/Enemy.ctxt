@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.target=Enemy
-comment0.text=\r\n\ Enemy\ class,\ superclass\ for\ all\ enemie\ classes\r\n\ \r\n\ @author\ Kenneth\ Jin\r\n\ @version\ V0\r\n
+comment0.text=\n\ Enemy\ class,\ superclass\ for\ all\ enemie\ classes\n\ \n\ @author\ Kenneth\ Jin\n\ @version\ V0\n
 comment1.params=hp\ spd\ delay\ dmg\ movable\ attackRange
 comment1.target=Enemy(int,\ double,\ int,\ int,\ boolean,\ int)
-comment1.text=\r\n\ Main\ constructor\ for\ Enemy\ class\r\n\ \r\n\ @param\ hp\ enemie's\ health\r\n\ @param\ spd\ enemie's\ speed\r\n\ @param\ delay\ delay\ between\ actions\r\n\ @param\ dmg\ enemie's\ damage\r\n\ @param\ movable\ can\ the\ enemy\ move\ around\r\n\ @param\ attackRange\ enemie's\ attack\ range\r\n
+comment1.text=\n\ Main\ constructor\ for\ Enemy\ class\n\ \n\ @param\ hp\ enemie's\ health\n\ @param\ spd\ enemie's\ speed\n\ @param\ delay\ delay\ between\ actions\n\ @param\ dmg\ enemie's\ damage\n\ @param\ movable\ can\ the\ enemy\ move\ around\n\ @param\ attackRange\ enemie's\ attack\ range\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Enemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Enemy\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment3.params=
 comment3.target=void\ move()
 comment4.params=targetPlayer
