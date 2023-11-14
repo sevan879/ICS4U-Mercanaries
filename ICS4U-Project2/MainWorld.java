@@ -13,7 +13,22 @@ public class MainWorld extends World
     private boolean waveOver;
     private int wave;
     private int enemiesSpawned;
+    
+    private int worldYLevel = 305;
+    
+    //Spawning Party Variables
+    private int numOfKnights = 1;
+    private int numOfMages = 0;
+    private int numOfHealers = 0;
+    private int spacingBetween = 40;
+    private int spawningXParty = 50;
 
+    //Spawning Enemies Variables
+    private int numOfSpears = 2;
+    private int numOfSwords = 0;
+    private int numOfArchers = 0;
+    private int spawningXEnemy;
+    
     private int worldLvl;
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
@@ -26,6 +41,7 @@ public class MainWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(543, 360, 1); 
+        spawningXEnemy = getWidth();
         b = new Background();
         k = new Knight();
         
@@ -33,7 +49,10 @@ public class MainWorld extends World
         worldLvl = 1;
         
         addObject(b, 543, 180); //add background first, so its behind everything
-        addObject(k, 200, 305);
+        //addObject(k, 200, 305);
+        
+        spawnParty();
+        spawnEnemies();
         
         forest = new GreenfootSound("Forest.mp3");
         boss = new GreenfootSound("Boss.mp3");
@@ -50,46 +69,28 @@ public class MainWorld extends World
     public boolean partyIsRunning() {
         return (k.runningSpeed != 0);
     }
-    public void spawnMercenary(){
-        if(Greenfoot.getRandomNumber(60) == 0){
-            int type = Greenfoot.getRandomNumber(4);
-            if(type == 0){
-                addObject(new Knight() , 0, getHeight()/2 );
-            }
-            else if(type == 1){
-                //addObject(new Archer(), 0, getHeight()/2 );
-            }
-            /*
-            else if(type == 2){
-                addObject(new , 0, getHeight()/2 );
-            }
-            else if(type == 3){
-                addObject(new , 0, getHeight()/2 );
-            }
-            */
+    public void spawnParty(){
+        for (int i = 0; i < numOfMages; i++)
+        {
+            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
+        }
+        for (int i = 0; i < numOfHealers; i++)
+        {
+            addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
+        }
+        for (int i = 0; i < numOfKnights; i++)
+        {
+            addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel);
         }
     }
-    public void spawnEnemy(){
-        if(Greenfoot.getRandomNumber(60) == 0){
-            int type = Greenfoot.getRandomNumber(4);
-            if(type == 0){
-                addObject(new SkeletonKnight() , 0, getHeight()/2 );
-            }
-            /*
-            else if(type == 1){
-                addObject(new SkeletonArcher(), 0, getHeight()/2 );
-            }
-            else if(type == 2){
-                addObject(new SkeletonSpear(), 0, getHeight()/2 );
-            }
-            else if(type == 3){
-                addObject(new SkeletonCrow(), 0, getHeight()/2 );
-            }
-            */
+    public void spawnEnemies(){
+        for (int i = 0; i < numOfSpears; i++)
+        {
+            addObject(new Spear(), spawningXEnemy -= spacingBetween, worldYLevel);
         }
     }
     
-    private void spawnEnemies(){
+    private void spawnWaves(){
         if(!waveOver){
             if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                 int enemyType = Greenfoot.getRandomNumber(4);

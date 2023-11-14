@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class Spear extends Enemy
 {
-    private static final int HP = 5;
-    private static final double SPEED = 3;
-    private static final int DELAY = 20;
+    private static final int HP = 15;
+    private static final double SPEED = 3   ;
+    private static final int DELAY = 30;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 25;
     
@@ -32,10 +32,10 @@ public class Spear extends Enemy
     }
     
     protected void action(Party targetPlayer){
-        attack();
+        mainAttack();
     }
     
-    public void attack(){
+    private void mainAttack(){
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);

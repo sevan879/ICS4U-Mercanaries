@@ -44,6 +44,31 @@ public class Knight extends Party
     
     private GreenfootSound[] knightTaunt; //taunting sound effect 
     private GreenfootSound[] knightSlash; //sword slashing sound effect 
+    
+    //BASE STATS AT LEVEL ONE
+    private static final int SET_HP = 5;
+    private static final double SET_SPEED = 3;
+    private static final int ACTION_DELAY = 40; // amount of acts
+    private static final int XP_INCREASE_PER_LEVEL = 1;
+    private static final int ATTACK_RANGE = 25;
+    private static final int MAX_MANA = 100;
+    private static final int MAX_LEVEL = 3;
+    
+    //stats that are increased on each level up
+    private static final int DAMAGE_INCREASE = 1; 
+    private static final int HEALTH_INCREASE = 2; 
+    private static final int RANGE_INCREASE = 0;
+    private static final int MANA_INCREASE = 0;
+    
+    private int spellLevel = 0;
+    private int damage = 2;
+    
+    protected void mainAction(Enemy target)
+    {
+        int dealtDamage = damage + Greenfoot.getRandomNumber(2);
+        target.takeDamage(dealtDamage);
+        //Make Enemy take damage
+    }
 
     public Knight() {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
@@ -272,31 +297,6 @@ public class Knight extends Party
             // so just decrement the counter          
             attackThreeAnimationCounter--;
         }
-    }
-
-    //BASE STATS AT LEVEL ONE
-    private static final int SET_HP = 5;
-    private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 40; // amount of acts
-    private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 25;
-    private static final int MAX_MANA = 100;
-    private static final int MAX_LEVEL = 3;
-    
-    //stats that are increased on each level up
-    private static final int DAMAGE_INCREASE = 1; 
-    private static final int HEALTH_INCREASE = 2; 
-    private static final int RANGE_INCREASE = 0;
-    private static final int MANA_INCREASE = 0;
-    
-    private int spellLevel = 0;
-    private int damage = 5;
-    
-    protected void mainAction(Enemy target)
-    {
-        int dealtDamage = damage + Greenfoot.getRandomNumber(2);
-        target.takeDamage(dealtDamage);
-        //Make Enemy take damage
     }
     
     protected void levelUpStats()
