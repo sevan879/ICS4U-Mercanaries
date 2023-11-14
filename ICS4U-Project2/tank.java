@@ -17,7 +17,7 @@ public class tank extends Player
         // Add your action code here.
     }
     
-    public tank(){
-        
+    public tank(int hp, double spd, int delay, int dmg, boolean movable){
+        super(hp, spd, delay, dmg, true);
     }
 }
