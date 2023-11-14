@@ -1,36 +1,97 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.concurrent.Phaser;
+import java.util.List;
 
 /**
- * Write a description of class Enemy here.
+ * Enemy class, superclass for all enemie classes
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kenneth Jin
+ * @version V0
  */
-public class Enemy extends Entity
+public abstract class Enemy extends Entity
 {
-    private int experience;
-    private int xpToLevel;
-    private int xpIncreaseRate;
-    private int level;
     protected int attackRange;
     /**
-    * Main Constructor for Player Class
-    *
-    * @param hp entity's health
-    * @param spd entity's speed
-    * @param delay delay between actions
-    * @param dmg damage that entity does
-    * @param moveable can the entity move around
-    * @param xpIncreaseRate how much the required XP to level increases after each Level
-    * @param attackRange Range of attacking enemies
-    */
-    public Enemy(int hp, int spd, int delay, int dmg, boolean movable, int xpIncreaseRate, int attackRange)
+     * Main constructor for Enemy class
+     * 
+     * @param hp enemie's health
+     * @param spd enemie's speed
+     * @param delay delay between actions
+     * @param dmg enemie's damage
+     * @param movable can the enemy move around
+     * @param attackRange enemie's attack range
+     */
+    
+    public Enemy(int hp, double spd, int delay, int dmg, boolean movable, int attackRange)
     {
-        super(hp, delay, dmg, false);
-        experience = 0;
-        xpToLevel = 1;
-        level = 0;
-        this.xpIncreaseRate = xpIncreaseRate;
+        super(hp, spd, delay, true);
         this.attackRange = attackRange;
     }
+    
+    /**
+     * Act - do whatever the Enemy wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    public void act()
+    {
+        move();
+        attack();
+        // Add your action code here.
+    }
+    
+
+    public void move(){
+        //if no player is detected within attack range, move 
+        
+        if(targetPlayer() == null){
+            setLocation(getX() - speed, getY());
+            //moving animation
+        }
+    }
+    
+
+    protected abstract void action(Party targetPlayer);
+    
+    public void attack(){
+        
+        if(targetPlayer() != null){
+            Party targetPlayer = targetPlayer();
+            if(actionCounter == 0){
+                
+                action(targetPlayer);
+                
+                actionCounter = actionDelay;
+            } else{
+                actionCounter--;
+            }
+ 
+        }
+
+    }
+    
+
+    public Party targetPlayer() {
+        List<Party> players = getObjectsInRange(attackRange, Party.class);
+
+        if (!players.isEmpty()) {
+            return players.get(0); 
+        }
+
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

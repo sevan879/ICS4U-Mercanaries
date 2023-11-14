@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Spear
+comment0.text=\n\ Write\ a\ description\ of\ class\ Spear\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ Spear\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.params=
+comment2.target=Spear()
+comment3.params=targetPlayer
+comment3.target=void\ action(Player)
+comment4.params=
+comment4.target=void\ attack()
+comment5.params=
+comment5.target=java.util.List\ playersUpClose()
+comment6.params=
+comment6.target=java.util.List\ playersFurtherAway()
+numComments=7
