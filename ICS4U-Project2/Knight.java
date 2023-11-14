@@ -41,10 +41,23 @@ public class Knight extends Party
     private int attackThreeAnimationIndex;
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
+    
+    private GreenfootSound[] knightTaunt; //taunting sound effect 
+    private GreenfootSound[] knightSlash; //sword slashing sound effect 
 
     public Knight() {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
         setImage(new GreenfootImage("KI1.png"));
+        
+        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
+        knightTaunt = new GreenfootSound[3];
+        for(int i = 0; i < knightTaunt.length; i++){
+            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
+        }
+        knightSlash = new GreenfootSound[3];
+        for(int i = 0; i < knightSlash.length; i++){
+            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
+        }
 
         animationTracker = 0;
         attackTracker = 0;

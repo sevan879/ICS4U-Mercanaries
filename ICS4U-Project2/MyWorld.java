@@ -10,6 +10,9 @@ public class MyWorld extends World
 {    
     private Background b;
     private Knight k;
+    private int worldLvl;
+    private GreenfootSound forest; //level 1 background music
+    private GreenfootSound boss; // level 3 background music (boss)
     
     //constructor
     public MyWorld()
@@ -19,8 +22,14 @@ public class MyWorld extends World
         b = new Background();
         k = new Knight();
         
+        //starts the level (there are a total of 3 levels) at level 1
+        worldLvl = 1;
+        
         addObject(b, 543, 180); //add background first, so its behind everything
         addObject(k, 200, 305);
+        
+        forest = new GreenfootSound("Forest.mp3");
+        boss = new GreenfootSound("Boss.mp3");
     }
     
     //act method
@@ -71,5 +80,22 @@ public class MyWorld extends World
             }
             */
         }
+    }
+    //to start playing the music when pressed run
+    public void started(){
+        if(worldLvl == 1){
+            forest.playLoop();
+        }
+        //if(worldLvl == 2){
+        //    ____.playLoop(); // will find music for this
+        //}
+        if(worldLvl == 3){
+            boss.playLoop();
+        }
+    }
+    //to stop playing the music when pressed pause or reset
+    public void stopped(){
+        forest.stop();
+        boss.stop();
     }
 }

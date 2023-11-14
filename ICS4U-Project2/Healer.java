@@ -30,9 +30,17 @@ public class Healer extends Party
     private int smallSpellMana;
     private int bigSpellMana;
     
+    private GreenfootSound [] healing;//sounds for healing 
+    
     public Healer()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
+        
+        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
+        healing = new GreenfootSound[3];
+        for(int i = 0; i < healing.length; i++){
+            healing[i] = new GreenfootSound("Heal.mp3");
+        }
         
     }
     
