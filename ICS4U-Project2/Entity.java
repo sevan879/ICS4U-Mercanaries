@@ -47,6 +47,7 @@ public abstract class Entity extends SuperSmoothMover
         if (health <= 0)
         {
             getWorld().removeObject(this);
+            //dying animation
         }
     }
     /**
