@@ -14,8 +14,12 @@ public class MainWorld extends World
     private int wave;
     private int enemiesSpawned;
 
+    private int worldLvl;
+    private GreenfootSound forest; //level 1 background music
+    private GreenfootSound boss; // level 3 background music (boss)
+
     /**
-     * Constructor for objects of class MyWorld.
+     * Constructor for objects of class MainWorld.
      * 
      */
     public MainWorld()
@@ -25,8 +29,14 @@ public class MainWorld extends World
         b = new Background();
         k = new Knight();
         
+        //starts the level (there are a total of 3 levels) at level 1
+        worldLvl = 1;
+        
         addObject(b, 543, 180); //add background first, so its behind everything
         addObject(k, 200, 305);
+        
+        forest = new GreenfootSound("Forest.mp3");
+        boss = new GreenfootSound("Boss.mp3");
     }
     
     //act method
@@ -126,5 +136,22 @@ public class MainWorld extends World
     public static double getDistance (Actor a, Actor b)
     {
         return Math.hypot (a.getX() - b.getX(), a.getY() - b.getY());
+    }
+    //to start playing the music when pressed run
+    public void started(){
+        if(worldLvl == 1){
+            forest.playLoop();
+        }
+        //if(worldLvl == 2){
+        //    ____.playLoop(); // will find music for this
+        //}
+        if(worldLvl == 3){
+            boss.playLoop();
+        }
+    }
+    //to stop playing the music when pressed pause or reset
+    public void stopped(){
+        forest.stop();
+        boss.stop();
     }
 }
