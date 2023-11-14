@@ -16,7 +16,8 @@ public class Sword extends Enemy
     private static final int ATTACK_RANGE = 25;
     private static boolean movable = true;
     
-    public boolean isPickedUp = false;
+    private boolean isPickedUp = false;
+    private Flying carrier = null;
     /**
      * Act - do whatever the Sword wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -42,6 +43,19 @@ public class Sword extends Enemy
     
     public void pickUp(){
         movable = false;
+        isPickedUp = true;
+        setLocation(carrier.getX(), carrier.getY() - 25);
+    }
+    
+    public Flying getCarrier(){
+        if (!isPickedUp && isTouching(Flying.class)) {
+            Flying carrier = (Flying) getOneIntersectingObject(Flying.class);
+            return carrier;
+        }
+        return null;
+    }
+    
+    public void changeDirection(){
         
     }
 }
