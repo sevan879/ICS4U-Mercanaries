@@ -30,7 +30,7 @@ public class Flying extends Enemy
         move();
     }
     
-    protected void action(Player targetPlayer){
+    protected void action(Party targetPlayer){
         
     }
     

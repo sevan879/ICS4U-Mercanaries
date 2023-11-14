@@ -31,31 +31,31 @@ public class Spear extends Enemy
 
     }
     
-    protected void action(Player targetPlayer){
+    protected void action(Party targetPlayer){
         attack();
     }
     
     public void attack(){
         if(playersUpClose() != null){
-            for(Player p: playersUpClose()){
-                p.takeDamage(damage);
+            for(Party p: playersUpClose()){
+                p.takeDamage(DAMAGE);
             }
         }
         
         if(playersFurtherAway() != null){
-            for(Player p: playersFurtherAway()){
-                p.takeDamage(damage - 1);
+            for(Party p: playersFurtherAway()){
+                p.takeDamage(DAMAGE - 1);
             }
         }
     }
     
-    public List<Player> playersUpClose(){
-        List<Player> fullDamage = getObjectsInRange(attackRange, Player.class);
+    public List<Party> playersUpClose(){
+        List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);
         return fullDamage;
     }
     
-    public List<Player> playersFurtherAway(){
-        List<Player> halfDamage = getObjectsInRange(attackRange + 25, Player.class);
+    public List<Party> playersFurtherAway(){
+        List<Party> halfDamage = getObjectsInRange(attackRange + 25, Party.class);
         return halfDamage;
     }
     

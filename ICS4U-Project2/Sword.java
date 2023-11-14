@@ -35,8 +35,8 @@ public class Sword extends Enemy
         
     }
     
-    protected void action(Player targetPlayer){
-        targetPlayer.takeDamage(damage + Greenfoot.getRandomNumber(1));
+    protected void action(Party targetPlayer){
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
         //attack animations
     }
     

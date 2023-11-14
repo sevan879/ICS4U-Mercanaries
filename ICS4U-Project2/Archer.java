@@ -35,16 +35,16 @@ public class Archer extends Enemy
         
     }
     
-    protected void action(Player targetPlayer){
-        targetPlayer.takeDamage(damage + Greenfoot.getRandomNumber(1));
+    protected void action(Party targetPlayer){
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
         //attack animations
     }
     
-    public Player targetPastTanks(){
-        List<Player> players = getObjectsInRange(attackRange, Player.class);
+    public Party targetPastTanks(){
+        List<Party> players = getObjectsInRange(attackRange, Party.class);
 
         if (!players.isEmpty()) {
-            if(targetPlayer() instanceof tank){
+            if(targetPlayer() instanceof Knight){
                 players.remove(0);
             }
             return players.get(0); 
