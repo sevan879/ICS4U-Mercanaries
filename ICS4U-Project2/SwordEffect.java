@@ -14,10 +14,11 @@ public class SwordEffect extends Effect
     private int swordEffectCounter;
     
     public SwordEffect(){
-        
         swordEffect = new GreenfootImage[8];
         for(int i = 0; i < swordEffect.length; i++){
-            swordEffect[i] = new GreenfootImage ("B" + (8-i) + ".png");
+            swordEffect[i] = new GreenfootImage ("B" + (8-i) + ".png");             
+            swordEffect[i].scale(swordEffect[i].getWidth()/3, swordEffect[i].getHeight()/3);
+            setImage(swordEffect[i]);
         }
         swordEffectIndex = 0;
         swordEffectDelay = 6;
