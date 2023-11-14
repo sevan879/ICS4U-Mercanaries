@@ -17,7 +17,7 @@ public class Player extends Entity
         // Add your action code here.
     }
     
-    public Player(){
-        
+    public Player(int hp, double spd, int delay, int dmg, boolean movable){
+        super(hp, spd, delay, dmg, true);
     }
 }

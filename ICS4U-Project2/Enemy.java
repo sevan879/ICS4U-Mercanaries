@@ -42,7 +42,8 @@ public abstract class Enemy extends Entity
 
     public void move(){
         //if no player is detected within attack range, move 
-        if(targetPlayer() = null){
+        
+        if(targetPlayer() == null){
             setLocation(getX() - speed, getY());
             //moving animation
         }

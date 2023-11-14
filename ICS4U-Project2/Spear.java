@@ -31,7 +31,11 @@ public class Spear extends Enemy
 
     }
     
-    public void action(){
+    protected void action(Player targetPlayer){
+        attack();
+    }
+    
+    public void attack(){
         if(playersUpClose() != null){
             for(Player p: playersUpClose()){
                 p.takeDamage(damage);
@@ -46,12 +50,13 @@ public class Spear extends Enemy
     }
     
     public List<Player> playersUpClose(){
-        List<Player> fullDamage = getObjectsInRange(attackRange, Player.Class);
+        List<Player> fullDamage = getObjectsInRange(attackRange, Player.class);
         return fullDamage;
     }
     
     public List<Player> playersFurtherAway(){
-        List<Player> halfDamage = getObjectsInRange(attackRange + 25, Player.Class);
+        List<Player> halfDamage = getObjectsInRange(attackRange + 25, Player.class);
+        return halfDamage;
     }
     
     
