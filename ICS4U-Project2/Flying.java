@@ -27,7 +27,8 @@ public class Flying extends Enemy
     public void act()
     {
         // Add your action code here.
-        move();
+        super.act();
+        
     }
     
     protected void action(Party targetPlayer){

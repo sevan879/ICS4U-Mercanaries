@@ -83,6 +83,10 @@ public abstract class Enemy extends Entity
         return null;
     }
     
+    public void repelOtherEnemies(){
+        
+    }
+    
     
     
     
