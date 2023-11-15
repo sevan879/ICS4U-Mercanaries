@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-
     private GreenfootSound titleScreen; // title screen music asset
+    private GreenfootImage background;
     /**
      * Constructor for objects of class TitleScreen.
      * 
@@ -17,9 +17,11 @@ public class TitleScreen extends World
     public TitleScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1068, 720, 1); 
         titleScreen = new GreenfootSound("TitleScreen.mp3");
-        
+        titleScreen.setVolume(40);
+        background = new GreenfootImage("titleBackground.png");
+        setBackground(background);
     }
     //to start playing the music when pressed run
     public void started(){
@@ -28,6 +30,11 @@ public class TitleScreen extends World
     //to stop playing the music when pressed pause or reset
     public void stopped(){
         titleScreen.stop();
+    }
+    //create main world
+    public void startSim() {
+        MainWorld m = new MainWorld();
+        Greenfoot.setWorld(m);
     }
     
 }

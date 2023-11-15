@@ -36,6 +36,8 @@ public class Background extends Actor
     {
         setBackground();
     }
+    
+    
 
     //change background based on the area we are in
     public void setBackground() {
