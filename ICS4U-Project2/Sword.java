@@ -47,6 +47,15 @@ public class Sword extends Enemy
         setLocation(carrier.getX(), carrier.getY() - 15);
     }
     
+    public void fall(){
+        while(getY() != 0){ // change to level of the ground later
+            setLocation(getX(), getY() - 2);
+        }
+        isPickedUp = false;
+        //change direction maybe?
+        movable = true;
+    }
+    
     public Flying getCarrier(){
         if (!isPickedUp && isTouching(Flying.class)) {
             Flying carrier = (Flying) getOneIntersectingObject(Flying.class);

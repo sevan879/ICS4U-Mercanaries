@@ -35,7 +35,7 @@ public class Flying extends Enemy
         
     }
     
-    public Enemy pickUpSwordEnemy(){
+    public void pickUpSwordEnemy(){
         List<Sword> swords = getWorld().getObjects(Sword.class);
         if(!swords.isEmpty()){
             int randomIndex = Greenfoot.getRandomNumber(swords.size());
@@ -47,19 +47,32 @@ public class Flying extends Enemy
             randomSword.pickUp();
             //pickup animations
             pickedUpEnemy = true;
-            return randomSword;
+            //return randomSword;
         }
-        return null;
-        
-    }
-    
-    public void dropEnemy(){
         
         
     }
     
+    public void dropSwordEnemy(){
+        if(pickedUpEnemy){
+            List<Party> party = getWorld().getObjects(Party.class);
+            if(!party.isEmpty()){
+                int randomIndex = Greenfoot.getRandomNumber(party.size());
+                Party randomParty = party.get(randomIndex);
+                while(getX() != randomParty.getX()){
+                    move();
+                }
+                Sword carrying = (Sword) getOneIntersectingObject(Sword.class);
+                carrying.fall();
+                pickedUpEnemy = false;
+                //turn around and fly back
+            }
+        }
+        
+        
+    }
     
-    
+
     public void move(){
         setLocation(getX() - speed, getY() + Greenfoot.getRandomNumber(2) - 1);
         //flying animations
