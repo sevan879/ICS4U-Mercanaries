@@ -18,32 +18,36 @@ public class Background extends Actor
     private GreenfootImage dungeonBackground;
     private GreenfootImage bossRoomBackground;
     private int worldTracker;
-    private boolean changeBackground;
 
     //constructor
     public Background() {
             
         forestBackground = new GreenfootImage("ForestBackground.png");
+        dungeonBackground = new GreenfootImage("bananas.png");
+        bossRoomBackground = new GreenfootImage("ForestBackground.png");
         setImage(forestBackground);
         
         worldTracker = 0;
-        changeBackground = true;
     }
 
-    //act method
-    public void act()
-    {
-        setBackground();
-    }
-
-    //change background based on the area we are in
-    public void setBackground() {
-        if (changeBackground) {
-            if (worldTracker == 0) { // forestworld
-                setImage(forestBackground);
-            }
+    /**
+    * Change Background to specified world
+    *
+    * @param world Integer to represent the world to transition to.
+    */
+    public void setWorldBackground(int world) {
+        if (world == 0)
+        {
+            setImage(forestBackground);
         }
-        changeBackground = false;
+        else if (world == 1)
+        {
+            setImage(dungeonBackground);
+        }
+        else if (world == 2)
+        {
+            setImage(bossRoomBackground);
+        }
     }
 
     //make the background have a scrolling effect

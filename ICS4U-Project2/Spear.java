@@ -9,10 +9,10 @@ import java.util.List;
  */
 public class Spear extends Enemy
 {
-    private static final int HP = 15;
+    private static final int HP = 4;
     private static final double SPEED = 3   ;
     private static final int DELAY = 30;
-    private static final int DAMAGE = 2;
+    private static final int DAMAGE = 1;
     private static final int ATTACK_RANGE = 25;
     
     /**
