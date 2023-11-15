@@ -40,7 +40,7 @@ public class MainWorld extends World
     public MainWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(543, 360, 1); 
+        super(1086, 720, 1); 
         spawningXEnemy = getWidth();
         b = new Background();
         k = new Knight();
@@ -48,7 +48,7 @@ public class MainWorld extends World
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
         
-        addObject(b, 543, 180); //add background first, so its behind everything
+        addObject(b, 1086, 360); //add background first, so its behind everything
         //addObject(k, 200, 305);
         
         spawnParty();

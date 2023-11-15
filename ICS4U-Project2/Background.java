@@ -24,6 +24,7 @@ public class Background extends Actor
     public Background() {
             
         forestBackground = new GreenfootImage("ForestBackground.png");
+        forestBackground.scale(forestBackground.getWidth()*2, forestBackground.getHeight()*2);
         setImage(forestBackground);
         
         worldTracker = 0;
@@ -49,7 +50,7 @@ public class Background extends Actor
     //make the background have a scrolling effect
     public void scrollBackground(int speed) {
         if (getX() == 0) {
-            setLocation(543, getY());
+            setLocation(1086, getY());
         }
         if (speed != 0) { //party moving
             setLocation(getX() - speed, getY());

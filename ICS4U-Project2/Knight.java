@@ -41,10 +41,10 @@ public class Knight extends Party
     private int attackThreeAnimationIndex;
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
-    
+
     private GreenfootSound[] knightTaunt; //taunting sound effect 
     private GreenfootSound[] knightSlash; //sword slashing sound effect 
-    
+
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 5;
     private static final double SET_SPEED = 3;
@@ -53,16 +53,16 @@ public class Knight extends Party
     private static final int ATTACK_RANGE = 25;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 3;
-    
+
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
     private static final int HEALTH_INCREASE = 2; 
     private static final int RANGE_INCREASE = 0;
     private static final int MANA_INCREASE = 0;
-    
+
     private int spellLevel = 0;
     private int damage = 2;
-    
+
     protected void mainAction(Enemy target)
     {
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
@@ -72,8 +72,7 @@ public class Knight extends Party
 
     public Knight() {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
-        setImage(new GreenfootImage("KI1.png"));
-        
+
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         knightTaunt = new GreenfootSound[3];
         for(int i = 0; i < knightTaunt.length; i++){
@@ -83,62 +82,11 @@ public class Knight extends Party
         for(int i = 0; i < knightSlash.length; i++){
             knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
         }
-
-        animationTracker = 0;
-        attackTracker = 0;
-
-        //Animation
-
-        //idle
-        idlePics = new GreenfootImage[4];
-        for (int i = 0; i < idlePics.length; i++) {
-            idlePics[i] = new GreenfootImage("KI" + (i+1) + ".png");
-        }
-        idleAnimationIndex = 0;
-        idleAnimationDelay = 10;
-        idleAnimationCounter = idleAnimationDelay;
-
-        //running
-        runningPics = new GreenfootImage[7];
-        for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("KR" + (i+1) + ".png");
-        }
-        runningAnimationIndex = 0;
-        runningAnimationDelay = 10;
-        runningAnimationCounter = runningAnimationDelay;
-
-        //running attack
-        runningAttackPics = new GreenfootImage[6];
-        for (int i = 0; i < runningAttackPics.length; i++) {
-            runningAttackPics[i] = new GreenfootImage("KRA" + (i+1) + ".png");
-        }
-        runningAttackAnimationIndex = 0;
-        runningAttackAnimationDelay = 10;
-        runningAttackAnimationCounter = runningAttackAnimationDelay;
-
-        attackOnePics = new GreenfootImage[5];
-        for (int i = 0; i < attackOnePics.length; i++) {
-            attackOnePics[i] = new GreenfootImage("KA1" + (i+1) + ".png");
-        }
-        attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 10;
-        attackOneAnimationCounter = attackOneAnimationDelay;
-
-        attackTwoPics = new GreenfootImage[4];
-        for (int i = 0; i < attackTwoPics.length; i++) {
-            attackTwoPics[i] = new GreenfootImage("KA2" + (i+1) + ".png");
-        }
-        attackTwoAnimationIndex = 0;
-        attackTwoAnimationDelay = 10;
-        attackTwoAnimationCounter = attackTwoAnimationDelay;
-
-        attackThreePics = new GreenfootImage[4];
-        for (int i = 0; i < attackThreePics.length; i++) {
-            attackThreePics[i] = new GreenfootImage("KA3" + (i+1) + ".png");
-        }
-        attackThreeAnimationIndex = 0;
-        attackThreeAnimationDelay = 10;
-        attackThreeAnimationCounter = attackThreeAnimationDelay;
+        
+        //visuals/animation
+        animationConstructor();
+        setImage(new GreenfootImage("KI1.png"));
+        
     }
 
     /**
@@ -298,16 +246,81 @@ public class Knight extends Party
             attackThreeAnimationCounter--;
         }
     }
-    
+
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;
         health = maxHealth;
-        
+
         maxMana += MANA_INCREASE;
         mana = maxMana;
-        
+
         damage += DAMAGE_INCREASE;
         attackRange += RANGE_INCREASE;
+    }
+
+    public void animationConstructor() {
+
+        animationTracker = 0;
+        attackTracker = 0;
+
+        //Animation
+
+        //idle
+        idlePics = new GreenfootImage[4];
+        for (int i = 0; i < idlePics.length; i++) {
+            idlePics[i] = new GreenfootImage("KI" + (i+1) + ".png");
+            idlePics[i].scale(idlePics[i].getWidth()*2, idlePics[i].getHeight()*2);
+        }
+        idleAnimationIndex = 0;
+        idleAnimationDelay = 10;
+        idleAnimationCounter = idleAnimationDelay;
+
+        //running
+        runningPics = new GreenfootImage[7];
+        for (int i = 0; i < runningPics.length; i++) {
+            runningPics[i] = new GreenfootImage("KR" + (i+1) + ".png");
+            runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
+        }
+        runningAnimationIndex = 0;
+        runningAnimationDelay = 10;
+        runningAnimationCounter = runningAnimationDelay;
+
+        //running attack
+        runningAttackPics = new GreenfootImage[6];
+        for (int i = 0; i < runningAttackPics.length; i++) {
+            runningAttackPics[i] = new GreenfootImage("KRA" + (i+1) + ".png");
+            runningAttackPics[i].scale(runningAttackPics[i].getWidth()*2, runningAttackPics[i].getHeight()*2);
+        }
+        runningAttackAnimationIndex = 0;
+        runningAttackAnimationDelay = 10;
+        runningAttackAnimationCounter = runningAttackAnimationDelay;
+
+        attackOnePics = new GreenfootImage[5];
+        for (int i = 0; i < attackOnePics.length; i++) {
+            attackOnePics[i] = new GreenfootImage("KA1" + (i+1) + ".png");
+            attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
+        }
+        attackOneAnimationIndex = 0;
+        attackOneAnimationDelay = 10;
+        attackOneAnimationCounter = attackOneAnimationDelay;
+
+        attackTwoPics = new GreenfootImage[4];
+        for (int i = 0; i < attackTwoPics.length; i++) {
+            attackTwoPics[i] = new GreenfootImage("KA2" + (i+1) + ".png");
+            attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
+        }
+        attackTwoAnimationIndex = 0;
+        attackTwoAnimationDelay = 10;
+        attackTwoAnimationCounter = attackTwoAnimationDelay;
+
+        attackThreePics = new GreenfootImage[4];
+        for (int i = 0; i < attackThreePics.length; i++) {
+            attackThreePics[i] = new GreenfootImage("KA3" + (i+1) + ".png");
+            attackThreePics[i].scale(attackThreePics[i].getWidth()*2, attackThreePics[i].getHeight()*2);
+        }
+        attackThreeAnimationIndex = 0;
+        attackThreeAnimationDelay = 10;
+        attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
 }

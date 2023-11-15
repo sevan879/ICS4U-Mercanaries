@@ -52,7 +52,6 @@ public abstract class Enemy extends Entity
     protected abstract void action(Party targetPlayer);
     
     public void attack(){
-        System.out.println(actionCounter);
         if(targetPlayer() != null){
             Party targetPlayer = targetPlayer();
             if(actionCounter == 0){
