@@ -11,6 +11,7 @@ public class MainWorld extends World
     private Background background;
     private Knight k;
     private boolean waveOver = false;
+    private boolean waitForWaveToEnd;
     private int wave = 1;
     private int enemiesSpawned = 0;
     
@@ -32,7 +33,8 @@ public class MainWorld extends World
     //Transition Variables
     private int transitionDelay = 300;
     private int transitionCounter = 0;
-    
+    //private int backgroundSwapCounter; // makes sure background only changes when fader is black
+    private int fadeTime = 120;
     private int worldLvl;
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
@@ -54,6 +56,8 @@ public class MainWorld extends World
         
         addObject(background, 543, 180); //add background first, so its behind everything
         //addObject(k, 200, 305);
+        
+        waitForWaveToEnd = false;
         
         spawnParty();
         //spawnEnemies();
@@ -92,65 +96,100 @@ public class MainWorld extends World
     }
     
     private void spawnWaves(){
-        if (waveOver)
+        if (!waitForWaveToEnd)
         {
-            if (transitionCounter <= 0)
+            if (waveOver)
             {
-                waveOver = false;
+                if (transitionCounter <= 0)
+                {
+                    waveOver = false;
+                }
+                else
+                {
+                    transitionCounter--;
+                    return;
+                }
             }
-            else
-            {
-                transitionCounter--;
-                return;
-            }
-        }
-        
-        if(!waveOver && wave != 4){
-            if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                int enemyType = Greenfoot.getRandomNumber(4);
-                if(enemyType == 0){
-                    addObject(new Spear(), spawningXEnemy, worldYLevel); //modify placement after
-                    enemiesSpawned++;
-                } else if(enemyType == 1){
-                    //addObject(new Archer(), 0, 0); // modify placement after
-                    //enemiesSpawned++;
-                } else if(enemyType == 2){
-                    //addObject(new Sword(), 0, 0); // modify placement after
-                    //enemiesSpawned++;
-                } else if(enemyType == 3){
-                    //addObject(new Flying(), 0, 0); //ylocation should be higher
-                    //enemiesSpawned++;
+            
+            if(!waveOver && wave != 4){
+                if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
+                    int enemyType = Greenfoot.getRandomNumber(4);
+                    if(enemyType == 0){
+                        addObject(new Spear(), spawningXEnemy, worldYLevel); //modify placement after
+                        enemiesSpawned++;
+                    } else if(enemyType == 1){
+                        //addObject(new Archer(), 0, 0); // modify placement after
+                        //enemiesSpawned++;
+                    } else if(enemyType == 2){
+                        //addObject(new Sword(), 0, 0); // modify placement after
+                        //enemiesSpawned++;
+                    } else if(enemyType == 3){
+                        //addObject(new Flying(), 0, 0); //ylocation should be higher
+                        //enemiesSpawned++;
+                    }
                 }
             }
         }
         
+        
         if(wave == 1){
             if(enemiesSpawned == 5){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
-                transitionCounter = transitionDelay; 
-                background.setWorldBackground(1);
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    //background.setWorldBackground(1);
+                    addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
+                }
             }
         }else if(wave == 2){
             if(enemiesSpawned == 10){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
-                transitionCounter = transitionDelay; 
-                background.setWorldBackground(2);
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    //background.setWorldBackground(2);
+                    addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
+                }                
             }
         }else if(wave == 3){
             if(enemiesSpawned == 15){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
-                transitionCounter = transitionDelay; 
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
+                }
             }
         }else if(wave == 4){
             //spawnboss
         }
         
+    }
+    
+    private boolean checkWaveOver()
+    {
+        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
+        if (enemyList.isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     private void checkGameOver()

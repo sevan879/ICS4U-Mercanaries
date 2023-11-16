@@ -23,6 +23,8 @@ public abstract class Party extends Entity
     private int manaRegenCounter;
     private static final int MANA_REGEN_DELAY = 15;
     
+    private SuperStatBar hpBar;
+    
     /**
     * Main Constructor for Player Class
     *
@@ -58,6 +60,7 @@ public abstract class Party extends Entity
     
     public void act()
     {
+        hpBar.update(health);
         passiveManaRegen();
         if (actionCounter <= 0)
         {
@@ -87,7 +90,13 @@ public abstract class Party extends Entity
             running(); 
         }
     }
-
+    
+    public void addedToWorld(World w)
+    {
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 30, 5, 35, Color.GREEN, Color.RED, true);
+        getWorld().addObject(hpBar, 0, 0);
+    }
+    
     //abstract methods "promises"
     protected abstract void running();
     
