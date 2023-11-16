@@ -22,6 +22,11 @@ public class TitleScreen extends World
         titleScreen.setVolume(40);
         background = new GreenfootImage("titleBackground.png");
         setBackground(background);
+        
+        //buttons
+        addObject(new TitleScreenButton(0), 534, 400);
+        addObject(new TitleScreenButton(1), 534, 520);
+        addObject(new TitleScreenButton(2), 534, 640);
     }
     //to start playing the music when pressed run
     public void started(){
