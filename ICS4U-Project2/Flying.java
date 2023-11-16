@@ -14,10 +14,11 @@ public class Flying extends Enemy
     private static final int DELAY = 10;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 25;
+    private static boolean movable = true;
     
     private boolean pickedUpEnemy = false;
     public Flying(){
-        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        super(HP, SPEED, DELAY, DAMAGE, movable, ATTACK_RANGE);
     }
     
     /**
@@ -27,12 +28,26 @@ public class Flying extends Enemy
     public void act()
     {
         // Add your action code here.
+        if(Greenfoot.getRandomNumber(10) == 0){
+            pickUpSwordEnemy();
+            dropSwordEnemy();
+        }else{
+            super.act();
+        }
         super.act();
         
     }
     
     protected void action(Party targetPlayer){
         
+    }
+    
+    protected void repelOtherEnemies(){
+        List<Flying> flyings = getObjectsAtOffset(-attackRange, 0, Flying.class);
+        if(flyings.size() > 3){
+            movable = false;
+        }
+        movable = true;
     }
     
     public void pickUpSwordEnemy(){
@@ -65,11 +80,33 @@ public class Flying extends Enemy
                 Sword carrying = (Sword) getOneIntersectingObject(Sword.class);
                 carrying.fall();
                 pickedUpEnemy = false;
-                //turn around and fly back
+                flyBack();
+            }else{
+                Sword carrying = (Sword) getOneIntersectingObject(Sword.class);
+                carrying.fall();
+                pickedUpEnemy = false;
             }
+            
         }
-        
-        
+
+    }
+    
+    public void flyBack(){
+        //flip images
+        List<Enemy> enemy = getWorld().getObjects(Enemy.class);
+        if(!enemy.isEmpty()){
+            int randomIndex = Greenfoot.getRandomNumber(enemy.size());
+            Enemy randomEnemy = enemy.get(randomIndex);
+            while(getX() != randomEnemy.getX()){
+                setLocation(getX() + speed, getY() + Greenfoot.getRandomNumber(2) - 1);
+            }
+            //flip images
+        }else{
+            while(getX() != 400){
+                setLocation(getX() + speed, getY() + Greenfoot.getRandomNumber(2) - 1);
+            }
+            //flip images
+        }
     }
     
 

@@ -58,4 +58,8 @@ public class SkeletonKnight extends Enemy
     protected void action(Party targetPlayer){
         // does nothing for now
     }
+    
+    protected void repelOtherEnemies(){
+        
+    }
 }

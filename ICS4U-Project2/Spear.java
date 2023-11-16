@@ -14,6 +14,7 @@ public class Spear extends Enemy
     private static final int DELAY = 20;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 25;
+    private static boolean movable = true;
     
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
@@ -26,13 +27,21 @@ public class Spear extends Enemy
     }
     
     public Spear(){
-        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        super(HP, SPEED, DELAY, DAMAGE, movable, ATTACK_RANGE);
         
 
     }
     
     protected void action(Party targetPlayer){
         mainAction();
+    }
+    
+    protected void repelOtherEnemies(){
+        List<Spear> spears = getObjectsAtOffset(-attackRange, 0, Spear.class);
+        if(spears.size() > 2){
+            movable = false;
+        }
+        movable = true;
     }
     
     public void mainAction(){

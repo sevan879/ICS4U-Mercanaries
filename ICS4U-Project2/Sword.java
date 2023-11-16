@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.concurrent.Phaser;
+import java.util.List;
 
 /**
  * Write a description of class Sword here.
@@ -39,6 +40,14 @@ public class Sword extends Enemy
     protected void action(Party targetPlayer){
         targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
         //attack animations
+    }
+    
+    protected void repelOtherEnemies(){
+        List<Sword> swords = getObjectsAtOffset(-attackRange, 0, Sword.class);
+        if(swords.size() > 2){
+            movable = false;
+        }
+        movable = true;
     }
     
     public void pickUp(){

@@ -15,9 +15,9 @@ public class Archer extends Enemy
     private static final int DELAY = 25;
     private static final int DAMAGE = 3;
     private static final int ATTACK_RANGE = 200;
+    private static boolean movable = true;
     
-    private static final int RELOAD_TIME = 120; 
-    private int reloadTimer = 0;
+    
     /**
      * Act - do whatever the Archer wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -31,13 +31,21 @@ public class Archer extends Enemy
     }
     
     public Archer(){
-        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        super(HP, SPEED, DELAY, DAMAGE, movable, ATTACK_RANGE);
         
     }
     
     protected void action(Party targetPlayer){
         targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
         //attack animations
+    }
+    
+    protected void repelOtherEnemies(){
+        List<Archer> archers = getObjectsAtOffset(-attackRange, 0, Archer.class);
+        if(archers.size() > 3){
+            movable = false;
+        }
+        movable = true;
     }
     
     public Party targetPastTanks(){
