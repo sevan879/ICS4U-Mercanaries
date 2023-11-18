@@ -25,7 +25,6 @@ public class Button extends Actor
     public void act()
     {
         if (Greenfoot.mouseClicked(this)) {
-            System.out.println("asdsa");
             MainWorld m = new MainWorld();
             Backstory b = new Backstory();
             Settings s = new Settings();

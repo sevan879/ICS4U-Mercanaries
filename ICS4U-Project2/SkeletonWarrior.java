@@ -8,6 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SkeletonWarrior extends Enemy
 {
+    private static final int HP = 10;
+    private static final double SPEED = 4;
+    private static final int DELAY = 10;
+    private static final int DAMAGE = 2;
+    private static final int ATTACK_RANGE = 25;
+    private static boolean movable = true;
+
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
 
@@ -54,8 +61,11 @@ public class SkeletonWarrior extends Enemy
         }
     }
 
-    
     protected void action(Party targetPlayer){
         // does nothing for now
+    }
+    
+    protected void pickUp() {
+        movable = false;
     }
 }

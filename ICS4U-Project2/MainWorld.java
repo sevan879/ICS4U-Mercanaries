@@ -84,7 +84,7 @@ public class MainWorld extends World
     public void spawnEnemies(){
         for (int i = 0; i < numOfSpears; i++)
         {
-            addObject(new Spear(), spawningXEnemy -= spacingBetween, worldYLevel+300);
+            addObject(new SkeletonSpear(), spawningXEnemy -= spacingBetween, worldYLevel+300);
         }
     }
     
@@ -96,7 +96,7 @@ public class MainWorld extends World
                     addObject(new SkeletonSpear(), 0, 0); //modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 1){
-                    addObject(new Archer(), 0, 0); // modify placement after
+                    addObject(new SkeletonArcher(), 0, 0); // modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 2){
                     addObject(new SkeletonWarrior(), 0, 0); // modify placement after
