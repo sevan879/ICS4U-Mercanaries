@@ -22,4 +22,8 @@ public class Fireball extends Projectiles
     {
         // Add your action code here.
     }
+    
+    protected void move(){
+        
+    }
 }

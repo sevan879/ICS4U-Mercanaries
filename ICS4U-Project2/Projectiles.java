@@ -25,7 +25,7 @@ public abstract class Projectiles extends Actor
         // Add your action code here.
     }
     
-    public void move(){
+    protected abstract void move();
         
-    }
+    
 }
