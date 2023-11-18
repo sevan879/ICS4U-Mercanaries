@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MainWorld extends World
-{    
+{   
     private Background b;
     private Knight k;
     private boolean waveOver;
@@ -29,16 +29,14 @@ public class MainWorld extends World
     private int numOfArchers = 0;
     private int spawningXEnemy;
     
+    
     private int worldLvl;
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
 
-    /**
-     * Constructor for objects of class MainWorld.
-     * 
-     */
+    //constructor
     public MainWorld()
-    {    
+    {   
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1086, 720, 1); 
         spawningXEnemy = getWidth();
@@ -49,7 +47,6 @@ public class MainWorld extends World
         worldLvl = 1;
         
         addObject(b, 1086, 360); //add background first, so its behind everything
-        //addObject(k, 200, 305);
         
         spawnParty();
         spawnEnemies();
@@ -72,21 +69,22 @@ public class MainWorld extends World
     public void spawnParty(){
         for (int i = 0; i < numOfMages; i++)
         {
-            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
+            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel+300);
         }
         for (int i = 0; i < numOfHealers; i++)
         {
-            addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
+            addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel+300);
         }
         for (int i = 0; i < numOfKnights; i++)
         {
-            addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel);
+            addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel+300);
         }
     }
+    
     public void spawnEnemies(){
         for (int i = 0; i < numOfSpears; i++)
         {
-            addObject(new Spear(), spawningXEnemy -= spacingBetween, worldYLevel);
+            addObject(new Spear(), spawningXEnemy -= spacingBetween, worldYLevel+300);
         }
     }
     
@@ -95,13 +93,13 @@ public class MainWorld extends World
             if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                 int enemyType = Greenfoot.getRandomNumber(4);
                 if(enemyType == 0){
-                    addObject(new Spear(), 0, 0); //modify placement after
+                    addObject(new SkeletonSpear(), 0, 0); //modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 1){
                     addObject(new Archer(), 0, 0); // modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 2){
-                    addObject(new Sword(), 0, 0); // modify placement after
+                    addObject(new SkeletonWarrior(), 0, 0); // modify placement after
                     enemiesSpawned++;
                 } else if(enemyType == 3){
                     addObject(new Flying(), 0, 0); //ylocation should be higher

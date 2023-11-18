@@ -8,12 +8,36 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Actor
 {
-    /**
-     * Act - do whatever the Button wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private int buttonChooser;
+    private GreenfootImage[] buttons;
+
+    //constructor
+    public Button(int buttonChooser) {
+        buttons = new GreenfootImage[3];
+        buttons[0] = new GreenfootImage("startButton.png");
+        buttons[1] = new GreenfootImage("settingsButton.png");
+        buttons[2] = new GreenfootImage("backstoryButton.png");
+        setImage(buttons[buttonChooser]);
+        this.buttonChooser = buttonChooser;
+    }
+
+    //act method
     public void act()
     {
-        // Add your action code here.
+        if (Greenfoot.mouseClicked(this)) {
+            System.out.println("asdsa");
+            MainWorld m = new MainWorld();
+            Backstory b = new Backstory();
+            Settings s = new Settings();
+            if (buttonChooser == 0) {
+                Greenfoot.setWorld(m);
+            }
+            if (buttonChooser == 1) {
+                Greenfoot.setWorld(s);
+            }
+            if (buttonChooser == 2) {
+                Greenfoot.setWorld(b);
+            }        
+        }
     }
 }

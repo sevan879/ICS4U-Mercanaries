@@ -35,18 +35,18 @@ public class Flying extends Enemy
     }
     
     public Enemy pickUpSwordEnemy(){
-        List<Sword> swords = getWorld().getObjects(Sword.class);
-        if(!swords.isEmpty()){
-            int randomIndex = Greenfoot.getRandomNumber(swords.size());
-            Sword randomSword = swords.get(randomIndex);
-            turnTowards(randomSword.getX(), randomSword.getY());
-            while(getY() - randomSword.getY() > 15){
+        List<SkeletonWarrior> warriors = getWorld().getObjects(SkeletonWarrior.class);
+        if(!warriors.isEmpty()){
+            int randomIndex = Greenfoot.getRandomNumber(warriors.size());
+            SkeletonWarrior randomWarrior = warriors.get(randomIndex);
+            turnTowards(randomWarrior.getX(), randomWarrior.getY());
+            while(getY() - randomWarrior.getY() > 15){
                 move(speed);
             }
-            randomSword.pickUp();
+            randomWarrior.pickUp();
             //pickup animations
             pickedUpEnemy = true;
-            return randomSword;
+            return randomWarrior;
         }
         return null;
         

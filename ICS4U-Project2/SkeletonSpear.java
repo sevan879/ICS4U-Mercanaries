@@ -7,7 +7,7 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Spear extends Enemy
+public class SkeletonSpear extends Enemy
 {
     private static final int HP = 15;
     private static final double SPEED = 3   ;
@@ -25,7 +25,7 @@ public class Spear extends Enemy
         
     }
     
-    public Spear(){
+    public SkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         
 

@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class SkeletonKnight extends Enemy
+public class SkeletonWarrior extends Enemy
 {
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
@@ -18,12 +18,12 @@ public class SkeletonKnight extends Enemy
     private int runningAnimationCounter;
 
     //constructor
-    public SkeletonKnight() {
+    public SkeletonWarrior() {
         super(10, 10, 10, 10, false, 10);
         //running
         runningPics = new GreenfootImage[7];
         for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("KR" + (i+1) + ".png");
+            runningPics[i] = new GreenfootImage("SWR" + (i+1) + ".png");
         }
         runningAnimationIndex = 0;
         runningAnimationDelay = 10;
