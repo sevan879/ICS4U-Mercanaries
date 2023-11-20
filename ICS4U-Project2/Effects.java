@@ -8,12 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Effects extends Actor
 {
-    /**
-     * Act - do whatever the Effects wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    protected GreenfootImage image;
+    
+    protected void fadeIn (int timeLeft, int totalFadeTime){
+        double percent = timeLeft / (double) totalFadeTime;
+        int newTransparency = (int)(percent * 255);
+        image.setTransparency (newTransparency);
+    }
+    
+    protected void fadeOut (int timeLeft, int totalFadeTime){
+        double percent = timeLeft / (double) totalFadeTime;
+        int newTransparency = (int)(percent * 255);
+        image.setTransparency (255 - newTransparency);
     }
 }

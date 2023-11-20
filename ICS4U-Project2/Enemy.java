@@ -11,6 +11,9 @@ import java.util.List;
 public abstract class Enemy extends Entity
 {
     protected int attackRange;
+    
+    private SuperStatBar hpBar;
+    
     /**
      * Main constructor for Enemy class
      * 
@@ -34,6 +37,7 @@ public abstract class Enemy extends Entity
      */
     public void act()
     {
+        hpBar.update(health);
         move();
         attack();
         // Add your action code here.
@@ -69,6 +73,11 @@ public abstract class Enemy extends Entity
 
     }
     
+    public void addedToWorld(World w)
+    {
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 30, 5, 35, Color.YELLOW, Color.RED, true);
+        getWorld().addObject(hpBar, 0, 0);
+    }
 
     public Party targetPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);

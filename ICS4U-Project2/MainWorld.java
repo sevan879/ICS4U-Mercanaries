@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * Write a description of class MyWorld here.
  * 
@@ -7,29 +7,34 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MainWorld extends World
-{   
-    private Background b;
+{    
+    private Background background;
     private Knight k;
-    private boolean waveOver;
-    private int wave;
-    private int enemiesSpawned;
+    private boolean waveOver = false;
+    private boolean waitForWaveToEnd;
+    private int wave = 1;
+    private int enemiesSpawned = 0;
     
     private int worldYLevel = 305;
     
     //Spawning Party Variables
-    private int numOfKnights = 1;
+    private int numOfKnights = 10;
     private int numOfMages = 0;
     private int numOfHealers = 0;
     private int spacingBetween = 40;
     private int spawningXParty = 50;
 
     //Spawning Enemies Variables
-    private int numOfSpears = 2;
-    private int numOfSwords = 0;
-    private int numOfArchers = 0;
+    private int waveOneEnemies = 5;
+    private int waveTwoEnemies = 10;
+    private int waveThreeEnemies = 15;
     private int spawningXEnemy;
     
-    
+    //Transition Variables
+    private int transitionDelay = 300;
+    private int transitionCounter = 0;
+    //private int backgroundSwapCounter; // makes sure background only changes when fader is black
+    private int fadeTime = 120;
     private int worldLvl;
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
@@ -40,16 +45,18 @@ public class MainWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1086, 720, 1); 
         spawningXEnemy = getWidth();
-        b = new Background();
+        background = new Background();
         k = new Knight();
         
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
         
-        addObject(b, 1086, 360); //add background first, so its behind everything
+        addObject(background, 1086, 360); //add background first, so its behind everything
+        
+        waitForWaveToEnd = false;
         
         spawnParty();
-        spawnEnemies();
+        //spawnEnemies();
         
         forest = new GreenfootSound("Forest.mp3");
         boss = new GreenfootSound("Boss.mp3");
@@ -58,8 +65,11 @@ public class MainWorld extends World
     //act method
     public void act() {
         if (partyIsRunning()) {
-            b.scrollBackground(k.getRunningSpeed());
+            background.scrollBackground(k.getRunningSpeed());
         }
+        
+        spawnWaves();
+        checkGameOver();
     }
     
     //tells us if the party members are running or not, info used by background class
@@ -81,55 +91,128 @@ public class MainWorld extends World
         }
     }
     
-    public void spawnEnemies(){
-        for (int i = 0; i < numOfSpears; i++)
-        {
-            addObject(new SkeletonSpear(), spawningXEnemy -= spacingBetween, worldYLevel+300);
-        }
-    }
-    
     private void spawnWaves(){
-        if(!waveOver){
-            if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                int enemyType = Greenfoot.getRandomNumber(4);
-                if(enemyType == 0){
-                    addObject(new SkeletonSpear(), 0, 0); //modify placement after
-                    enemiesSpawned++;
-                } else if(enemyType == 1){
-                    addObject(new SkeletonArcher(), 0, 0); // modify placement after
-                    enemiesSpawned++;
-                } else if(enemyType == 2){
-                    addObject(new SkeletonWarrior(), 0, 0); // modify placement after
-                    enemiesSpawned++;
-                } else if(enemyType == 3){
-                    addObject(new Flying(), 0, 0); //ylocation should be higher
-                    enemiesSpawned++;
+        if (!waitForWaveToEnd)
+        {
+            if (waveOver)
+            {
+                if (transitionCounter <= 0)
+                {
+                    waveOver = false;
+                }
+                else
+                {
+                    transitionCounter--;
+                    return;
+                }
+            }
+            
+            if(!waveOver && wave != 4){
+                if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
+                    int enemyType = Greenfoot.getRandomNumber(4);
+                    if(enemyType == 0){
+                        addObject(new Spear(), spawningXEnemy, worldYLevel); //modify placement after
+                        enemiesSpawned++;
+                    } else if(enemyType == 1){
+                        //addObject(new Archer(), 0, 0); // modify placement after
+                        //enemiesSpawned++;
+                    } else if(enemyType == 2){
+                        //addObject(new Sword(), 0, 0); // modify placement after
+                        //enemiesSpawned++;
+                    } else if(enemyType == 3){
+                        //addObject(new Flying(), 0, 0); //ylocation should be higher
+                        //enemiesSpawned++;
+                    }
                 }
             }
         }
         
+        
         if(wave == 1){
-            if(enemiesSpawned == 30){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
+            if(enemiesSpawned == 5){
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    //background.setWorldBackground(1);
+                    addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
+                }
             }
         }else if(wave == 2){
-            if(enemiesSpawned == 40){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
+            if(enemiesSpawned == 10){
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    //background.setWorldBackground(2);
+                    addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
+                }                
             }
         }else if(wave == 3){
-            if(enemiesSpawned == 50){
-                waveOver = true;
-                enemiesSpawned = 0;
-                wave = wave + 1;
+            if(enemiesSpawned == 15){
+                waitForWaveToEnd = true;
+                if (checkWaveOver())
+                {
+                    waitForWaveToEnd = false;
+                    waveOver = true;
+                    enemiesSpawned = 0;
+                    wave = wave + 1;
+                    transitionCounter = transitionDelay; 
+                    addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
+                }
             }
         }else if(wave == 4){
             //spawnboss
         }
         
+    }
+    
+    private void partyRun()
+    {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
+        for (Party member : partyList)
+        {
+            // make them run
+        }
+    }
+    
+    private void partyIdle()
+    {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
+        for (Party member : partyList)
+        {
+            // make them idle
+        }
+    }
+    
+    private boolean checkWaveOver()
+    {
+        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
+        if (enemyList.isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private void checkGameOver()
+    {
+        ArrayList<Party> playerList = (ArrayList<Party>) (getObjects(Party.class));
+        if (playerList.isEmpty())
+        {
+            // Game Over stuff
+        }
     }
     
     public static double getDistance (Actor a, Actor b)
