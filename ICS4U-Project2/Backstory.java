@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Backstory extends World
 {
     private GreenfootImage background;
+    private Knight k = new Knight();
+    //private Wolf w = new Wolf();
     
     //constructor
     public Backstory()
@@ -16,5 +18,7 @@ public class Backstory extends World
         super(1068, 720, 1);
         background = new GreenfootImage("BackstoryBackground.png");
         setBackground(background);
+        addObject(k, 100,200);
+        //addObject(w, 100, 1000);
     }
 }

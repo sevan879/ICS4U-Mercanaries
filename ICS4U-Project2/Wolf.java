@@ -2,13 +2,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Spear here.
+ * Write a description of class Wolf here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Wu 
+ * @version V0
  */
-public class SkeletonSpear extends Enemy
+public class Wolf extends Enemy
 {
+    //imported from SkeletonSpear class
     private static final int HP = 5;
     private static final double SPEED = 2;
     private static final int DELAY = 30;
@@ -23,36 +24,30 @@ public class SkeletonSpear extends Enemy
     private int runningAnimationDelay;
     private int runningAnimationCounter;
 
-    private GreenfootImage[] attackOnePics;
-    private int attackOneAnimationIndex;
-    private int attackOneAnimationDelay;
-    private int attackOneAnimationCounter;
-
-    private GreenfootImage[] attackTwoPics;
-    private int attackTwoAnimationIndex;
-    private int attackTwoAnimationDelay;
-    private int attackTwoAnimationCounter;
+    private GreenfootImage[] deadPics;
+    private int deadAnimationIndex;
+    private int deadAnimationDelay;
+    private int deadAnimationCounter;
 
     private GreenfootImage[] runningAttackPics;
     private int runningAttackAnimationIndex;
     private int runningAttackAnimationDelay;
     private int runningAttackAnimationCounter;
-
+    
     /**
-     * Act - do whatever the Spear wants to do. This method is called whenever
+     * Act - do whatever the Wolf wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
         super.act();
-
     }
-
-    public SkeletonSpear(){
+    
+    public Wolf(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         animationConstructor();
     }
-
+    
     protected void action(Party targetPlayer){
         mainAttack();
     }
@@ -61,17 +56,10 @@ public class SkeletonSpear extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 if (attackTracker == 0) { //attack one
-                    attackOne();
+                    runningAttack();
                     //stuff about dealing damage, whatever
                     if (!animationIsRunning()) {
                         attackTracker = 1;
-                    }
-                }
-                else if (attackTracker == 1) { //attack two
-                    attackTwo();
-                    //stuff about dealing damage, whatever
-                    if (!animationIsRunning()) {
-                        attackTracker = 0;
                     }
                 }
                 p.takeDamage(DAMAGE);
@@ -105,39 +93,29 @@ public class SkeletonSpear extends Enemy
         attackTracker = 0;
 
         //running
-        runningPics = new GreenfootImage[6];
+        runningPics = new GreenfootImage[9];
         for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("SSR" + (i+1) + ".png");
+            runningPics[i] = new GreenfootImage("W0" + (i) + ".png");
             runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
         }
         runningAnimationIndex = 0;
         runningAnimationDelay = 10;
         runningAnimationCounter = runningAnimationDelay;
 
-        //attack one
-        attackOnePics = new GreenfootImage[4];
-        for (int i = 0; i < attackOnePics.length; i++) {
-            attackOnePics[i] = new GreenfootImage("SSA1" + (i+1) + ".png");
-            attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
+        //dead 
+        deadPics = new GreenfootImage[2];
+        for (int i = 0; i < deadPics.length; i++) {
+            deadPics[i] = new GreenfootImage("W1" + (i) + ".png");
+            deadPics[i].scale(deadPics[i].getWidth()*2, deadPics[i].getHeight()*2);
         }
-        attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 10;
-        attackOneAnimationCounter = attackOneAnimationDelay;
-
-        //attack two
-        attackTwoPics = new GreenfootImage[4];
-        for (int i = 0; i < attackTwoPics.length; i++) {
-            attackTwoPics[i] = new GreenfootImage("SSA2" + (i+1) + ".png");
-            attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
-        }
-        attackTwoAnimationIndex = 0;
-        attackTwoAnimationDelay = 10;
-        attackTwoAnimationCounter = attackTwoAnimationDelay;
+        deadAnimationIndex = 0;
+        deadAnimationDelay = 10;
+        deadAnimationCounter = deadAnimationDelay;
 
         //running attack
-        runningAttackPics = new GreenfootImage[5];
+        runningAttackPics = new GreenfootImage[7];
         for (int i = 0; i < runningAttackPics.length; i++) {
-            runningAttackPics[i] = new GreenfootImage("SSRA" + (i+1) + ".png");
+            runningAttackPics[i] = new GreenfootImage("W2" + (i) + ".png");
             runningAttackPics[i].scale(runningAttackPics[i].getWidth()*2, runningAttackPics[i].getHeight()*2);
         }
         runningAttackAnimationIndex = 0;
@@ -162,45 +140,25 @@ public class SkeletonSpear extends Enemy
         }
     }
 
-    public void attackOne() {
+
+    public void dead() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
-        if (attackOneAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            attackOneAnimationCounter = attackOneAnimationDelay; // reset counter to max 
-            attackOneAnimationIndex++; // this will be used to set the image to the next frame
+        if (deadAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deadAnimationCounter = deadAnimationDelay; // reset counter to max 
+            deadAnimationIndex++; // this will be used to set the image to the next frame
 
             // If the image index has passed the last image, stop animation
-            if (attackOneAnimationIndex == attackOnePics.length){
-                attackOneAnimationIndex = 0;
+            if (deadAnimationIndex == deadPics.length){
+                deadAnimationIndex = 0;
                 animationTracker++;
             }
             // Apply new image to this Actor
-            setImage (attackOnePics[attackOneAnimationIndex]);
+            setImage (deadPics[deadAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
-            attackOneAnimationCounter--;
-        }
-    }
-
-    public void attackTwo() {
-        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
-            animationTracker++;
-        }
-        if (attackTwoAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            attackTwoAnimationCounter = attackTwoAnimationDelay; // reset counter to max 
-            attackTwoAnimationIndex++; // this will be used to set the image to the next frame
-
-            // If the image index has passed the last image, stop animation
-            if (attackTwoAnimationIndex == attackTwoPics.length){
-                attackTwoAnimationIndex = 0;
-                animationTracker++;
-            }
-            // Apply new image to this Actor
-            setImage (attackTwoPics[attackTwoAnimationIndex]);
-        } else {// not ready to animate yet, still waiting
-            // so just decrement the counter          
-            attackTwoAnimationCounter--;
+            deadAnimationCounter--;
         }
     }
 
@@ -217,8 +175,6 @@ public class SkeletonSpear extends Enemy
                 runningAttackAnimationIndex = 0;
                 animationTracker++;
             }
-            // Apply new image to this Actor
-            setImage (runningAttackPics[attackOneAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             runningAttackAnimationCounter--;
