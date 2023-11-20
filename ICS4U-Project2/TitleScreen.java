@@ -17,7 +17,7 @@ public class TitleScreen extends World
         super(1068, 720, 1); 
         titleScreen = new GreenfootSound("TitleScreen.mp3");
         titleScreen.setVolume(40);
-        background = new GreenfootImage("TitleBackground.png");
+        background = new GreenfootImage("titleBackground.png");
         setBackground(background);
 
         //buttons
