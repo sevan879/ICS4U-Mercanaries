@@ -62,29 +62,27 @@ public abstract class Party extends Entity
         if (actionCounter <= 0)
         {
             Enemy targetEnemy = detectEnemy();
-            if (targetEnemy != null)
+            if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
             {
+                System.out.println("dsaaa");
                 actionCounter = actionDelay;
                 mainAction(targetEnemy);
+                runningSpeed = 0;
+                inCombat = true;
+                
+            }
+            else {
+                runningSpeed = 1;
+                inCombat = false;
+            }
+            if(!inCombat) { //code that determines whether or not the enemies have been slain, makes in combat false
+                runningSpeed = 1;
+                running();
             }
         }
         else
         {
             actionCounter--;
-        }
-
-        if (Greenfoot.isKeyDown("w")) {
-            runningSpeed = 0;
-            inCombat = true;
-        }
-        if (Greenfoot.isKeyDown("s")) {
-            runningSpeed = 1;
-            inCombat = false;
-        }
-        //code that determines whether or not the enemies have been slain, makes in combat false
-        if (!inCombat) {
-            runningSpeed = 1;
-            running(); 
         }
     }
 

@@ -45,11 +45,13 @@ public abstract class Enemy extends Entity
         if(targetPlayer() == null){
             setLocation(getX() - speed, getY());
             //moving animation
+            running();
         }
     }
     
 
     protected abstract void action(Party targetPlayer);
+    protected abstract void running();
     
     public void attack(){
         if(targetPlayer() != null){

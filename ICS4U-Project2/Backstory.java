@@ -8,14 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Backstory extends World
 {
-
-    /**
-     * Constructor for objects of class Backstory.
-     * 
-     */
+    private GreenfootImage background;
+    
+    //constructor
     public Backstory()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1068, 720, 1);
+        background = new GreenfootImage("BackstoryBackground.png");
+        setBackground(background);
     }
 }

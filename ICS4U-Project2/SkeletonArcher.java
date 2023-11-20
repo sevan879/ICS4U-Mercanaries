@@ -8,7 +8,7 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Archer extends Enemy
+public class SkeletonArcher extends Enemy
 {
     private static final int HP = 2;
     private static final double SPEED = 3;
@@ -30,7 +30,7 @@ public class Archer extends Enemy
         
     }
     
-    public Archer(){
+    public SkeletonArcher(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         
     }
@@ -54,7 +54,9 @@ public class Archer extends Enemy
         
     }
     
-    
+    public void running() {
+        
+    }
     
     
     
