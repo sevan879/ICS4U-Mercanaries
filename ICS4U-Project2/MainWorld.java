@@ -179,6 +179,24 @@ public class MainWorld extends World
         
     }
     
+    private void partyRun()
+    {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
+        for (Party member : partyList)
+        {
+            // make them run
+        }
+    }
+    
+    private void partyIdle()
+    {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
+        for (Party member : partyList)
+        {
+            // make them idle
+        }
+    }
+    
     private boolean checkWaveOver()
     {
         ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
