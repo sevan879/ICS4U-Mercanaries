@@ -67,7 +67,6 @@ public abstract class Party extends Entity
             Enemy targetEnemy = detectEnemy();
             if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
             {
-                System.out.println("dsaaa");
                 actionCounter = actionDelay;
                 mainAction(targetEnemy);
                 runningSpeed = 0;
@@ -91,11 +90,10 @@ public abstract class Party extends Entity
     
     public void addedToWorld(World w)
     {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 30, 5, 35, Color.GREEN, Color.RED, true);
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
     }
     
-    //abstract methods "promises"
     protected abstract void running();
     
     public void setInCombat() {

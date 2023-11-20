@@ -15,13 +15,13 @@ public class MainWorld extends World
     private int wave = 1;
     private int enemiesSpawned = 0;
     
-    private int worldYLevel = 305;
+    private int worldYLevel = 605;
     
     //Spawning Party Variables
     private int numOfKnights = 10;
     private int numOfMages = 0;
     private int numOfHealers = 0;
-    private int spacingBetween = 40;
+    private int spacingBetween = 60;
     private int spawningXParty = 50;
 
     //Spawning Enemies Variables
@@ -43,7 +43,7 @@ public class MainWorld extends World
     public MainWorld()
     {   
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1086, 720, 1); 
+        super(1068, 720, 1); 
         spawningXEnemy = getWidth();
         background = new Background();
         k = new Knight();
@@ -79,15 +79,15 @@ public class MainWorld extends World
     public void spawnParty(){
         for (int i = 0; i < numOfMages; i++)
         {
-            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel+300);
+            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfHealers; i++)
         {
-            addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel+300);
+            addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfKnights; i++)
         {
-            addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel+300);
+            addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel);
         }
     }
     
@@ -111,7 +111,7 @@ public class MainWorld extends World
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     int enemyType = Greenfoot.getRandomNumber(4);
                     if(enemyType == 0){
-                        addObject(new Spear(), spawningXEnemy, worldYLevel); //modify placement after
+                        addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 1){
                         //addObject(new Archer(), 0, 0); // modify placement after

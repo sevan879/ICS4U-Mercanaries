@@ -75,7 +75,7 @@ public abstract class Enemy extends Entity
     
     public void addedToWorld(World w)
     {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 30, 5, 35, Color.YELLOW, Color.RED, true);
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 40, 5, 60, Color.YELLOW, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
     }
 

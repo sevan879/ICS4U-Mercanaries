@@ -65,7 +65,6 @@ public class Knight extends Party
 
     protected void mainAction(Enemy target)
     {
-        System.out.println("knight attacked");
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
         target.takeDamage(dealtDamage);
         //Make Enemy take damage
@@ -108,7 +107,7 @@ public class Knight extends Party
         
         //visuals/animation
         animationConstructor();
-        setImage(new GreenfootImage("KI1.png"));
+        setImage(idlePics[1]);
         
     }
 
