@@ -18,9 +18,9 @@ public class MainWorld extends World
     private int worldYLevel = 605;
     
     //Spawning Party Variables
-    private int numOfKnights = 10;
+    private int numOfKnights = 4;
     private int numOfMages = 0;
-    private int numOfHealers = 0;
+    private int numOfHealers = 1;
     private int spacingBetween = 60;
     private int spawningXParty = 50;
 
@@ -99,6 +99,7 @@ public class MainWorld extends World
                 if (transitionCounter <= 0)
                 {
                     waveOver = false;
+                    // stop background
                 }
                 else
                 {

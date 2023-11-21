@@ -16,6 +16,7 @@ public abstract class Party extends Entity
     protected int attackRange;
     protected int mana;
     protected int maxMana;
+    protected boolean usesMana;
     
     protected int runningSpeed;
     protected boolean inCombat;
@@ -24,6 +25,7 @@ public abstract class Party extends Entity
     private static final int MANA_REGEN_DELAY = 15;
     
     private SuperStatBar hpBar;
+    private SuperStatBar manaBar;
     
     /**
     * Main Constructor for Player Class
@@ -37,7 +39,7 @@ public abstract class Party extends Entity
     * @param attackRange Range of attacking enemies
     * @param plrMana Max mana for player character
     */
-    public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel)
+    public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel, boolean manaClass)
     {
         super(hp, spd, delay, false);
         experience = 0;
@@ -52,6 +54,8 @@ public abstract class Party extends Entity
 
         runningSpeed = 1;
         inCombat = false;
+        
+        usesMana = manaClass;
     }
     
     protected abstract void mainAction(Enemy target);
@@ -61,7 +65,13 @@ public abstract class Party extends Entity
     public void act()
     {
         hpBar.update(health);
+        if (usesMana)
+        {
+            manaBar.update(mana);
+        }
         passiveManaRegen();
+        Enemy checkEnemy = detectEnemy();
+        
         if (actionCounter <= 0)
         {
             Enemy targetEnemy = detectEnemy();
@@ -92,6 +102,12 @@ public abstract class Party extends Entity
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
+        
+        if (usesMana)
+        {
+            manaBar = new SuperStatBar(maxMana, maxMana, this, 50, 7, 70, Color.BLUE, Color.BLACK, false);
+            getWorld().addObject(manaBar, 0, 0);
+        }
     }
     
     protected abstract void running();

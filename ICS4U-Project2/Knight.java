@@ -53,6 +53,7 @@ public class Knight extends Party
     private static final int ATTACK_RANGE = 25;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 3;
+    private static final boolean MANA_CLASS = false;
 
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
@@ -93,7 +94,7 @@ public class Knight extends Party
     }
 
     public Knight() {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
 
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         knightTaunt = new GreenfootSound[3];

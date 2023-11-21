@@ -58,11 +58,9 @@ public class SkeletonSpear extends Enemy
     }
 
     private void mainAttack(){
-        System.out.println("skeleton spear attacked");
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 if (attackTracker == 0) { //attack one
-                    System.out.println("SSATK1");
                     attackOne();
                     //stuff about dealing damage, whatever
                     if (!animationIsRunning()) {

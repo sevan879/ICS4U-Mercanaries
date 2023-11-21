@@ -16,6 +16,7 @@ public class Mage extends Party
     private static final int ATTACK_RANGE = 160;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
+    private static final boolean MANA_CLASS = true;
     
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
@@ -32,7 +33,7 @@ public class Mage extends Party
     
     public Mage()
     {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
         
     }
     
