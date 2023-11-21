@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Wolf here.
@@ -24,14 +25,22 @@ public class Wolf extends Enemy
      */
     public void act()
     {
+        if(movable){
+            super.act();
+        }
         // Add your action code here.
     }
     
     protected void repelOtherEnemies(){
-        
+        List<Wolf> wolves = getObjectsAtOffset(-attackRange, 0, Wolf.class);
+        if(wolves.size() > 3){
+            movable = false;
+        }
+        movable = true;
     }
     
     protected void action(Party targetPlayer){
-        
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
+        //attack animations
     }
 }

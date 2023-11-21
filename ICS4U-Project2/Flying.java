@@ -34,12 +34,13 @@ public class Flying extends Enemy
         }else{
             super.act();
         }
-        super.act();
+        
         
     }
     
     protected void action(Party targetPlayer){
-        
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
+        //attack animations
     }
     
     protected void repelOtherEnemies(){
@@ -110,11 +111,7 @@ public class Flying extends Enemy
     }
     
 
-    public void move(){
-        setLocation(getX() - speed, getY() + Greenfoot.getRandomNumber(2) - 1);
-        //flying animations
-    }
-    
+   
     
     
 }

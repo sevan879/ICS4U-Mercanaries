@@ -37,6 +37,8 @@ public class Archer extends Enemy
     
     protected void action(Party targetPlayer){
         targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
+        getWorld().addObject(new Arrow(), getX(), getY());
+        
         //attack animations
     }
     

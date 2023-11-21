@@ -21,9 +21,29 @@ public class Fireball extends Projectiles
     public void act()
     {
         // Add your action code here.
+        moveInArc();
     }
     
-    protected void move(){
-        
+    private void moveInArc() {
+        int startX = getX();
+        int startY = getY();
+        int initialSpeed = speed;
+        double radianAngle = Math.toRadians(45);
+        int distanceMoved = 0;
+        while(distanceMoved <= 30){
+            System.out.println("movedup");
+            int x = (int) (startX + initialSpeed * Math.cos(radianAngle));
+            int y = (int) (startY - initialSpeed * Math.sin(radianAngle));
+            setLocation(x, y);
+            distanceMoved += initialSpeed;
+        }
+        int x = (int) (startX + initialSpeed * Math.cos(radianAngle));
+        int y = (int) (startY + initialSpeed * Math.sin(radianAngle));
+        setLocation(x, y);
+
+        initialSpeed -= 1;
     }
+
+    
+    
 }

@@ -8,8 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Arrow extends Projectiles
 {
-    private static final int speed = 20;
+    private static final int speed = 2;
+    private static final int distance = 200;
     private static final int direction = -1;
+    private static int distanceMoved = 0;
+    private static int DELAY = 10;
     public Arrow(){
         super(speed, direction);
     }
@@ -21,9 +24,12 @@ public class Arrow extends Projectiles
     public void act()
     {
         // Add your action code here.
+        move();
     }
     
-    protected void move(){
+    public void move(){
+        
+        
         
     }
 }
