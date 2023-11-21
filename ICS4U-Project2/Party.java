@@ -16,27 +16,26 @@ public abstract class Party extends Entity
     protected int attackRange;
     protected int mana;
     protected int maxMana;
-    
-    protected int runningSpeed;
+
     protected boolean inCombat;
 
     private int manaRegenCounter;
     private static final int MANA_REGEN_DELAY = 15;
-    
+
     private SuperStatBar hpBar;
-    
+
     /**
-    * Main Constructor for Player Class
-    *
-    * @param hp entity's health
-    * @param spd entity's speed
-    * @param delay delay between actions
-    * @param dmg damage that entity does
-    * @param moveable can the entity move around
-    * @param xpIncreaseRate how much the required XP to level increases after each Level
-    * @param attackRange Range of attacking enemies
-    * @param plrMana Max mana for player character
-    */
+     * Main Constructor for Player Class
+     *
+     * @param hp entity's health
+     * @param spd entity's speed
+     * @param delay delay between actions
+     * @param dmg damage that entity does
+     * @param moveable can the entity move around
+     * @param xpIncreaseRate how much the required XP to level increases after each Level
+     * @param attackRange Range of attacking enemies
+     * @param plrMana Max mana for player character
+     */
     public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel)
     {
         super(hp, spd, delay, false);
@@ -50,18 +49,18 @@ public abstract class Party extends Entity
         this.maxLevel = maxLevel;
         manaRegenCounter = MANA_REGEN_DELAY;
 
-        runningSpeed = 1;
         inCombat = false;
     }
-    
+
     protected abstract void mainAction(Enemy target);
-    
+
     protected abstract void levelUpStats();
-    
+
     public void act()
     {
         hpBar.update(health);
         passiveManaRegen();
+
         if (actionCounter <= 0)
         {
             Enemy targetEnemy = detectEnemy();
@@ -69,16 +68,17 @@ public abstract class Party extends Entity
             {
                 actionCounter = actionDelay;
                 mainAction(targetEnemy);
-                runningSpeed = 0;
+                System.out.println("attakck");
+                speed = 0;
                 inCombat = true;
-                
+
             }
             else {
-                runningSpeed = 1;
+                speed = 1;
                 inCombat = false;
             }
             if(!inCombat) { //code that determines whether or not the enemies have been slain, makes in combat false
-                runningSpeed = 1;
+                speed = 1;
                 running();
             }
         }
@@ -87,28 +87,34 @@ public abstract class Party extends Entity
             actionCounter--;
         }
     }
-    
+
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
     }
     
-    protected abstract void running();
-    
-    public void setInCombat() {
-        inCombat = true;
+    public void setSpeed(double n) {
+        speed = n;
     }
+
+    protected abstract void running();
+
     //speed getter
     public int getRunningSpeed() {
-        return runningSpeed;
+        if (!inCombat) {
+            return (int) speed;
+        }
+        else {
+            return 0;
+        }
     }
 
     /**
-    * Method for giving XP to player class. Levels up the player if xp requirement is met
-    *
-    * @param xp The amount of xp given to player;
-    */
+     * Method for giving XP to player class. Levels up the player if xp requirement is met
+     *
+     * @param xp The amount of xp given to player;
+     */
     public void giveXP(int xp)
     {
         if (level == maxLevel)
@@ -124,28 +130,29 @@ public abstract class Party extends Entity
             experience += xp;
         }
     }
+
     /**
-    * Method for finding the closest enemy in attack range.
-    *
-    * @return Enemy 
-    */
+     * Method for finding the closest enemy in attack range.
+     *
+     * @return Enemy 
+     */
     private Enemy detectEnemy()
     {
         ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld  ().getObjects(Enemy.class));
         Enemy target = null;
-        
+
         for (Enemy e : targetList)
         {
-                double distanceFromE = Math.hypot(getX() - e.getX(), getY() - e.getY());
-                if (distanceFromE <= attackRange)
+            double distanceFromE = Math.hypot(getX() - e.getX(), getY() - e.getY());
+            if (distanceFromE <= attackRange)
+            {
+                if (target == null)
                 {
-                    if (target == null)
-                    {
-                        target = e;
-                    }
-                    else
-                    {
-                        
+                    target = e;
+                }
+                else
+                {
+
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
                     if (distanceFromE < distanceFromTarget)
                     {
@@ -154,16 +161,16 @@ public abstract class Party extends Entity
                 }
             }
         }
-        
+
         return target;
     }
-    
+
     /**
-    * Spend mana for entity. Returns false if mana cost is too high.
-    *
-    * @param how much mana is taken away
-    * @return boolean
-    */
+     * Spend mana for entity. Returns false if mana cost is too high.
+     *
+     * @param how much mana is taken away
+     * @return boolean
+     */
     public boolean spendMana(int cost)
     {
         if (maxMana - mana < 0)
@@ -176,7 +183,7 @@ public abstract class Party extends Entity
             return true;
         }
     }
-    
+
     private void passiveManaRegen()
     {
         if (manaRegenCounter <= 0 || mana > maxMana)
@@ -189,11 +196,11 @@ public abstract class Party extends Entity
             manaRegenCounter--;
         }
     }
-    
+
     //When an enemy appears behind the player
     private void changeDirection()
     {
-        
+
     }
     // increase stats when level up
     private void levelUP(int xp)
@@ -201,7 +208,7 @@ public abstract class Party extends Entity
         experience = experience + xp - xpToLevel;
         level ++;
         xpToLevel += xpIncreaseRate;
-        
+
         levelUpStats();
     }
 }

@@ -50,7 +50,7 @@ public class Knight extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 40; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 25;
+    private static final int ATTACK_RANGE = 50;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 3;
 
@@ -68,7 +68,36 @@ public class Knight extends Party
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
         target.takeDamage(dealtDamage);
         //Make Enemy take damage
-        //put a boolean here about whether to attack or defend or whatever the fuck
+    }
+
+    public Knight() {
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
+
+        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
+        knightTaunt = new GreenfootSound[3];
+        for(int i = 0; i < knightTaunt.length; i++){
+            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
+        }
+        knightSlash = new GreenfootSound[3];
+        for(int i = 0; i < knightSlash.length; i++){
+            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
+        }
+
+        //visuals/animation
+        animationConstructor();
+        setImage(idlePics[1]);
+
+    }
+
+    /**
+     * Act - do whatever the Knight wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    public void act()
+    {
+        super.act();
+        if (inCombat) {
+            //put a boolean here about whether to attack or defend or whatever the fuck
             if (attackTracker == 0) { //attack one
                 attackOne();
                 //stuff about dealing damage, whatever
@@ -90,34 +119,7 @@ public class Knight extends Party
                     attackTracker = 0;
                 }
             }
-    }
-
-    public Knight() {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
-
-        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
-        knightTaunt = new GreenfootSound[3];
-        for(int i = 0; i < knightTaunt.length; i++){
-            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
         }
-        knightSlash = new GreenfootSound[3];
-        for(int i = 0; i < knightSlash.length; i++){
-            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
-        }
-        
-        //visuals/animation
-        animationConstructor();
-        setImage(idlePics[1]);
-        
-    }
-
-    /**
-     * Act - do whatever the Knight wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        super.act();
     }
 
     //ANIMATION

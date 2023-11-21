@@ -13,7 +13,7 @@ public class SkeletonSpear extends Enemy
     private static final double SPEED = 2;
     private static final int DELAY = 30;
     private static final int DAMAGE = 2;
-    private static final int ATTACK_RANGE = 15;
+    private static final int ATTACK_RANGE = 60;
 
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
@@ -58,7 +58,6 @@ public class SkeletonSpear extends Enemy
     }
 
     private void mainAttack(){
-        System.out.println("skeleton spear attacked");
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 if (attackTracker == 0) { //attack one
