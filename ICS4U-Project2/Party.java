@@ -63,40 +63,49 @@ public abstract class Party extends Entity
 
     public void act()
     {
-        hpBar.update(health);
-        passiveManaRegen();
-        Enemy targetEnemy = detectEnemy();
-        if (targetEnemy != null) {
-            mainAnimation();
+        if (health <= 0) {
+            death();
+            if(hpBarExists) {
+                getWorld().removeObject(hpBar);
+                hpBarExists = false;
+            }
         }
-        if (actionCounter <= 0) 
-        {
-            if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
+        else {
+            hpBar.update(health);
+            passiveManaRegen();
+            Enemy targetEnemy = detectEnemy();
+            if (targetEnemy != null) {
+                mainAnimation();
+            }
+            if (actionCounter <= 0) 
             {
-                runningSpeed = 0;
-                inCombat = true;
-                actionCounter = actionDelay;
-                mainAction(targetEnemy);
-            }
-            else { // no enemy detected by this party member
-                inCombat = false;
-            }
-            if (!inCombat) {
-                if (!idle) { //party members not idle, and not in combat, so run
-                    runningSpeed = (int) speed;
-                    running();
+                if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
+                {
+                    runningSpeed = 0;
+                    inCombat = true;
+                    actionCounter = actionDelay;
+                    mainAction(targetEnemy);
                 }
-                else { //party member is idle and not in combat. run idle animation
-                    if (enemiesInWorld().size() == 0) {
-                        idle = false;
+                else { // no enemy detected by this party member
+                    inCombat = false;
+                }
+                if (!inCombat) {
+                    if (!idle) { //party members not idle, and not in combat, so run
+                        runningSpeed = (int) speed;
+                        running();
                     }
-                    idle();
+                    else { //party member is idle and not in combat. run idle animation
+                        if (enemiesInWorld().size() == 0) {
+                            idle = false;
+                        }
+                        idle();
+                    }
                 }
             }
-        }
-        else
-        {
-            actionCounter--;
+            else
+            {
+                actionCounter--;
+            }
         }
     }
 
@@ -136,6 +145,7 @@ public abstract class Party extends Entity
     public void setInCombat(boolean b) {
         inCombat = b;
     }
+
     //speed getter
     public int getRunningSpeed() {
         return runningSpeed;
@@ -190,7 +200,7 @@ public abstract class Party extends Entity
                 {
 
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
-                    if (distanceFromE < distanceFromTarget)
+                    if (distanceFromE < distanceFromTarget && !isDying)
                     {
                         target = e;
                     }

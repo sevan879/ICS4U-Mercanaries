@@ -12,7 +12,7 @@ public class Button extends Actor
     private GreenfootImage[] buttons;
     private MainWorld m;
     private Backstory b;
-    Settings s;
+    private Settings s;
 
     //constructor
     public Button(int buttonChooser) {

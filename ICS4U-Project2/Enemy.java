@@ -37,10 +37,19 @@ public abstract class Enemy extends Entity
      */
     public void act()
     {
-        hpBar.update(health);
-        move();
-        attack();
-        // Add your action code here.
+        if (health <= 0) {
+            death();
+            if (hpBarExists) {
+                getWorld().removeObject(hpBar);
+                hpBarExists = false;
+            }
+        }
+        else {
+            hpBar.update(health);
+            move();
+            attack();
+            // Add your action code here.
+        }
     }
 
     public void move(){
@@ -53,8 +62,11 @@ public abstract class Enemy extends Entity
     }
 
     protected abstract void action(Party targetPlayer);
+
     protected abstract void running();
+
     protected abstract void attackAnimation();
+
     public void attack(){
         if(targetPlayer() != null){
             Party targetPlayer = targetPlayer();
@@ -78,19 +90,13 @@ public abstract class Enemy extends Entity
 
     public Party targetPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);
-
-        if (!players.isEmpty()) {
-            return players.get(0); 
+        for (Party p : players) {
+            if (!players.isEmpty() && !p.isDying) {
+                return p; 
+            }
         }
 
         return null;
     }
 
-    
-    
-    
-    
-    
-    
-    
 }

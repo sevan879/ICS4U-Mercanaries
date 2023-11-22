@@ -17,6 +17,11 @@ public class Knight extends Party
     private int idleAnimationDelay;
     private int idleAnimationCounter;
 
+    private GreenfootImage[] deathPics;
+    private int deathAnimationIndex;
+    private int deathAnimationDelay;
+    private int deathAnimationCounter;
+
     private GreenfootImage[] runningPics;
     private int runningAnimationIndex;
     private int runningAnimationDelay;
@@ -64,7 +69,7 @@ public class Knight extends Party
         target.takeDamage(dealtDamage);
         //Make Enemy take damage
     }
-    
+
     protected void mainAnimation() {
         if (attackTracker == 0) { //attack one
             attackOne();
@@ -114,7 +119,7 @@ public class Knight extends Party
     public void act()
     {
         super.act();
-        
+
     }
 
     //ANIMATION
@@ -138,6 +143,26 @@ public class Knight extends Party
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             idleAnimationCounter--;
+        }
+    }
+
+    public void death() {
+        isDying = true;
+        setLocation(getX(), yPos+35);
+        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
+            deathAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (deathAnimationIndex == deathPics.length){
+                deathAnimationIndex = 0;
+                getWorld().removeObject(this);
+            }
+            // Apply new image to this Actor
+            setImage (deathPics[deathAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            deathAnimationCounter--;
         }
     }
 
@@ -222,7 +247,7 @@ public class Knight extends Party
             if (attackThreeAnimationIndex == 3) {
                 setLocation(getX()-60, getY());
             }
-            
+
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackThreeAnimationCounter--;
@@ -258,6 +283,16 @@ public class Knight extends Party
         idleAnimationDelay = 10;
         idleAnimationCounter = idleAnimationDelay;
 
+        //death
+        deathPics = new GreenfootImage[6];
+        for (int i = 0; i < deathPics.length; i++) {
+            deathPics[i] = new GreenfootImage("KD" + (i+1) + ".png");
+            deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
+        }
+        deathAnimationIndex = 0;
+        deathAnimationDelay = 10;
+        deathAnimationCounter = deathAnimationDelay;
+
         //running
         runningPics = new GreenfootImage[7];
         for (int i = 0; i < runningPics.length; i++) {
@@ -267,7 +302,6 @@ public class Knight extends Party
         runningAnimationIndex = 0;
         runningAnimationDelay = 8;
         runningAnimationCounter = runningAnimationDelay;
-
 
         attackOnePics = new GreenfootImage[5];
         for (int i = 0; i < attackOnePics.length; i++) {

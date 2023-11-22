@@ -18,4 +18,6 @@ comment7.params=
 comment7.target=void\ running()
 comment8.params=
 comment8.target=void\ attackAnimation()
-numComments=9
+comment9.params=
+comment9.target=void\ death()
+numComments=10

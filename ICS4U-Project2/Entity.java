@@ -17,15 +17,20 @@ public abstract class Entity extends SuperSmoothMover
     protected int actionDelay;
     protected int actionCounter;
     private boolean canMove;
+    //arthurs convenience
+    protected boolean animationRunning;
+    protected boolean isDying;
+    protected boolean hpBarExists;
+    protected int yPos;
     /**
-    * Main Constructor for Entity Class
-    *
-    * @param hp entity's health
-    * @param spd entity's speed
-    * @param delay delay between actions
-    * @param dmg damage that entity does
-    * @param moveable can the entity move around
-    */
+     * Main Constructor for Entity Class
+     *
+     * @param hp entity's health
+     * @param spd entity's speed
+     * @param delay delay between actions
+     * @param dmg damage that entity does
+     * @param moveable can the entity move around
+     */
     public Entity(int hp, double spd, int delay, boolean movable)
     {
         maxHealth = hp;
@@ -35,26 +40,34 @@ public abstract class Entity extends SuperSmoothMover
         actionDelay = delay;
         actionCounter = actionDelay;
         canMove = movable;
+        isDying = false;
+        hpBarExists = true;
+        yPos = 0;
     }
+
+    public void act() {
+        if (!isDying) {
+            yPos = getY();
+        }
+    }
+
+    protected abstract void death();
+
     /**
-    * Take damage for entity
-    *
-    * @param dmg Amount of damage entity takes.
-    */
+     * Take damage for entity
+     *
+     * @param dmg Amount of damage entity takes.
+     */
     public void takeDamage(int dmg)
     {
         health -= dmg;
-        if (health <= 0)
-        {
-            getWorld().removeObject(this);
-            //dying animation
-        }
     }
+
     /**
-    * Heal damage for entity
-    *
-    * @param heal Amount of damage entity heals.
-    */
+     * Heal damage for entity
+     *
+     * @param heal Amount of damage entity heals.
+     */
     public void healDmg(int heal)
     {
         if (health + heal > maxHealth)
@@ -66,14 +79,15 @@ public abstract class Entity extends SuperSmoothMover
             health += heal;
         }
     }
+
     /**
-    * Check HP for Entity
-    *
-    * @return int
-    */
+     * Check HP for Entity
+     *
+     * @return int
+     */
     public int getHP()
     {
         return health;
     }
-    
+
 }

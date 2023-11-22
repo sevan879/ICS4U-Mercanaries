@@ -23,6 +23,11 @@ public class SkeletonSpear extends Enemy
     private int runningAnimationDelay;
     private int runningAnimationCounter;
 
+    private GreenfootImage[] deathPics;
+    private int deathAnimationIndex;
+    private int deathAnimationDelay;
+    private int deathAnimationCounter;
+
     private GreenfootImage[] attackOnePics;
     private int attackOneAnimationIndex;
     private int attackOneAnimationDelay;
@@ -106,6 +111,16 @@ public class SkeletonSpear extends Enemy
         runningAnimationDelay = 10;
         runningAnimationCounter = runningAnimationDelay;
 
+        //death
+        deathPics = new GreenfootImage[5];
+        for (int i = 0; i < deathPics.length; i++) {
+            deathPics[i] = new GreenfootImage("SSD" + (i+1) + ".png");
+            deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
+        }
+        deathAnimationIndex = 0;
+        deathAnimationDelay = 10;
+        deathAnimationCounter = deathAnimationDelay;
+
         //attack one
         attackOnePics = new GreenfootImage[4];
         for (int i = 0; i < attackOnePics.length; i++) {
@@ -183,6 +198,26 @@ public class SkeletonSpear extends Enemy
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackTwoAnimationCounter--;
+        }
+    }
+
+    public void death() {
+        isDying = true;
+        setLocation(getX(), yPos+25);
+        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
+            deathAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (deathAnimationIndex == deathPics.length){
+                getWorld().removeObject(this);
+                deathAnimationIndex = 0;
+            }
+            // Apply new image to this Actor
+            setImage (deathPics[deathAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            deathAnimationCounter--;
         }
     }
 
