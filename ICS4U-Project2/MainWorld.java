@@ -18,7 +18,7 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 3;
+    private int numOfKnights = 5;
     private int numOfMages = 0;
     private int numOfHealers = 0;
     private int spacingBetween = 75;
@@ -62,7 +62,6 @@ public class MainWorld extends World
         boss = new GreenfootSound("Boss.mp3");
         dank = new GreenfootSound("road0.mp3");
         dank.setVolume(40);
-        started();
     }
 
     //act method

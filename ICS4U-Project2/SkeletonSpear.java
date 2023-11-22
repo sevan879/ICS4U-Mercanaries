@@ -40,7 +40,6 @@ public class SkeletonSpear extends Enemy
     public void act()
     {
         super.act();
-
     }
 
     public SkeletonSpear(){
