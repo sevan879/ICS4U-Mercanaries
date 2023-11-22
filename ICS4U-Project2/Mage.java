@@ -76,4 +76,8 @@ public class Mage extends Party
     {
         
     }
+    
+    public void idle() {
+        
+    }
 }

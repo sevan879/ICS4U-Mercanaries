@@ -123,4 +123,8 @@ public class Healer extends Party
     {
         
     }
+    
+    public void idle() {
+        
+    }
 }

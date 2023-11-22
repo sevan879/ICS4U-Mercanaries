@@ -9,16 +9,16 @@ import java.util.*;
 public class MainWorld extends World
 {    
     private Background background;
-    private Knight k;
+    private int partyRunningSpeed;
     private boolean waveOver = false;
     private boolean waitForWaveToEnd;
     private int wave = 1;
     private int enemiesSpawned = 0;
-    
+
     private int worldYLevel = 605;
-    
+
     //Spawning Party Variables
-    private int numOfKnights = 10;
+    private int numOfKnights = 5;
     private int numOfMages = 0;
     private int numOfHealers = 0;
     private int spacingBetween = 60;
@@ -29,7 +29,7 @@ public class MainWorld extends World
     private int waveTwoEnemies = 10;
     private int waveThreeEnemies = 15;
     private int spawningXEnemy;
-    
+
     //Transition Variables
     private int transitionDelay = 300;
     private int transitionCounter = 0;
@@ -46,36 +46,58 @@ public class MainWorld extends World
         super(1068, 720, 1); 
         spawningXEnemy = getWidth();
         background = new Background();
-        k = new Knight();
-        
+
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
-        
+
         addObject(background, 1086, 360); //add background first, so its behind everything
-        
+
         waitForWaveToEnd = false;
-        
+
         spawnParty();
         //spawnEnemies();
-        
+
         forest = new GreenfootSound("Forest.mp3");
         boss = new GreenfootSound("Boss.mp3");
     }
-    
+
     //act method
     public void act() {
         if (partyIsRunning()) {
-            background.scrollBackground(k.getRunningSpeed());
+            int tempSpeed = 0;
+            for (Party member : partyMembersInWorld()) {
+                tempSpeed = member.getRunningSpeed();
+            }
+            background.scrollBackground(tempSpeed);
+            spawnWaves();
         }
-        
-        spawnWaves();
+        else { //at least one party member in combat!
+            for (Party member : partyMembersInWorld()) {
+                member.setRunningSpeed(0);
+                if (!member.isIdle()) {
+                    member.setIdle();
+                }
+            }
+        }
         checkGameOver();
     }
-    
-    //tells us if the party members are running or not, info used by background class
+
+    //tells us if the party members are running or not, if one member stops running, all members stop also
     public boolean partyIsRunning() {
-        return (k.runningSpeed != 0);
+        boolean continueRunning = true; //true by default
+        for (Party member : partyMembersInWorld()) {
+            if (member.getRunningSpeed() == 0) { //speed of running is 0, there is an enemy, stop all party members from running
+                continueRunning = false; //stop running!
+            }
+        }
+        return continueRunning;
     }
+
+    public ArrayList<Party> partyMembersInWorld() {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
+        return partyList;
+    }
+
     public void spawnParty(){
         for (int i = 0; i < numOfMages; i++)
         {
@@ -90,7 +112,7 @@ public class MainWorld extends World
             addObject(new Knight(), spawningXParty += spacingBetween, worldYLevel);
         }
     }
-    
+
     private void spawnWaves(){
         if (!waitForWaveToEnd)
         {
@@ -106,7 +128,7 @@ public class MainWorld extends World
                     return;
                 }
             }
-            
+
             if(!waveOver && wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     int enemyType = Greenfoot.getRandomNumber(4);
@@ -126,8 +148,7 @@ public class MainWorld extends World
                 }
             }
         }
-        
-        
+
         if(wave == 1){
             if(enemiesSpawned == 5){
                 waitForWaveToEnd = true;
@@ -172,9 +193,9 @@ public class MainWorld extends World
         }else if(wave == 4){
             //spawnboss
         }
-        
+
     }
-    
+
     private void partyRun()
     {
         ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
@@ -183,7 +204,7 @@ public class MainWorld extends World
             // make them run
         }
     }
-    
+
     private void partyIdle()
     {
         ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
@@ -192,7 +213,7 @@ public class MainWorld extends World
             // make them idle
         }
     }
-    
+
     private boolean checkWaveOver()
     {
         ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
@@ -205,16 +226,16 @@ public class MainWorld extends World
             return false;
         }
     }
-    
+
     private void checkGameOver()
     {
-        ArrayList<Party> playerList = (ArrayList<Party>) (getObjects(Party.class));
-        if (playerList.isEmpty())
+        ArrayList<Party> memberList = (ArrayList<Party>) (getObjects(Party.class));
+        if (memberList.isEmpty())
         {
             // Game Over stuff
         }
     }
-    
+
     public static double getDistance (Actor a, Actor b)
     {
         return Math.hypot (a.getX() - b.getX(), a.getY() - b.getY());
