@@ -63,19 +63,26 @@ public class MainWorld extends World
 
     //act method
     public void act() {
+        int tempSpeed = 0;
+        //actual stuff
         if (partyIsRunning()) {
-            int tempSpeed = 0;
-            for (Party member : partyMembersInWorld()) {
+            for (Party member : partyMembersInWorld()) { //set speed for scrolling background and scroll if party is running
                 tempSpeed = member.getRunningSpeed();
             }
             background.scrollBackground(tempSpeed);
-            spawnWaves();
+            spawnWaves(); //only spawn waves when party is running, meaning they cleared the previous wave
         }
         else { //at least one party member in combat!
-            for (Party member : partyMembersInWorld()) {
-                member.setRunningSpeed(0);
-                if (!member.isIdle()) {
-                    member.setIdle();
+            for (Party member : partyMembersInWorld()) { //get all party members in world
+                if (enemiesInWorld().size() != 0) { //there are enemies in the world
+                    member.setRunningSpeed(0); //make all party members stop running
+                    if (!member.isIdle()) { //member is not idle (animation)
+                        member.setIdle(); //make it idle if it is not in combat
+                    }
+                }
+                else { // no enemies in the world
+                    member.setRunningSpeed(member.getRunningSpeed());
+                    member.setInCombat(false);
                 }
             }
         }
@@ -96,6 +103,11 @@ public class MainWorld extends World
     public ArrayList<Party> partyMembersInWorld() {
         ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
         return partyList;
+    }
+
+    public ArrayList<Enemy> enemiesInWorld() {
+        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
+        return enemyList;
     }
 
     public void spawnParty(){

@@ -59,30 +59,39 @@ public abstract class Party extends Entity
 
     protected abstract void levelUpStats();
 
+    protected abstract void mainAnimation();
+
     public void act()
     {
         hpBar.update(health);
         passiveManaRegen();
-        if (actionCounter <= 0)
+        Enemy targetEnemy = detectEnemy();
+        if (targetEnemy != null) {
+            mainAnimation();
+        }
+        if (actionCounter <= 0) 
         {
-            Enemy targetEnemy = detectEnemy();
             if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
             {
-                actionCounter = actionDelay;
-                mainAction(targetEnemy);
                 runningSpeed = 0;
                 inCombat = true;
-
+                actionCounter = actionDelay;
+                mainAction(targetEnemy);
             }
-            else {
-                runningSpeed = (int) speed;
+            else { // no enemy detected by this party member
                 inCombat = false;
             }
-            if(!inCombat) { //code that determines whether or not the enemies have been slain, makes in combat false
-                //if (!idle) {
+            if (!inCombat) {
+                if (!idle) { //party members not idle, and not in combat, so run
                     runningSpeed = (int) speed;
                     running();
-                //}
+                }
+                else { //party member is idle and not in combat. run idle animation
+                    if (enemiesInWorld().size() == 0) {
+                        idle = false;
+                    }
+                    idle();
+                }
             }
         }
         else
@@ -93,12 +102,21 @@ public abstract class Party extends Entity
 
     public void setIdle() {
         if (!inCombat) {
-            idle();
             idle = true;
         }
         else {
             idle = false;
         }
+    }
+
+    public ArrayList<Party> partyMembersInWorld() {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
+        return partyList;
+    }
+
+    public ArrayList<Enemy> enemiesInWorld() {
+        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
+        return enemyList;
     }
 
     public boolean isIdle() {

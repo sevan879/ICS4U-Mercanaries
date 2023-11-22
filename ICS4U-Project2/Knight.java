@@ -68,28 +68,31 @@ public class Knight extends Party
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
         target.takeDamage(dealtDamage);
         //Make Enemy take damage
+    }
+    
+    protected void mainAnimation() {
         //put a boolean here about whether to attack or defend or whatever the fuck
-            if (attackTracker == 0) { //attack one
-                attackOne();
-                //stuff about dealing damage, whatever
-                if (!animationIsRunning()) {
-                    attackTracker = 1;
-                }
+        if (attackTracker == 0) { //attack one
+            attackOne();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 1;
             }
-            else if (attackTracker == 1) { //attack two
-                attackTwo();
-                //stuff about dealing damage, whatever
-                if (!animationIsRunning()) {
-                    attackTracker = 2;
-                }
+        }
+        else if (attackTracker == 1) { //attack two
+            attackTwo();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 2;
             }
-            else if (attackTracker == 2) { //attack three
-                attackThree();
-                //stuff about dealing damage, whatever, this one should deal the most since its the last attack
-                if (!animationIsRunning()) {
-                    attackTracker = 0;
-                }
+        }
+        else if (attackTracker == 2) { //attack three
+            attackThree();
+            //stuff about dealing damage, whatever, this one should deal the most since its the last attack
+            if (!animationIsRunning()) {
+                attackTracker = 0;
             }
+        }
     }
 
     public Knight() {
@@ -104,11 +107,11 @@ public class Knight extends Party
         for(int i = 0; i < knightSlash.length; i++){
             knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
         }
-        
+
         //visuals/animation
         animationConstructor();
         setImage(idlePics[1]);
-        
+
     }
 
     /**

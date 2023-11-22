@@ -65,6 +65,10 @@ public class Healer extends Party
         }
     }
     
+    protected void mainAnimation() {
+        
+    }
+    
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;
