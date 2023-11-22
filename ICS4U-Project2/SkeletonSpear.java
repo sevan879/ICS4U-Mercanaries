@@ -33,11 +33,6 @@ public class SkeletonSpear extends Enemy
     private int attackTwoAnimationDelay;
     private int attackTwoAnimationCounter;
 
-    private GreenfootImage[] runningAttackPics;
-    private int runningAttackAnimationIndex;
-    private int runningAttackAnimationDelay;
-    private int runningAttackAnimationCounter;
-
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -57,26 +52,26 @@ public class SkeletonSpear extends Enemy
         mainAttack();
     }
 
+    public void attackAnimation() {
+        if (attackTracker == 0) { //attack one
+            attackOne();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 1;
+            }
+        }
+        else if (attackTracker == 1) { //attack two
+            attackTwo();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 0;
+            }
+        }
+    }
+
     private void mainAttack(){
-        System.out.println("skeleton spear attacked");
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
-                if (attackTracker == 0) { //attack one
-                    System.out.println("SSATK1");
-                    attackOne();
-                    //stuff about dealing damage, whatever
-                    if (!animationIsRunning()) {
-                        attackTracker = 1;
-                    }
-                }
-                else if (attackTracker == 1) { //attack two
-                    System.out.println("SSATK2");
-                    attackTwo();
-                    //stuff about dealing damage, whatever
-                    if (!animationIsRunning()) {
-                        attackTracker = 0;
-                    }
-                }
                 p.takeDamage(DAMAGE);
             }
         }
@@ -84,11 +79,6 @@ public class SkeletonSpear extends Enemy
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
-            }
-            runningAttack();
-            //stuff about dealing damage, whatever
-            if (!animationIsRunning()) {
-                attackTracker = 1;
             }
         }
     }
@@ -136,16 +126,6 @@ public class SkeletonSpear extends Enemy
         attackTwoAnimationIndex = 0;
         attackTwoAnimationDelay = 10;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
-
-        //running attack
-        runningAttackPics = new GreenfootImage[5];
-        for (int i = 0; i < runningAttackPics.length; i++) {
-            runningAttackPics[i] = new GreenfootImage("SSRA" + (i+1) + ".png");
-            runningAttackPics[i].scale(runningAttackPics[i].getWidth()*2, runningAttackPics[i].getHeight()*2);
-        }
-        runningAttackAnimationIndex = 0;
-        runningAttackAnimationDelay = 10;
-        runningAttackAnimationCounter = runningAttackAnimationDelay;
     }
 
     public void running() {
@@ -204,27 +184,6 @@ public class SkeletonSpear extends Enemy
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackTwoAnimationCounter--;
-        }
-    }
-
-    public void runningAttack() {
-        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
-            animationTracker++;
-        }
-        if (runningAttackAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            runningAttackAnimationCounter = runningAttackAnimationDelay; // reset counter to max 
-            runningAttackAnimationIndex++; // this will be used to set the image to the next frame
-
-            // If the image index has passed the last image, stop animation
-            if (runningAttackAnimationIndex == runningAttackPics.length){
-                runningAttackAnimationIndex = 0;
-                animationTracker++;
-            }
-            // Apply new image to this Actor
-            setImage (runningAttackPics[attackOneAnimationIndex]);
-        } else {// not ready to animate yet, still waiting
-            // so just decrement the counter          
-            runningAttackAnimationCounter--;
         }
     }
 

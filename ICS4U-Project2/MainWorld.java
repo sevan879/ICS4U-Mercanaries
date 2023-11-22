@@ -18,10 +18,10 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 5;
+    private int numOfKnights = 3;
     private int numOfMages = 0;
     private int numOfHealers = 0;
-    private int spacingBetween = 60;
+    private int spacingBetween = 75;
     private int spawningXParty = 50;
 
     //Spawning Enemies Variables
@@ -38,6 +38,7 @@ public class MainWorld extends World
     private int worldLvl;
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
+    private GreenfootSound dank;
 
     //constructor
     public MainWorld()
@@ -59,6 +60,9 @@ public class MainWorld extends World
 
         forest = new GreenfootSound("Forest.mp3");
         boss = new GreenfootSound("Boss.mp3");
+        dank = new GreenfootSound("road0.mp3");
+        dank.setVolume(40);
+        started();
     }
 
     //act method
@@ -255,7 +259,7 @@ public class MainWorld extends World
     //to start playing the music when pressed run
     public void started(){
         if(worldLvl == 1){
-            forest.playLoop();
+            dank.playLoop();
         }
         //if(worldLvl == 2){
         //    ____.playLoop(); // will find music for this

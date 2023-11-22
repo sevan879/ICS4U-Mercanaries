@@ -65,6 +65,10 @@ public class SkeletonWarrior extends Enemy
         // does nothing for now
     }
     
+    public void attackAnimation() {
+        
+    }
+    
     protected void pickUp() {
         movable = false;
     }

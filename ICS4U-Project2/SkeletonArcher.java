@@ -58,6 +58,8 @@ public class SkeletonArcher extends Enemy
         
     }
     
-    
+    public void attackAnimation() {
+        
+    }
     
 }

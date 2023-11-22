@@ -64,10 +64,11 @@ public class Flying extends Enemy
         //flying animations
     }
     
-    public void running() {
+    public void running() { //or flying, i guess...
         
     }
     
-    
-    
+    public void attackAnimation() {
+        
+    } 
 }

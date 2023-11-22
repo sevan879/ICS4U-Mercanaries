@@ -22,11 +22,6 @@ public class Knight extends Party
     private int runningAnimationDelay;
     private int runningAnimationCounter;
 
-    private GreenfootImage[] runningAttackPics;
-    private int runningAttackAnimationIndex;
-    private int runningAttackAnimationDelay;
-    private int runningAttackAnimationCounter;
-
     private GreenfootImage[] attackOnePics;
     private int attackOneAnimationIndex;
     private int attackOneAnimationDelay;
@@ -71,7 +66,6 @@ public class Knight extends Party
     }
     
     protected void mainAnimation() {
-        //put a boolean here about whether to attack or defend or whatever the fuck
         if (attackTracker == 0) { //attack one
             attackOne();
             //stuff about dealing damage, whatever
@@ -111,7 +105,6 @@ public class Knight extends Party
         //visuals/animation
         animationConstructor();
         setImage(idlePics[1]);
-
     }
 
     /**
@@ -121,6 +114,7 @@ public class Knight extends Party
     public void act()
     {
         super.act();
+        
     }
 
     //ANIMATION
@@ -161,27 +155,6 @@ public class Knight extends Party
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             runningAnimationCounter--;
-        }
-    }
-
-    public void runningAttack() {
-        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
-            animationTracker++;
-        }
-        if (runningAttackAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            runningAttackAnimationCounter = runningAttackAnimationDelay; // reset counter to max 
-            runningAttackAnimationIndex++; // this will be used to set the image to the next frame
-
-            // If the image index has passed the last image, stop animation
-            if (runningAttackAnimationIndex == runningAttackPics.length){
-                runningAttackAnimationIndex = 0;
-                animationTracker++;
-            }
-            // Apply new image to this Actor
-            setImage (runningAttackPics[attackOneAnimationIndex]);
-        } else {// not ready to animate yet, still waiting
-            // so just decrement the counter          
-            runningAttackAnimationCounter--;
         }
     }
 
@@ -242,6 +215,14 @@ public class Knight extends Party
             }
             // Apply new image to this Actor
             setImage (attackThreePics[attackThreeAnimationIndex]);
+            if (attackThreeAnimationIndex == 2) {
+                setLocation(getX()+60, getY());
+                attackThreeAnimationCounter = 10;
+            }
+            if (attackThreeAnimationIndex == 3) {
+                setLocation(getX()-60, getY());
+            }
+            
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackThreeAnimationCounter--;
@@ -284,18 +265,9 @@ public class Knight extends Party
             runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
         }
         runningAnimationIndex = 0;
-        runningAnimationDelay = 10;
+        runningAnimationDelay = 8;
         runningAnimationCounter = runningAnimationDelay;
 
-        //running attack
-        runningAttackPics = new GreenfootImage[6];
-        for (int i = 0; i < runningAttackPics.length; i++) {
-            runningAttackPics[i] = new GreenfootImage("KRA" + (i+1) + ".png");
-            runningAttackPics[i].scale(runningAttackPics[i].getWidth()*2, runningAttackPics[i].getHeight()*2);
-        }
-        runningAttackAnimationIndex = 0;
-        runningAttackAnimationDelay = 10;
-        runningAttackAnimationCounter = runningAttackAnimationDelay;
 
         attackOnePics = new GreenfootImage[5];
         for (int i = 0; i < attackOnePics.length; i++) {
@@ -303,7 +275,7 @@ public class Knight extends Party
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
         attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 10;
+        attackOneAnimationDelay = 8;
         attackOneAnimationCounter = attackOneAnimationDelay;
 
         attackTwoPics = new GreenfootImage[4];
@@ -312,7 +284,7 @@ public class Knight extends Party
             attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
         }
         attackTwoAnimationIndex = 0;
-        attackTwoAnimationDelay = 10;
+        attackTwoAnimationDelay = 8;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
 
         attackThreePics = new GreenfootImage[4];
@@ -321,7 +293,7 @@ public class Knight extends Party
             attackThreePics[i].scale(attackThreePics[i].getWidth()*2, attackThreePics[i].getHeight()*2);
         }
         attackThreeAnimationIndex = 0;
-        attackThreeAnimationDelay = 10;
+        attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
 }

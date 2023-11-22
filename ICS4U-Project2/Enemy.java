@@ -11,9 +11,9 @@ import java.util.List;
 public abstract class Enemy extends Entity
 {
     protected int attackRange;
-    
+
     private SuperStatBar hpBar;
-    
+
     /**
      * Main constructor for Enemy class
      * 
@@ -24,13 +24,13 @@ public abstract class Enemy extends Entity
      * @param movable can the enemy move around
      * @param attackRange enemie's attack range
      */
-    
+
     public Enemy(int hp, double spd, int delay, int dmg, boolean movable, int attackRange)
     {
         super(hp, spd, delay, true);
         this.attackRange = attackRange;
     }
-    
+
     /**
      * Act - do whatever the Enemy wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -42,7 +42,6 @@ public abstract class Enemy extends Entity
         attack();
         // Add your action code here.
     }
-    
 
     public void move(){
         //if no player is detected within attack range, move 
@@ -52,27 +51,25 @@ public abstract class Enemy extends Entity
             running();
         }
     }
-    
 
     protected abstract void action(Party targetPlayer);
     protected abstract void running();
-    
+    protected abstract void attackAnimation();
     public void attack(){
         if(targetPlayer() != null){
             Party targetPlayer = targetPlayer();
             if(actionCounter == 0){
-                
+
                 action(targetPlayer);
-                
+
                 actionCounter = actionDelay;
             } else{
                 actionCounter--;
             }
- 
+            attackAnimation();
         }
-
     }
-    
+
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 40, 5, 60, Color.YELLOW, Color.RED, true);
@@ -88,14 +85,7 @@ public abstract class Enemy extends Entity
 
         return null;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
