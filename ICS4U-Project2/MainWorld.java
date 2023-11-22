@@ -60,6 +60,7 @@ public class MainWorld extends World
         
         forest = new GreenfootSound("Forest.mp3");
         boss = new GreenfootSound("Boss.mp3");
+        
     }
     
     //act method
@@ -209,9 +210,12 @@ public class MainWorld extends World
     private void checkGameOver()
     {
         ArrayList<Party> playerList = (ArrayList<Party>) (getObjects(Party.class));
+        
+        GameOver g = new GameOver();
         if (playerList.isEmpty())
         {
             // Game Over stuff
+            Greenfoot.setWorld(g);
         }
     }
     
