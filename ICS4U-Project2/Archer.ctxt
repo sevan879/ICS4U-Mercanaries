@@ -11,5 +11,5 @@ comment3.target=void\ action(Party)
 comment4.params=
 comment4.target=void\ repelOtherEnemies()
 comment5.params=
-comment5.target=Party\ targetPastTanks()
+comment5.target=Party\ getTarget()
 numComments=6

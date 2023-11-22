@@ -26,7 +26,7 @@ public class MyWorld extends World
         k = new Knight();
         
         addObject(b, 543, 180); //add background first, so its behind everything
-        addObject(k, 200, 305);
+        //addObject(k, 200, 305);
         
     }
     

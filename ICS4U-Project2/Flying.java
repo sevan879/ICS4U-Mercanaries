@@ -84,7 +84,10 @@ public class Flying extends Enemy
                 flyBack();
             }else{
                 Sword carrying = (Sword) getOneIntersectingObject(Sword.class);
-                carrying.fall();
+                if(carrying != null){
+                    carrying.fall();
+                }
+                
                 pickedUpEnemy = false;
             }
             

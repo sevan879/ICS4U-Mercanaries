@@ -53,7 +53,10 @@ public class Sword extends Enemy
     public void pickUp(){
         movable = false;
         isPickedUp = true;
-        setLocation(carrier.getX(), carrier.getY() - 15);
+        if(getCarrier() != null){
+            setLocation(carrier.getX(), carrier.getY() - 15);
+        }
+        
     }
     
     public void fall(){

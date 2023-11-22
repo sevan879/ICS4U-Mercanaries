@@ -8,10 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Arrow extends Projectiles
 {
-    private static final int speed = 2;
+    private static final int speed = 5;
     private static final int direction = -1;
     private static final int maxHeight = 200;
-    public Arrow(){
+    public Arrow(int speed, int direction, int maxHeight){
         super(speed, direction, maxHeight);
     }
     
@@ -26,10 +26,11 @@ public class Arrow extends Projectiles
     }
     
     public void checkHitParty(){
-      Actor enemy = getOneIntersectingObject(Enemy.class);
-      if (enemy != null) {
-          if (enemy instanceof Enemy) {
-              ((Enemy) enemy).takeDamage(3);
+      Actor party = getOneIntersectingObject(Party.class);
+      if (party != null) {
+          if (party instanceof Party) {
+              System.out.println("hit");
+              ((Party) party).takeDamage(3);
               getWorld().removeObject(this);  // Remove the arrow after hitting an enemy
           }
       }

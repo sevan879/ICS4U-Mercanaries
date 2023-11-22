@@ -11,7 +11,7 @@ import java.util.List;
 public class Archer extends Enemy
 {
     private static final int HP = 2;
-    private static final double SPEED = 3;
+    private static final double SPEED = 1;
     private static final int DELAY = 25;
     private static final int DAMAGE = 3;
     private static final int ATTACK_RANGE = 200;
@@ -26,7 +26,7 @@ public class Archer extends Enemy
     {
         
         move();
-        action(targetPastTanks());
+        action(getTarget());
         
     }
     
@@ -36,8 +36,8 @@ public class Archer extends Enemy
     }
     
     protected void action(Party targetPlayer){
-        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
-        getWorld().addObject(new Arrow(), getX(), getY());
+        
+        getWorld().addObject(new Arrow(5, -1, 200), getX(), getY());
         
         //attack animations
     }
@@ -50,6 +50,19 @@ public class Archer extends Enemy
         movable = true;
     }
     
+    public Party getTarget(){
+        List<Party> players = getObjectsInRange(attackRange, Party.class);
+        
+        if(!players.isEmpty()){
+            int randomIndex = Greenfoot.getRandomNumber(players.size());
+            return players.get(randomIndex);
+        }
+        return null;
+    }
+    
+    
+    
+    /*
     public Party targetPastTanks(){
         List<Party> players = getObjectsInRange(attackRange, Party.class);
 
@@ -63,6 +76,7 @@ public class Archer extends Enemy
         return null;
         
     }
+    */
     
     
     

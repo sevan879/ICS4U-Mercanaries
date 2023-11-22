@@ -31,9 +31,9 @@ public abstract class Projectiles extends Actor
     public void moveInArc(){
       
       if(!reachedMaxHeight){
-          setLocation(getX() + speed, getY() - speed);
+          setLocation(getX() + speed * direction, getY() - speed);
       }else{
-          setLocation(getX() + speed, getY() + speed);
+          setLocation(getX() + speed * direction, getY() + speed);
       }
       
       if(getY() <= maxHeight){
@@ -41,7 +41,7 @@ public abstract class Projectiles extends Actor
       } 
     }
     
-    //protected abstract void move();
+    
         
     
 }
