@@ -11,7 +11,7 @@ public class Healer extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 4;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 150; // amount of acts
+    private static final int ACTION_DELAY = 30; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 160;
     private static final int MAX_MANA = 100;
@@ -26,7 +26,7 @@ public class Healer extends Party
     
     private int spellLevel = 0;
     
-    private int damage = 10; // damage to heal
+    private int damage = 25; // damage to heal
     
     private int smallSpellMana; // mana for small heal
     private int bigSpellMana; // mana for big heal
@@ -49,12 +49,13 @@ public class Healer extends Party
     
     public void act()
     {
-        super.act();
+        super.act(true);
     }
     
     protected void mainAction(Enemy target)
     {
         Party healTarget = findHealTarget();
+        //System.out.println(healTarget);
         if (healTarget != null)
         {
             if (Greenfoot.getRandomNumber(6) == 0)
@@ -83,18 +84,21 @@ public class Healer extends Party
     private void smallHeal(Party healTarget)
     {
         
-        spendMana(smallSpellMana);
-        healTarget.healDmg(damage);
-        
+        if (spendMana(smallSpellMana))
+        {
+            healTarget.healDmg(damage);
+        }
     }
     
     private void bigHeal()
     {
-        spendMana(bigSpellMana);
-        ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
-        for (Party p : pList)
+        if (spendMana(bigSpellMana))
         {
-            p.healDmg(damage);
+            ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
+            for (Party p : pList)
+            {
+                p.healDmg(damage);
+            }
         }
     }
     
@@ -103,6 +107,19 @@ public class Healer extends Party
         ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
         
         Party target = null;
+        boolean partyIsFullHP = true;
+        for (Party p : pList)
+        {
+            if (!p.checkFullHP())
+            {
+                partyIsFullHP = false;
+            }
+        }
+        if (partyIsFullHP)
+        {
+            return target;
+        }
+        
         
         for (Party p : pList)
         {
@@ -112,7 +129,7 @@ public class Healer extends Party
             }
             else
             {
-                if (p.getHP() < target.getHP())
+                if (p.getHP()/p.getMaxHP() < target.getHP()/target.getMaxHP())
                 {
                     target = p;
                 }

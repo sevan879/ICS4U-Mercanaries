@@ -130,7 +130,7 @@ public class MainWorld extends World
         
         
         if(wave == 1){
-            if(enemiesSpawned == 5){
+            if(enemiesSpawned == 50){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {

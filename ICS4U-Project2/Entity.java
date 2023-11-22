@@ -76,4 +76,31 @@ public abstract class Entity extends SuperSmoothMover
         return health;
     }
     
+    /**
+    * Check Max HP for Entity
+    *
+    * @return int
+    */
+    public int getMaxHP()
+    {
+        return maxHealth;
+    }
+    
+    
+    /**
+    * Check if Entity is at Max HP
+    *
+    * @return boolean
+    */
+    public boolean checkFullHP()
+    {
+        if (health - maxHealth != 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }

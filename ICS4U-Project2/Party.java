@@ -22,7 +22,7 @@ public abstract class Party extends Entity
     protected boolean inCombat;
 
     private int manaRegenCounter;
-    private static final int MANA_REGEN_DELAY = 15;
+    private static final int MANA_REGEN_DELAY = 30;
     
     private SuperStatBar hpBar;
     private SuperStatBar manaBar;
@@ -67,6 +67,7 @@ public abstract class Party extends Entity
         hpBar.update(health);
         if (usesMana)
         {
+            System.out.println(mana);
             manaBar.update(mana);
         }
         passiveManaRegen();
@@ -98,9 +99,31 @@ public abstract class Party extends Entity
         }
     }
     
+    public void act(boolean isSupport)
+    {
+        hpBar.update(health);
+        if (usesMana)
+        {
+            System.out.println(mana);
+            manaBar.update(mana);
+        }
+        passiveManaRegen();
+        
+        if (actionCounter <= 0)
+        {
+            mainAction(null);
+            actionCounter = actionDelay;
+            Enemy targetEnemy = detectEnemy();
+        }
+        else
+        {
+            actionCounter--;
+        }
+    }
+    
     public void addedToWorld(World w)
     {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, true);
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, false);
         getWorld().addObject(hpBar, 0, 0);
         
         if (usesMana)
@@ -152,16 +175,15 @@ public abstract class Party extends Entity
         
         for (Enemy e : targetList)
         {
-                double distanceFromE = Math.hypot(getX() - e.getX(), getY() - e.getY());
-                if (distanceFromE <= attackRange)
+            double distanceFromE = Math.hypot(getX() - e.getX(), getY() - e.getY());
+            if (distanceFromE <= attackRange)
+            {
+                if (target == null)
                 {
-                    if (target == null)
-                    {
-                        target = e;
-                    }
-                    else
-                    {
-                        
+                    target = e;
+                }
+                else
+                {  
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
                     if (distanceFromE < distanceFromTarget)
                     {
@@ -182,7 +204,7 @@ public abstract class Party extends Entity
     */
     public boolean spendMana(int cost)
     {
-        if (maxMana - mana < 0)
+        if (mana - cost < 0)
         {
             return false;
         }
@@ -195,7 +217,7 @@ public abstract class Party extends Entity
     
     private void passiveManaRegen()
     {
-        if (manaRegenCounter <= 0 || mana > maxMana)
+        if (manaRegenCounter <= 0 && mana < maxMana)
         {
             manaRegenCounter = MANA_REGEN_DELAY;
             mana ++;
