@@ -19,7 +19,7 @@ public class speakKnight extends SuperSmoothMover
     }
     public speakKnight(){
         k = new GreenfootImage("KA14.png");
-        int percent = 300; // for 50% larger image
+        int percent = 300; 
         k.scale(k.getWidth()*percent/100, k.getHeight()*percent/100);
         setImage(k);
         

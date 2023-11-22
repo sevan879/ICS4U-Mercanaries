@@ -10,7 +10,7 @@ public class Backstory extends World
 {
     private GreenfootImage background;
     private speakKnight k;
-    private speakWolf w;
+    private speakCohen c;
     private SuperTextBox p1;
     private String [] sentence1;
     private SuperTextBox p2;
@@ -21,10 +21,13 @@ public class Backstory extends World
     private String [] sentence4;
     private SuperTextBox p5;
     private String [] sentence5;
+    private Button b;
     
     
     private Font f;
     private int p;
+    private int counter;
+    private TitleScreen w;
     
     //add background music too
     
@@ -35,14 +38,17 @@ public class Backstory extends World
         background = new GreenfootImage("BackstoryBackground.png");
         setBackground(background);
         k = new speakKnight();
-        w = new speakWolf();
+        c = new speakCohen();
         addObject(k, 200,400);
-        addObject(w, 900, 300);
+        addObject(c, 900, 400);
         f = new Font ("Comic Sans MS", false, false, 16);
         p = 1;
+        counter = 0;
+        w = new TitleScreen();
+        b = new Button(3);
     
         sentence1 = new String[4];
-        sentence1[0] = "Sir Wolf, there appears to be another death";
+        sentence1[0] = "Sir Cohen, there appears to be another death";
         sentence1[1] = "in our village! It seems like this viral";
         sentence1[2] = "disease you have been speculating about";
         sentence1[3] = "is true. What do we do wolf?!";
@@ -50,7 +56,7 @@ public class Backstory extends World
         
         sentence2 = new String[1];
         sentence2[0] = "That is terrible. Hmmm...what should we do?";
-        p2 = new SuperTextBox(sentence2, Color.WHITE, Color.BLACK, f, false, 350,  10, Color.BLACK);
+        p2 = new SuperTextBox(sentence2, Color.WHITE, Color.BLACK, f, false, 375,  10, Color.BLACK);
         
         sentence3 = new String[3];
         sentence3[0] = "Lots of civilians’ health have not only";
@@ -66,12 +72,16 @@ public class Backstory extends World
         
         sentence5 = new String[1];
         sentence5[0] = "aighbet.";
-        p5 = new SuperTextBox(sentence5, Color.WHITE, Color.BLACK, f, false, 375,  10, Color.BLACK);
+        p5 = new SuperTextBox(sentence5, Color.WHITE, Color.BLACK, f, false, 150,  10, Color.BLACK);
         
         
     }
     public void act(){
-        conversation();
+        if(counter == 5){
+            conversation();
+            counter = 0;
+        }
+        counter++;
     }
     public void conversation(){
         if(Greenfoot.isKeyDown("space")){
@@ -80,29 +90,33 @@ public class Backstory extends World
                 p++;
                 
             }
-            if(p == 2){
+            else if(p == 2){
                 removeObject(p1);
-                addObject(p2, 600, 225);
+                c.cohenSmile();
+                addObject(p2, 750, 250);
                 p++;
             }
-            if(p == 3){
+            else if(p == 3){
                 removeObject(p2);
+                c.cohenRest();
                 addObject(p3, 300, 225);
                 p++;
             }
-            if(p == 2){
+            else if(p == 4){
                 removeObject(p3);
-                addObject(p4, 600, 225);
+                c.cohenYell();
+                addObject(p4, 750, 250);
                 p++;
             }
-            if(p == 5){
+            else if(p == 5){
                 removeObject(p4);
+                c.cohenSmile();
                 addObject(p5, 300, 225);
                 p++;
             }
-            //if(p == 6){
-                //button to main screen appears??
-            //}
+            else if(p == 6){
+                addObject(new Button(3), 534, 640);
+            }
         }
     }
 }
