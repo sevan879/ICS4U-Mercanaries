@@ -25,5 +25,16 @@ public class Arrow extends Projectiles
         super.act();
     }
     
+    public void checkHitParty(){
+      Actor enemy = getOneIntersectingObject(Enemy.class);
+      if (enemy != null) {
+          if (enemy instanceof Enemy) {
+              ((Enemy) enemy).takeDamage(3);
+              getWorld().removeObject(this);  // Remove the arrow after hitting an enemy
+          }
+      }
+      
+    }
+    
     
 }

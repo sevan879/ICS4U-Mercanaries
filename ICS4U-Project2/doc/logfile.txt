@@ -20,17 +20,16 @@ javadoc
 windows-1252
 -charset
 windows-1252
-/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Spear.java
+/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Arrow.java
 <---- end of javadoc command ---->
-Loading source file /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Spear.java...
+Loading source file /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Arrow.java...
 Constructing Javadoc information...
-/Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/Enemy.java:54: error: cannot find symbol
-    private Player targetPlayer() {
-            ^
-  symbol:   class Player
-  location: class Enemy
 warning: unknown enum constant Tag.Any
   reason: class file for threadchecker.Tag not found
 warning: unknown enum constant Tag.Any
-1 error
+Standard Doclet version 17.0.4.1+1
+Building tree for all the packages and classes...
+Generating /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/Arrow.html...
+Generating /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/package-summary.html...
+Generating /Users/kennethjin/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/index.html...
 2 warnings
