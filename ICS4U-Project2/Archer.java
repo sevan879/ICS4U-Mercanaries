@@ -43,10 +43,9 @@ public class Archer extends Enemy
                 delay = DELAY;
             }else{
                 delay--;
-        }
+            }
         
-        
-        //attack animations
+       
         }
         
         
