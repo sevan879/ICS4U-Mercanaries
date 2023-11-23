@@ -145,9 +145,9 @@ public class MainWorld extends World
                 }
             }
 
-            if(!waveOver && wave != 4){
+            if(!waveOver && wave != 5){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                    int enemyType = Greenfoot.getRandomNumber(4);
+                    int enemyType = Greenfoot.getRandomNumber(5);
                     if(enemyType == 0){
                         //addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
                         //enemiesSpawned++;
@@ -159,6 +159,9 @@ public class MainWorld extends World
                         enemiesSpawned++;
                     } else if(enemyType == 3){
                         //addObject(new Flying(), 0, 0); //ylocation should be higher
+                        //enemiesSpawned++;
+                    } else if(enemyType == 4){
+                        //addObject(new Wolf(), 0,0); 
                         //enemiesSpawned++;
                     }
                 }

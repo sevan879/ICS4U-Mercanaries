@@ -224,9 +224,9 @@ public class Wolf extends Enemy
         animationTracker = 0;
         attackTracker = 0;
         //death
-        deathPics = new GreenfootImage[4];
+        deathPics = new GreenfootImage[2];
         for (int i = 0; i < deathPics.length; i++) {
-            deathPics[i] = new GreenfootImage("SWD" + (i+1) + ".png");
+            deathPics[i] = new GreenfootImage("W1" + (i+1) + ".png");
             deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
         }
         deathAnimationIndex = 0;
@@ -234,36 +234,36 @@ public class Wolf extends Enemy
         deathAnimationCounter = deathAnimationDelay;
 
         //running
-        runningPics = new GreenfootImage[8];
+        runningPics = new GreenfootImage[9];
         for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("SWR" + (i+1) + ".png");
+            runningPics[i] = new GreenfootImage("W0" + (i) + ".png");
             runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
         }
         runningAnimationIndex = 0;
         runningAnimationDelay = 8;
         runningAnimationCounter = runningAnimationDelay;
 
-        attackOnePics = new GreenfootImage[5];
+        attackOnePics = new GreenfootImage[6];
         for (int i = 0; i < attackOnePics.length; i++) {
-            attackOnePics[i] = new GreenfootImage("SWA1" + (i+1) + ".png");
+            attackOnePics[i] = new GreenfootImage("WA" + (i+1) + ".png");
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
         attackOneAnimationIndex = 0;
         attackOneAnimationDelay = 8;
         attackOneAnimationCounter = attackOneAnimationDelay;
 
-        attackTwoPics = new GreenfootImage[6];
+        attackTwoPics = new GreenfootImage[4];
         for (int i = 0; i < attackTwoPics.length; i++) {
-            attackTwoPics[i] = new GreenfootImage("SWA2" + (i+1) + ".png");
+            attackTwoPics[i] = new GreenfootImage("WAA" + (i+1) + ".png");
             attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
         }
         attackTwoAnimationIndex = 0;
         attackTwoAnimationDelay = 8;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
 
-        attackThreePics = new GreenfootImage[4];
+        attackThreePics = new GreenfootImage[5];
         for (int i = 0; i < attackThreePics.length; i++) {
-            attackThreePics[i] = new GreenfootImage("SWA3" + (i+1) + ".png");
+            attackThreePics[i] = new GreenfootImage("WAAA" + (i+1) + ".png");
             attackThreePics[i].scale(attackThreePics[i].getWidth()*2, attackThreePics[i].getHeight()*2);
         }
         attackThreeAnimationIndex = 0;

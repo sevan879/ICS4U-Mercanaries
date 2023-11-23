@@ -54,7 +54,7 @@ public class Backstory extends World
         sentence1[0] = "Sir Cohen, there appears to be another death";
         sentence1[1] = "in our village! It seems like this viral";
         sentence1[2] = "disease you have been speculating about";
-        sentence1[3] = "is true. What do we do wolf?!";
+        sentence1[3] = "is true. What do we do?!";
         p1 = new SuperTextBox(sentence1, Color.WHITE, Color.BLACK, f, false, 375,  10, Color.BLACK);
         
         sentence2 = new String[1];
@@ -69,7 +69,7 @@ public class Backstory extends World
         
         sentence4 = new String[3];
         sentence4[0] = "Okay, so I will send you along with some other";
-        sentence4[1] = "mercenaries. I will send mages and Healers to";
+        sentence4[1] = "mercenaries. I will send mages and healers to";
         sentence4[2] = "support your quest. We will start right away!";
         p4 = new SuperTextBox(sentence4, Color.WHITE, Color.BLACK, f, false, 400,  10, Color.BLACK);
         
