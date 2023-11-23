@@ -39,7 +39,7 @@ public class Archer extends Enemy
     protected void action(Party targetPlayer){
         if(getTarget() != null){
             if(delay == 0){
-                getWorld().addObject(new Arrow(5, -1, 200), getX(), getY());
+                getWorld().addObject(new Arrow(), getX(), getY());
                 delay = DELAY;
             }else{
                 delay--;

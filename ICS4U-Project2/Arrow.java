@@ -8,11 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Arrow extends Projectiles
 {
-    private static final int speed = 5;
+    private static final int speed = 6;
     private static final int direction = -1;
     private static final int maxHeight = 200;
-    public Arrow(int speed, int direction, int maxHeight){
-        super(speed, direction, maxHeight);
+    private static final double yVelocity = 6;
+    public Arrow(){
+        super(speed, direction, maxHeight, yVelocity);
     }
     
     /**

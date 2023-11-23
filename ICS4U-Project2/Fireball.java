@@ -9,12 +9,13 @@ import java.util.List;
  */
 public class Fireball extends Projectiles
 {
-  private static final int speed = 3;
+  private static final int speed = 4;
   private static final int direction = 1;
   private static final int maxHeight = 200;
+  private static final double yVelocity = 8;
   private static final int range = 30;
   public Fireball(){
-    super(speed, direction, maxHeight);
+    super(speed, direction, maxHeight, yVelocity);
      
   }
     
