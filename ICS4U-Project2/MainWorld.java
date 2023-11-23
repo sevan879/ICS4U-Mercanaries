@@ -148,14 +148,14 @@ public class MainWorld extends World
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     int enemyType = Greenfoot.getRandomNumber(4);
                     if(enemyType == 0){
-                        addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
-                        enemiesSpawned++;
+                        //addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                        //enemiesSpawned++;
                     } else if(enemyType == 1){
                         //addObject(new Archer(), 0, 0); // modify placement after
                         //enemiesSpawned++;
                     } else if(enemyType == 2){
-                        //addObject(new Sword(), 0, 0); // modify placement after
-                        //enemiesSpawned++;
+                        addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
+                        enemiesSpawned++;
                     } else if(enemyType == 3){
                         //addObject(new Flying(), 0, 0); //ylocation should be higher
                         //enemiesSpawned++;

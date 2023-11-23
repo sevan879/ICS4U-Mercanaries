@@ -21,7 +21,8 @@ public abstract class Entity extends SuperSmoothMover
     protected boolean animationRunning;
     protected boolean isDying;
     protected boolean hpBarExists;
-    protected int yPos;
+    protected int animationTracker; // odd = running, even = not running
+    protected int attackTracker; // 0, 1, 2 to decide which attack animation to use
     /**
      * Main Constructor for Entity Class
      *
@@ -42,13 +43,6 @@ public abstract class Entity extends SuperSmoothMover
         canMove = movable;
         isDying = false;
         hpBarExists = true;
-        yPos = 0;
-    }
-
-    public void act() {
-        if (!isDying) {
-            yPos = getY();
-        }
     }
 
     protected abstract void death();
@@ -61,6 +55,10 @@ public abstract class Entity extends SuperSmoothMover
     public void takeDamage(int dmg)
     {
         health -= dmg;
+    }
+
+    protected boolean animationIsRunning() {
+        return animationTracker %2 == 1; //this means that the animation is running, 
     }
 
     /**

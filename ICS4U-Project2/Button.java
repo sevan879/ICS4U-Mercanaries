@@ -13,6 +13,7 @@ public class Button extends Actor
     private MainWorld m;
     private Backstory b;
     private Settings s;
+    private GreenfootImage image;
 
     //constructor
     public Button(int buttonChooser) {
@@ -20,7 +21,8 @@ public class Button extends Actor
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
-        setImage(buttons[buttonChooser]);
+        image = buttons[buttonChooser];
+        setImage(image);
         this.buttonChooser = buttonChooser;
         m = new MainWorld();
         b = new Backstory();
@@ -30,6 +32,9 @@ public class Button extends Actor
     //act method
     public void act()
     {
+        if (Greenfoot.mouseMoved(this)) {
+            
+        }
         if (Greenfoot.mouseClicked(this)) {
             if (buttonChooser == 0) {
                 Greenfoot.setWorld(m);

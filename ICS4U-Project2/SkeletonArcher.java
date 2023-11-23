@@ -20,6 +20,21 @@ public class SkeletonArcher extends Enemy
     private int deathAnimationIndex;
     private int deathAnimationDelay;
     private int deathAnimationCounter;
+    
+    private GreenfootImage[] runningPics;
+    private int runningAnimationIndex;
+    private int runningAnimationDelay;
+    private int runningAnimationCounter;
+    
+    private GreenfootImage[] attackOnePics;
+    private int attackOneAnimationIndex;
+    private int attackOneAnimationDelay;
+    private int attackOneAnimationCounter;
+
+    private GreenfootImage[] attackTwoPics;
+    private int attackTwoAnimationIndex;
+    private int attackTwoAnimationDelay;
+    private int attackTwoAnimationCounter;
 
     private static final int RELOAD_TIME = 120; 
     private int reloadTimer = 0;
@@ -85,5 +100,10 @@ public class SkeletonArcher extends Enemy
             // so just decrement the counter          
             deathAnimationCounter--;
         }
+    }
+
+    public void animationConstructor() {
+        animationTracker = 0;
+        attackTracker = 0;
     }
 }

@@ -8,8 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Knight extends Party
 {
-    private int animationTracker; // odd = running, even = not running
-    private int attackTracker; // 0, 1, 2 to decide which attack animation to use
 
     //Animation and Images
     private GreenfootImage[] idlePics;
@@ -50,7 +48,7 @@ public class Knight extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 40; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 75;
+    private static final int ATTACK_RANGE = 95;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 3;
 
@@ -119,15 +117,12 @@ public class Knight extends Party
     public void act()
     {
         super.act();
-
+        //if damage dealt to knight but no enemies in range, block attacks. 
     }
 
     //ANIMATION
 
     //ADD SOMETHING ABOUT HOW DAMAGE SHOULD BE DEALT WITH OFFSET AT A CERTAIN FRAME OF THE ATTACK ANIMATION WHEN SLASH IS ON SCREEN
-    public boolean animationIsRunning() {
-        return animationTracker %2 == 1; //this means that the animation is running, 
-    }
 
     public void idle() {
         if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
@@ -147,8 +142,8 @@ public class Knight extends Party
     }
 
     public void death() {
+        boolean remove = false;
         isDying = true;
-        setLocation(getX(), yPos+35);
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             deathAnimationCounter = deathAnimationDelay; // reset counter to max 
             deathAnimationIndex++; // this will be used to set the image to the next frame
@@ -156,13 +151,17 @@ public class Knight extends Party
             // If the image index has passed the last image, go back to first image
             if (deathAnimationIndex == deathPics.length){
                 deathAnimationIndex = 0;
-                getWorld().removeObject(this);
+                remove = true;
             }
             // Apply new image to this Actor
+            setLocation(getX(), getY()+5);
             setImage (deathPics[deathAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             deathAnimationCounter--;
+        }
+        if (remove) {
+            getWorld().removeObject(this);
         }
     }
 

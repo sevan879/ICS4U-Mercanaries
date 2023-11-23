@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class SkeletonSpear extends Enemy
 {
-    private static final int HP = 5;
+    private static final int HP = 10;
     private static final double SPEED = 2;
     private static final int DELAY = 30;
     private static final int DAMAGE = 2;
-    private static final int ATTACK_RANGE = 75;
+    private static final int ATTACK_RANGE = 115;
 
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
@@ -49,7 +49,7 @@ public class SkeletonSpear extends Enemy
 
     public SkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
-        animationConstructor();
+        setImage(runningPics[1]);
     }
 
     protected void action(Party targetPlayer){
@@ -85,16 +85,6 @@ public class SkeletonSpear extends Enemy
                 p.takeDamage(DAMAGE - 1);
             }
         }
-    }
-
-    public List<Party> playersUpClose(){
-        List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);
-        return fullDamage;
-    }
-
-    public List<Party> playersFurtherAway(){
-        List<Party> halfDamage = getObjectsInRange(attackRange + 25, Party.class);
-        return halfDamage;
     }
 
     public void animationConstructor() {
@@ -172,6 +162,9 @@ public class SkeletonSpear extends Enemy
                 attackOneAnimationIndex = 0;
                 animationTracker++;
             }
+            if (attackOneAnimationIndex == 2) {
+                setLocation(getX()-15, getY());
+            }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -193,6 +186,9 @@ public class SkeletonSpear extends Enemy
                 attackTwoAnimationIndex = 0;
                 animationTracker++;
             }
+            if (attackTwoAnimationIndex == 3) {
+                setLocation(getX()+15, getY());
+            }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -203,21 +199,28 @@ public class SkeletonSpear extends Enemy
 
     public void death() {
         isDying = true;
-        setLocation(getX(), yPos+25);
+        boolean remove = false;
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             deathAnimationCounter = deathAnimationDelay; // reset counter to max 
             deathAnimationIndex++; // this will be used to set the image to the next frame
 
             // If the image index has passed the last image, go back to first image
             if (deathAnimationIndex == deathPics.length){
-                getWorld().removeObject(this);
+                remove = true;
                 deathAnimationIndex = 0;
             }
             // Apply new image to this Actor
+            setLocation(getX(), getY()+5);
             setImage (deathPics[deathAnimationIndex]);
+            if (deathAnimationIndex > 2) {
+                setLocation(getX(), getY()+25);
+            }
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             deathAnimationCounter--;
+        }
+        if (remove) {
+            getWorld().removeObject(this);
         }
     }
 

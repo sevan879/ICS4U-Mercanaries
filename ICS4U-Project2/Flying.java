@@ -92,4 +92,9 @@ public class Flying extends Enemy
             deathAnimationCounter--;
         }
     }
+    
+    public void animationConstructor() {
+                animationTracker = 0;
+        attackTracker = 0;
+    }
 }
