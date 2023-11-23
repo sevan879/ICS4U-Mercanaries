@@ -115,7 +115,11 @@ public class Backstory extends World
                 p++;
             }
             else if(p == 6){
-                addObject(new Button(3), 534, 640);
+                addObject(new Button(3), 534, 140);
+                p++;
+            }
+            else if(p == 7){
+                Greenfoot.setWorld(w);
             }
         }
     }
