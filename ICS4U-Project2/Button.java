@@ -10,13 +10,18 @@ public class Button extends Actor
 {
     private int buttonChooser;
     private GreenfootImage[] buttons;
+    private MainWorld m;
+    private Backstory b;
+    private Settings s;
+    private TitleScreen t;
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[3];
+        buttons = new GreenfootImage[4];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
+        buttons[3] = new GreenfootImage("spaceToContinue.png");
         setImage(buttons[buttonChooser]);
         this.buttonChooser = buttonChooser;
     }
@@ -25,9 +30,10 @@ public class Button extends Actor
     public void act()
     {
         if (Greenfoot.mouseClicked(this)) {
-            MainWorld m = new MainWorld();
-            Backstory b = new Backstory();
-            Settings s = new Settings();
+            m = new MainWorld();
+            b = new Backstory();
+            s = new Settings();
+            t = new TitleScreen();
             if (buttonChooser == 0) {
                 Greenfoot.setWorld(m);
             }
@@ -36,7 +42,10 @@ public class Button extends Actor
             }
             if (buttonChooser == 2) {
                 Greenfoot.setWorld(b);
-            }        
+            }    
+            if(buttonChooser == 3){
+                Greenfoot.setWorld(t);
+            }
         }
     }
 }
