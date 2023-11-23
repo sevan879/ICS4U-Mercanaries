@@ -11,30 +11,36 @@ public class Healer extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 4;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 150; // amount of acts
+    private static final int ACTION_DELAY = 30; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 160;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
+    private static final boolean MANA_CLASS = true;
     
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
     private static final int HEALTH_INCREASE = 2; 
     private static final int RANGE_INCREASE = 0;
     private static final int MANA_INCREASE = 0;
-    
+
     private int spellLevel = 0;
     
-    private int damage = 5;
+    private int damage = 25; // damage to heal
     
-    private int smallSpellMana;
-    private int bigSpellMana;
+    private int smallSpellMana; // mana for small heal
+    private int bigSpellMana; // mana for big heal
     
     private GreenfootSound [] healing;//sounds for healing 
-    
+
+    private GreenfootImage[] deathPics;
+    private int deathAnimationIndex;
+    private int deathAnimationDelay;
+    private int deathAnimationCounter;
+
     public Healer()
     {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
         
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         healing = new GreenfootSound[3];
@@ -42,16 +48,19 @@ public class Healer extends Party
             healing[i] = new GreenfootSound("Heal.mp3");
         }
         
+        smallSpellMana = 15;
+        bigSpellMana = 30;
     }
-    
+
     public void act()
     {
-        super.act();
+        super.act(true);
     }
-    
+
     protected void mainAction(Enemy target)
     {
         Party healTarget = findHealTarget();
+        //System.out.println(healTarget);
         if (healTarget != null)
         {
             if (Greenfoot.getRandomNumber(6) == 0)
@@ -64,42 +73,62 @@ public class Healer extends Party
             }
         }
     }
-    
+
+    protected void mainAnimation() {
+
+    }
+
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;
         health = maxHealth;
-        
+
         maxMana += MANA_INCREASE;
         mana = maxMana;
-        
+
         damage += DAMAGE_INCREASE;
         attackRange += RANGE_INCREASE;
     }
-    
+
     private void smallHeal(Party healTarget)
     {
         
-        spendMana(smallSpellMana);
-        healTarget.healDmg(damage);
-        
-    }
-    
-    private void bigHeal()
-    {
-        spendMana(bigSpellMana);
-        ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
-        for (Party p : pList)
+        if (spendMana(smallSpellMana))
         {
-            p.healDmg(damage);
+            healTarget.healDmg(damage);
         }
     }
-    
+
+    private void bigHeal()
+    {
+        if (spendMana(bigSpellMana))
+        {
+            ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
+            for (Party p : pList)
+            {
+                p.healDmg(damage);
+            }
+        }
+    }
+
     private Party findHealTarget()
     {
         ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
-        
+
         Party target = null;
+        boolean partyIsFullHP = true;
+        for (Party p : pList)
+        {
+            if (!p.checkFullHP())
+            {
+                partyIsFullHP = false;
+            }
+        }
+        if (partyIsFullHP)
+        {
+            return target;
+        }
+        
         
         for (Party p : pList)
         {
@@ -109,18 +138,41 @@ public class Healer extends Party
             }
             else
             {
-                if (p.getHP() < target.getHP())
+                if (p.getHP()/p.getMaxHP() < target.getHP()/target.getMaxHP())
                 {
                     target = p;
                 }
             }
         }
-        
+
         return target;
     }
-    
+
     public void running()
     {
-        
+
+    }
+
+    public void idle() {
+
+    }
+
+    public void death() {
+        isDying = true;
+        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
+            deathAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (deathAnimationIndex == deathPics.length){
+                deathAnimationIndex = 0;
+                getWorld().removeObject(this);
+            }
+            // Apply new image to this Actor
+            setImage (deathPics[deathAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            deathAnimationCounter--;
+        }
     }
 }
