@@ -63,7 +63,7 @@ public abstract class Party extends Entity
 
     public void act()
     {
-        if (health <= 0) {
+        if (health <= 0) { //remove hp bar if dying (dying animation)
             death();
             if(hpBarExists) {
                 getWorld().removeObject(hpBar);
