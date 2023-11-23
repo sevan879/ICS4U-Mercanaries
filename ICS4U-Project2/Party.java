@@ -104,7 +104,6 @@ public abstract class Party extends Entity
         hpBar.update(health);
         if (usesMana)
         {
-            System.out.println(mana);
             manaBar.update(mana);
         }
         passiveManaRegen();
