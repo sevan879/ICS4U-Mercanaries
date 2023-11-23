@@ -11,12 +11,13 @@ public class Healer extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 4;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 150; // amount of acts
+    private static final int ACTION_DELAY = 30; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 160;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
-
+    private static final boolean MANA_CLASS = true;
+    
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
     private static final int HEALTH_INCREASE = 2; 
@@ -24,12 +25,12 @@ public class Healer extends Party
     private static final int MANA_INCREASE = 0;
 
     private int spellLevel = 0;
-
-    private int damage = 5;
-
-    private int smallSpellMana;
-    private int bigSpellMana;
-
+    
+    private int damage = 25; // damage to heal
+    
+    private int smallSpellMana; // mana for small heal
+    private int bigSpellMana; // mana for big heal
+    
     private GreenfootSound [] healing;//sounds for healing 
 
     private GreenfootImage[] deathPics;
@@ -39,24 +40,27 @@ public class Healer extends Party
 
     public Healer()
     {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL);
-
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
+        
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         healing = new GreenfootSound[3];
         for(int i = 0; i < healing.length; i++){
             healing[i] = new GreenfootSound("Heal.mp3");
         }
-
+        
+        smallSpellMana = 15;
+        bigSpellMana = 30;
     }
 
     public void act()
     {
-        super.act();
+        super.act(true);
     }
 
     protected void mainAction(Enemy target)
     {
         Party healTarget = findHealTarget();
+        //System.out.println(healTarget);
         if (healTarget != null)
         {
             if (Greenfoot.getRandomNumber(6) == 0)
@@ -88,19 +92,22 @@ public class Healer extends Party
 
     private void smallHeal(Party healTarget)
     {
-
-        spendMana(smallSpellMana);
-        healTarget.healDmg(damage);
-
+        
+        if (spendMana(smallSpellMana))
+        {
+            healTarget.healDmg(damage);
+        }
     }
 
     private void bigHeal()
     {
-        spendMana(bigSpellMana);
-        ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
-        for (Party p : pList)
+        if (spendMana(bigSpellMana))
         {
-            p.healDmg(damage);
+            ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
+            for (Party p : pList)
+            {
+                p.healDmg(damage);
+            }
         }
     }
 
@@ -109,7 +116,20 @@ public class Healer extends Party
         ArrayList<Party> pList= (ArrayList<Party>)(getWorld().getObjects(Party.class));
 
         Party target = null;
-
+        boolean partyIsFullHP = true;
+        for (Party p : pList)
+        {
+            if (!p.checkFullHP())
+            {
+                partyIsFullHP = false;
+            }
+        }
+        if (partyIsFullHP)
+        {
+            return target;
+        }
+        
+        
         for (Party p : pList)
         {
             if (target == null)
@@ -118,7 +138,7 @@ public class Healer extends Party
             }
             else
             {
-                if (p.getHP() < target.getHP())
+                if (p.getHP()/p.getMaxHP() < target.getHP()/target.getMaxHP())
                 {
                     target = p;
                 }

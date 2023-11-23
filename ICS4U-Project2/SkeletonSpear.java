@@ -76,6 +76,21 @@ public class SkeletonSpear extends Enemy
     private void mainAttack(){
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
+                if (attackTracker == 0) { //attack one
+                    attackOne();
+                    //stuff about dealing damage, whatever
+                    if (!animationIsRunning()) {
+                        attackTracker = 1;
+                    }
+                }
+                else if (attackTracker == 1) { //attack two
+                    System.out.println("SSATK2");
+                    attackTwo();
+                    //stuff about dealing damage, whatever
+                    if (!animationIsRunning()) {
+                        attackTracker = 0;
+                    }
+                }
                 p.takeDamage(DAMAGE);
             }
         }

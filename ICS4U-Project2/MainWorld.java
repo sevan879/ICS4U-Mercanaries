@@ -18,10 +18,10 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 5;
+    private int numOfKnights = 4;
     private int numOfMages = 0;
-    private int numOfHealers = 0;
-    private int spacingBetween = 75;
+    private int numOfHealers = 1;
+    private int spacingBetween = 60;
     private int spawningXParty = 50;
 
     //Spawning Enemies Variables
@@ -136,6 +136,7 @@ public class MainWorld extends World
                 if (transitionCounter <= 0)
                 {
                     waveOver = false;
+                    // stop background
                 }
                 else
                 {
@@ -165,7 +166,7 @@ public class MainWorld extends World
         }
 
         if(wave == 1){
-            if(enemiesSpawned == 5){
+            if(enemiesSpawned == 2){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {

@@ -16,29 +16,31 @@ public abstract class Party extends Entity
     protected int attackRange;
     protected int mana;
     protected int maxMana;
-
+    protected boolean usesMana;
+    
     protected int runningSpeed;
     protected boolean inCombat;
     protected boolean idle;
 
     private int manaRegenCounter;
-    private static final int MANA_REGEN_DELAY = 15;
-
+    private static final int MANA_REGEN_DELAY = 30;
+    
     private SuperStatBar hpBar;
-
+    private SuperStatBar manaBar;
+    
     /**
-     * Main Constructor for Player Class
-     *
-     * @param hp entity's health
-     * @param spd entity's speed
-     * @param delay delay between actions
-     * @param dmg damage that entity does
-     * @param moveable can the entity move around
-     * @param xpIncreaseRate how much the required XP to level increases after each Level
-     * @param attackRange Range of attacking enemies
-     * @param plrMana Max mana for player character
-     */
-    public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel)
+    * Main Constructor for Player Class
+    *
+    * @param hp entity's health
+    * @param spd entity's speed
+    * @param delay delay between actions
+    * @param dmg damage that entity does
+    * @param moveable can the entity move around
+    * @param xpIncreaseRate how much the required XP to level increases after each Level
+    * @param attackRange Range of attacking enemies
+    * @param plrMana Max mana for player character
+    */
+    public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel, boolean manaClass)
     {
         super(hp, spd, delay, false);
         experience = 0;
@@ -53,6 +55,8 @@ public abstract class Party extends Entity
 
         runningSpeed = 1;
         inCombat = false;
+        
+        usesMana = manaClass;
     }
 
     protected abstract void mainAction(Enemy target);
@@ -72,6 +76,11 @@ public abstract class Party extends Entity
         }
         else {
             hpBar.update(health);
+            if (usesMana)
+            {
+               System.out.println(mana);
+                manaBar.update(mana);
+            }
             passiveManaRegen();
             Enemy targetEnemy = detectEnemy();
             if (targetEnemy != null) {
@@ -132,10 +141,38 @@ public abstract class Party extends Entity
         return idle;
     }
 
+    
+    public void act(boolean isSupport)
+    {
+        hpBar.update(health);
+        if (usesMana)
+        {
+            manaBar.update(mana);
+        }
+        passiveManaRegen();
+        
+        if (actionCounter <= 0)
+        {
+            mainAction(null);
+            actionCounter = actionDelay;
+            Enemy targetEnemy = detectEnemy();
+        }
+        else
+        {
+            actionCounter--;
+        }
+    }
+    
     public void addedToWorld(World w)
     {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, true);
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, false);
         getWorld().addObject(hpBar, 0, 0);
+        
+        if (usesMana)
+        {
+            manaBar = new SuperStatBar(maxMana, maxMana, this, 50, 7, 70, Color.BLUE, Color.BLACK, false);
+            getWorld().addObject(manaBar, 0, 0);
+        }
     }
 
     protected abstract void running();
@@ -198,7 +235,6 @@ public abstract class Party extends Entity
                 }
                 else
                 {
-
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
                     if (distanceFromE < distanceFromTarget && !isDying)
                     {
@@ -219,7 +255,7 @@ public abstract class Party extends Entity
      */
     public boolean spendMana(int cost)
     {
-        if (maxMana - mana < 0)
+        if (mana - cost < 0)
         {
             return false;
         }
@@ -232,7 +268,7 @@ public abstract class Party extends Entity
 
     private void passiveManaRegen()
     {
-        if (manaRegenCounter <= 0 || mana > maxMana)
+        if (manaRegenCounter <= 0 && mana < maxMana)
         {
             manaRegenCounter = MANA_REGEN_DELAY;
             mana ++;
