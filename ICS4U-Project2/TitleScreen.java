@@ -10,6 +10,7 @@ public class TitleScreen extends World
 {
     private GreenfootSound titleScreen; // title screen music asset
     private GreenfootImage background;
+    private Button start;
     
     //construction
     public TitleScreen()
@@ -20,8 +21,9 @@ public class TitleScreen extends World
         background = new GreenfootImage("titleBackground.png");
         setBackground(background);
 
+        start = new Button(0);
         //buttons
-        addObject(new Button(0), 534, 400);
+        addObject(start, 534, 400);
         addObject(new Button(1), 534, 520);
         addObject(new Button(2), 534, 640);
         addObject(new TitleWords(), 534, 190);
@@ -35,6 +37,12 @@ public class TitleScreen extends World
     public void stopped() {
         if (titleScreen != null) {
             titleScreen.stop();
+        }
+    }
+    
+    public void act() {
+        if (Greenfoot.mouseClicked(start)) {
+            stopped();
         }
     }
 
