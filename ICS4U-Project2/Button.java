@@ -28,10 +28,6 @@ public class Button extends Actor
         image = buttons[buttonChooser];
         setImage(image);
         this.buttonChooser = buttonChooser;
-        m = new MainWorld();
-        b = new Backstory();
-        s = new Settings();
-        t = new TitleScreen();
     }
 
     //act method
@@ -41,19 +37,21 @@ public class Button extends Actor
             
         }
         if (Greenfoot.mouseClicked(this)) {
-            
-            
             if (buttonChooser == 0) {
+                m = new MainWorld();
                 Greenfoot.setWorld(m);
                 m.started();
             }
             if (buttonChooser == 1) {
+                s = new Settings();
                 Greenfoot.setWorld(s);
             }
             if (buttonChooser == 2) {
+                b = new Backstory();
                 Greenfoot.setWorld(b);
             }    
             if(buttonChooser == 3){
+                t = new TitleScreen();
                 Greenfoot.setWorld(t);
             }
         }

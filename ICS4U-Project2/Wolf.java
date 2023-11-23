@@ -78,6 +78,12 @@ public class Wolf extends Enemy
         }
     }
 
+    public void attackAnimation() {
+    }
+    
+    public void death() {
+    }
+    
     public List<Party> playersUpClose(){
         List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);
         return fullDamage;
