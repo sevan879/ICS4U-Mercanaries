@@ -13,6 +13,7 @@ public class Button extends Actor
     private MainWorld m;
     private Backstory b;
     private Settings s;
+    private TitleScreen t;
     private GreenfootImage image;
 
     //constructor
