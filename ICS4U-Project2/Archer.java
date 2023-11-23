@@ -12,7 +12,7 @@ public class Archer extends Enemy
 {
     private static final int HP = 2;
     private static final double SPEED = 1;
-    private static final int DELAY = 25;
+    private static final int DELAY = 100;
     private static final int DAMAGE = 3;
     private static final int ATTACK_RANGE = 200;
     private static boolean movable = true;
@@ -35,9 +35,21 @@ public class Archer extends Enemy
         
     }
     
+    int delay = DELAY;
     protected void action(Party targetPlayer){
+        if(getTarget() != null){
+            if(delay == 0){
+                getWorld().addObject(new Arrow(5, -1, 200), getX(), getY());
+                delay = DELAY;
+            }else{
+                delay--;
+        }
         
-        getWorld().addObject(new Arrow(5, -1, 200), getX(), getY());
+        
+        //attack animations
+        }
+        
+        
         
         //attack animations
     }

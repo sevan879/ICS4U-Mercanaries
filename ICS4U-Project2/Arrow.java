@@ -23,18 +23,34 @@ public class Arrow extends Projectiles
     {
         // Add your action code here.
         super.act();
+        checkHitParty();
     }
     
+    /*
     public void checkHitParty(){
       Actor party = getOneIntersectingObject(Party.class);
       if (party != null) {
-          if (party instanceof Party) {
+          //if (party instanceof Party) {
               System.out.println("hit");
               ((Party) party).takeDamage(3);
               getWorld().removeObject(this);  // Remove the arrow after hitting an enemy
-          }
+          //}
       }
       
+    }
+    */
+    
+    public void checkHitParty(){
+    {
+        if(isTouching(Party.class))
+        {
+            Actor party = getOneIntersectingObject(Party.class);
+            ((Party)party).takeDamage(3);
+            MyWorld world = (MyWorld) getWorld();
+            world.removeObject(this);
+            
+        }
+    }
     }
     
     
