@@ -43,4 +43,8 @@ public class Cohen extends Boss
     {
         
     }
+    
+    public void death() {
+        
+    }
 }
