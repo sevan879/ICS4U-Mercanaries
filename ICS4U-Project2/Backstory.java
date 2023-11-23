@@ -28,6 +28,7 @@ public class Backstory extends World
     private int p;
     private int counter;
     private TitleScreen w;
+    private int resize;
     
     //add background music too
     
@@ -35,7 +36,9 @@ public class Backstory extends World
     public Backstory()
     {    
         super(1068, 720, 1);
-        background = new GreenfootImage("BackstoryBackground.png");
+        background = new GreenfootImage("castle bridge.png");
+        resize = 2;
+        background.scale(background.getWidth()/resize, background.getHeight()/resize);
         setBackground(background);
         k = new speakKnight();
         c = new speakCohen();
@@ -77,7 +80,7 @@ public class Backstory extends World
         
     }
     public void act(){
-        if(counter == 5){
+        if(counter == 10){
             conversation();
             counter = 0;
         }
@@ -115,6 +118,7 @@ public class Backstory extends World
                 p++;
             }
             else if(p == 6){
+                removeObject(p5);
                 addObject(new Button(3), 534, 140);
                 p++;
             }
