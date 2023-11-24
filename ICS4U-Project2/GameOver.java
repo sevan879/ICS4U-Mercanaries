@@ -19,7 +19,7 @@ public class GameOver extends World
         gameOver = new GreenfootImage("GameOverBackGround.jpg");
         setBackground(gameOver);
         
-        addObject(new Button(3), 534, 360);
+        addObject(new Button(3), 534, 300);
         addObject(new GameOverText(), 534, 150);
     }
 }
