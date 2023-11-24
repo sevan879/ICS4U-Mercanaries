@@ -48,7 +48,7 @@ public class Knight extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 40; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 95;
+    private static final int ATTACK_RANGE = 125;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 3;
     private static final boolean MANA_CLASS = false;

@@ -8,11 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MiniCohen extends Enemy
 {
-    private static final int HP = 5;
-    private static final double SPEED = 4;
+    private static final int HP = 15;
+    private static final double SPEED = 2;
     private static final int DELAY = 10;
     private static final int DAMAGE = 2;
-    private static final int ATTACK_RANGE = 95;
+    private static final int ATTACK_RANGE = 115;
     private static boolean movable = true;
 
     //Animation   
@@ -39,11 +39,7 @@ public class MiniCohen extends Enemy
     //act method
     public void act()
     {
-        if (Greenfoot.isKeyDown("w")) {
-            running();
-            setLocation(getX()-2, getY());
-        }
-        //super.act();
+        super.act();
     }
 
     protected void action(Party targetPlayer){
@@ -110,26 +106,48 @@ public class MiniCohen extends Enemy
     }
 
     public void death() {
+        isDying = true;
+        boolean remove = false;
+        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
+            deathAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (deathAnimationIndex == deathPics.length){
+                remove = true;
+                deathAnimationIndex = 0;
+            }
+            // Apply new image to this Actor
+            setImage (deathPics[deathAnimationIndex]);
+            if (deathAnimationIndex > 4) {
+                setLocation(getX(), getY()+20);
+            }
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            deathAnimationCounter--;
+        }
+        if (remove) {
+            getWorld().removeObject(this);
+        }
     }
 
     public void animationConstructor() {
         animationTracker = 0;
         attackTracker = 0;
         //death
-        deathPics = new GreenfootImage[4];
+        deathPics = new GreenfootImage[8];
         for (int i = 0; i < deathPics.length; i++) {
-            deathPics[i] = new GreenfootImage("SWD" + (i+1) + ".png");
+            deathPics[i] = new GreenfootImage("MCD" + (i+1) + ".png");
             deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
         }
         deathAnimationIndex = 0;
-        deathAnimationDelay = 10;
+        deathAnimationDelay = 11;
         deathAnimationCounter = deathAnimationDelay;
 
         //running
         runningPics = new GreenfootImage[6];
         for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("TCR" + (i+1) + ".png");
-            runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
+            runningPics[i] = new GreenfootImage("MCR" + (i+1) + ".png");
         }
         runningAnimationIndex = 0;
         runningAnimationDelay = 8;
@@ -137,8 +155,7 @@ public class MiniCohen extends Enemy
 
         attackOnePics = new GreenfootImage[5];
         for (int i = 0; i < attackOnePics.length; i++) {
-            attackOnePics[i] = new GreenfootImage("SWA1" + (i+1) + ".png");
-            attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
+            attackOnePics[i] = new GreenfootImage("MCA" + (i+1) + ".png");
         }
         attackOneAnimationIndex = 0;
         attackOneAnimationDelay = 8;
