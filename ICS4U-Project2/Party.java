@@ -70,7 +70,7 @@ public abstract class Party extends Entity
         if (health <= 0) { //remove hp bar if dying (dying animation)
             death();
             if(hpBarExists) {
-                getWorld().removeObject(hpBar);
+                //getWorld().removeObject(hpBar);
                 hpBarExists = false;
             }
         }
@@ -78,26 +78,30 @@ public abstract class Party extends Entity
             hpBar.update(health);
             if (usesMana)
             {
-               System.out.println(mana);
                 manaBar.update(mana);
             }
             passiveManaRegen();
+            
             Enemy targetEnemy = detectEnemy();
             if (targetEnemy != null) {
                 mainAnimation();
             }
             if (actionCounter <= 0) 
             {
+                
                 if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
                 {
                     runningSpeed = 0;
                     inCombat = true;
                     actionCounter = actionDelay;
                     mainAction(targetEnemy);
+                    
+                    
                 }
                 else { // no enemy detected by this party member
                     inCombat = false;
                 }
+                
                 if (!inCombat) {
                     if (!idle) { //party members not idle, and not in combat, so run
                         runningSpeed = (int) speed;
@@ -139,28 +143,6 @@ public abstract class Party extends Entity
 
     public boolean isIdle() {
         return idle;
-    }
-
-    
-    public void act(boolean isSupport)
-    {
-        hpBar.update(health);
-        if (usesMana)
-        {
-            manaBar.update(mana);
-        }
-        passiveManaRegen();
-        
-        if (actionCounter <= 0)
-        {
-            mainAction(null);
-            actionCounter = actionDelay;
-            Enemy targetEnemy = detectEnemy();
-        }
-        else
-        {
-            actionCounter--;
-        }
     }
     
     public void addedToWorld(World w)

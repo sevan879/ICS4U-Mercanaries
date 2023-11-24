@@ -144,4 +144,6 @@ public class MiniCohen extends Enemy
         attackOneAnimationDelay = 8;
         attackOneAnimationCounter = attackOneAnimationDelay;
     }
+    
+    protected void repelOtherEnemies(){}
 }

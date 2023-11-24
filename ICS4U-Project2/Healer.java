@@ -13,7 +13,7 @@ public class Healer extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 30; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 160;
+    private static final int ATTACK_RANGE = 400;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;
@@ -54,7 +54,7 @@ public class Healer extends Party
 
     public void act()
     {
-        super.act(true);
+        super.act();
     }
 
     protected void mainAction(Enemy target)
@@ -156,7 +156,7 @@ public class Healer extends Party
     public void idle() {
 
     }
-
+    
     public void death() {
         isDying = true;
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
@@ -175,4 +175,5 @@ public class Healer extends Party
             deathAnimationCounter--;
         }
     }
+    
 }

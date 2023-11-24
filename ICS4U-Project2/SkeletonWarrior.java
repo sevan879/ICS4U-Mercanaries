@@ -267,4 +267,6 @@ public class SkeletonWarrior extends Enemy
         attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
+    
+    protected void repelOtherEnemies(){}
 }
