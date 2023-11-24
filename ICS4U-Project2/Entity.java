@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Entity class, superclass for all enemy and player classes.
@@ -61,6 +62,16 @@ public abstract class Entity extends SuperSmoothMover
 
     protected boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
+    }
+
+        protected ArrayList<Party> partyMembersInWorld() {
+        ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
+        return partyList;
+    }
+
+    protected ArrayList<Enemy> enemiesInWorld() {
+        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
+        return enemyList;
     }
 
     /**

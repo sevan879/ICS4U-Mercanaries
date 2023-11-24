@@ -9,8 +9,7 @@ import java.util.*;
 public abstract class Boss extends Entity
 {
     private SuperStatBar hpBar;
-    protected int attackIDs[];
-    
+    private int n;
     /**
      * Main constructor for Enemy class
      * 
@@ -18,43 +17,53 @@ public abstract class Boss extends Entity
      * @param delay delay between actions
      * @param movable can the enemy move around
      */
-    
-    public Boss(int hp, int delay, int[] attackList)
+
+    public Boss(int hp, int delay)
     {
         super(hp, 0, delay, false);
-        attackIDs = attackList;
+        n = 0;
     }
-    
+
     protected abstract void action(int attackNum);
     
+    protected abstract void idle();
+
     public void act()
     {
         attackLoop();
     }
-    
+
     public void attackLoop()
     {
-        if (targetPlayer() != null)
+        if (actionCounter <= 0)
         {
-            if (actionCounter <= 0)
-            {
-                actionCounter = actionDelay;
+            int selectedAttack = n;
+            if (!animationIsRunning()) { //animation not running, no action currently taking place
                 //Select an attack
-                int selectedAttack = Greenfoot.getRandomNumber(attackIDs.length-1);
+                if (partyMembersInWorld().size() != 0) { //party members exist in the world
+                    n = Greenfoot.getRandomNumber(4); //random number to choose which action to perform
+                    actionCounter = actionDelay;
+                    action(selectedAttack); //do the action
+                }
+                else {
+                    //crazy OMG YOU LOST ANIMATION
+                }
+            }
+            else {
                 action(selectedAttack);
             }
-            else
-            {
-                actionCounter--;
-            }
+        }
+        else
+        {
+            actionCounter--;
         }
     }
-    
+
     public Party targetPlayer() {
         List<Party> players = (ArrayList<Party>) (getWorld().getObjects(Party.class));
 
         if (!players.isEmpty()) {
-            return players.get(Greenfoot.getRandomNumber(players.size() - 1)); 
+            return players.get(Greenfoot.getRandomNumber(players.size())); 
         }
 
         return null;

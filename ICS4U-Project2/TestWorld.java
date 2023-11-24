@@ -23,10 +23,10 @@ public class TestWorld extends World
         addObject(b, 1068, 360);
         b.setWorldBackground(2);
         addObject(new Cohen(), 463, 311);
-        addObject(new MiniCohen(), 900, 600);
-        addObject(new Healer(), 100, 600);
-        addObject(new Knight(), 300, 600);
-        addObject(new Knight(), 200, 600);
+        addObject(new MiniCohen(), 900, 650);
+        addObject(new Healer(), 100, 650);
+        addObject(new Knight(), 300, 650);
+        addObject(new Knight(), 200, 650);
     }
     
     public void act() {

@@ -25,7 +25,7 @@ public class Background extends Actor
         forestBackground = new GreenfootImage("ForestBackground.png");
         forestBackground.scale(forestBackground.getWidth()*2, forestBackground.getHeight()*2);
         dungeonBackground = new GreenfootImage("CaveBackground.png");
-        bossRoomBackground = new GreenfootImage("bossBackground.png");
+        bossRoomBackground = new GreenfootImage("CaveBackground.png");
         setImage(forestBackground);
         
         worldTracker = 0;

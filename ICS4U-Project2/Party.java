@@ -134,17 +134,7 @@ public abstract class Party extends Entity
             idle = false;
         }
     }
-
-    public ArrayList<Party> partyMembersInWorld() {
-        ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
-        return partyList;
-    }
-
-    public ArrayList<Enemy> enemiesInWorld() {
-        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
-        return enemyList;
-    }
-
+    
     public boolean isIdle() {
         return idle;
     }
