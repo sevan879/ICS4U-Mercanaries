@@ -45,7 +45,7 @@ public class Backstory extends World
         addObject(k, 200,400);
         addObject(c, 900, 400);
         f = new Font ("Comic Sans MS", false, false, 16);
-        p = 1;
+        p = 2;
         counter = 0;
         w = new TitleScreen();
         b = new Button(3);
@@ -77,6 +77,7 @@ public class Backstory extends World
         sentence5[0] = "aighbet.";
         p5 = new SuperTextBox(sentence5, Color.WHITE, Color.BLACK, f, false, 150,  10, Color.BLACK);
         
+        addObject(p1, 300, 225);
         
     }
     public void act(){
@@ -88,12 +89,7 @@ public class Backstory extends World
     }
     public void conversation(){
         if(Greenfoot.isKeyDown("space")){
-            if(p == 1){
-                addObject(p1, 300, 225);
-                p++;
-                
-            }
-            else if(p == 2){
+            if(p == 2){
                 removeObject(p1);
                 c.cohenSmile();
                 addObject(p2, 750, 250);

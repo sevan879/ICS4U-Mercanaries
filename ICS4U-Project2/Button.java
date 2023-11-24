@@ -33,9 +33,6 @@ public class Button extends Actor
     //act method
     public void act()
     {
-        if (Greenfoot.mouseMoved(this)) {
-            
-        }
         if (Greenfoot.mouseClicked(this)) {
             if (buttonChooser == 0) {
                 m = new MainWorld();
