@@ -242,4 +242,6 @@ public class SkeletonSpear extends Enemy
     public boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
+    
+    protected void repelOtherEnemies(){}
 }

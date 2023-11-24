@@ -45,6 +45,7 @@ public class Wolf extends Enemy
     public Wolf() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
+        animationConstructor();
     }
 
     //act method
@@ -270,4 +271,17 @@ public class Wolf extends Enemy
         attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
+    protected void repelOtherEnemies(){
+        List<Wolf> wolves = getObjectsAtOffset(-attackRange, 0, Wolf.class);
+        if(wolves.size() > 3){
+            movable = false;
+        }
+        movable = true;
+    }
+    /*
+    protected void action(Party targetPlayer){
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
+        //attack animations
+    }
+    */
 }

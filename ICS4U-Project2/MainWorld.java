@@ -36,6 +36,9 @@ public class MainWorld extends World
     //private int backgroundSwapCounter; // makes sure background only changes when fader is black
     private int fadeTime = 120;
     private int worldLvl;
+    
+    private int tempSpeed = 0;
+    
     private GreenfootSound forest; //level 1 background music
     private GreenfootSound boss; // level 3 background music (boss)
     private GreenfootSound dank;
@@ -66,14 +69,19 @@ public class MainWorld extends World
 
     //act method
     public void act() {
-        int tempSpeed = 0;
+        partyActions();
+        spawnWaves();
+        checkGameOver();
+    }
+
+    private void partyActions()
+    {
         //actual stuff
         if (partyIsRunning()) {
             for (Party member : partyMembersInWorld()) { //set speed for scrolling background and scroll if party is running
                 tempSpeed = member.getRunningSpeed();
             }
             background.scrollBackground(tempSpeed);
-            spawnWaves(); //only spawn waves when party is running, meaning they cleared the previous wave
         }
         else { //at least one party member in combat!
             for (Party member : partyMembersInWorld()) { //get all party members in world
@@ -89,9 +97,8 @@ public class MainWorld extends World
                 }
             }
         }
-        checkGameOver();
     }
-
+    
     //tells us if the party members are running or not, if one member stops running, all members stop also
     public boolean partyIsRunning() {
         boolean continueRunning = true; //true by default

@@ -43,4 +43,12 @@ public abstract class Cohen extends Boss
     {
         
     }
+    
+    public void death() {
+        
+    }
+    
+    public void animationConstructor() {
+        
+    }
 }

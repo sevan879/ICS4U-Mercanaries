@@ -237,4 +237,6 @@ public class SkeletonArcher extends Enemy
         attackTwoAnimationDelay = 5;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
     }
+    
+    protected void repelOtherEnemies(){}
 }
