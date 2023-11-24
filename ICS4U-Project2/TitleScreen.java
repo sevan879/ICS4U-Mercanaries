@@ -3,21 +3,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class TitleScreen here.
  * 
- * @author (your name) 
+ * @Arthur
  * @version (a version number or a date)
  */
 public class TitleScreen extends World
 {
-    private GreenfootSound titleScreen; // title screen music asset
+    private GreenfootSound titleScreenMusic; // title screen music asset
     private GreenfootImage background;
     private Button start;
-    
+
+    private MainWorld m;
+    private Backstory b;
+    private Settings s;
+
     //construction
     public TitleScreen()
     {    
         super(1068, 720, 1); 
-        titleScreen = new GreenfootSound("TitleScreen.mp3");
-        titleScreen.setVolume(40);
+        titleScreenMusic = new GreenfootSound("TitleScreen.mp3");
+        titleScreenMusic.setVolume(40);
         background = new GreenfootImage("titleBackground.png");
         setBackground(background);
 
@@ -31,18 +35,30 @@ public class TitleScreen extends World
 
     //to start playing the music when pressed run
     public void started() {
-        titleScreen.playLoop();
+        titleScreenMusic.playLoop();
     }
     //to stop playing the music when pressed pause or reset
     public void stopped() {
-        if (titleScreen != null) {
-            titleScreen.stop();
+        if (titleScreenMusic != null) {
+            titleScreenMusic.stop();
         }
     }
-    
+
     public void act() {
         if (Greenfoot.mouseClicked(start)) {
             stopped();
+        }
+    }
+
+    public void transitionToNewWorld(int n) {
+        if (n == 0) {
+            m = new MainWorld();
+            LoadingScreen load = new LoadingScreen(180, 1, false);
+            addObject(load, getWidth()/2, getHeight()/2);
+            Greenfoot.setWorld(m);
+            if (load.getLoadingFinished()) {
+            }
+
         }
     }
 
