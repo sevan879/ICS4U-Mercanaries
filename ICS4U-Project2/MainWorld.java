@@ -40,7 +40,7 @@ public class MainWorld extends World
     private int tempSpeed = 0;
     
     private GreenfootSound forest; //level 1 background music
-    private GreenfootSound boss; // level 3 background music (boss)
+    private GreenfootSound boss; // level 2 background music (boss)
     private GreenfootSound dank;
 
     //constructor
@@ -184,8 +184,8 @@ public class MainWorld extends World
                     waveOver = true;
                     enemiesSpawned = 0;
                     wave = wave + 1;
-                    transitionCounter = transitionDelay; 
-                    //background.setWorldBackground(1);
+                    transitionCounter = transitionDelay;
+                    forest.playLoop();
                     addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
                 }
             }
@@ -199,7 +199,8 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
-                    //background.setWorldBackground(2);
+                    forest.stop();
+                    boss.playLoop(); 
                     addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
                 }                
             }
@@ -213,11 +214,13 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
+                    boss.stop();
+                    dank.playLoop();
                     addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
                 }
             }
         }else if(wave == 4){
-            //spawnboss
+            
         }
 
     }
@@ -268,19 +271,12 @@ public class MainWorld extends World
     }
     //to start playing the music when pressed run
     public void started(){
-        if(worldLvl == 1){
-            dank.playLoop();
-        }
-        //if(worldLvl == 2){
-        //    ____.playLoop(); // will find music for this
-        //}
-        if(worldLvl == 3){
-            boss.playLoop();
-        }
+        forest.playLoop();
     }
     //to stop playing the music when pressed pause or reset
     public void stopped(){
         forest.stop();
         boss.stop();
+        dank.stop();
     }
 }

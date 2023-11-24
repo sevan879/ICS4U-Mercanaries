@@ -20,8 +20,7 @@ public class Settings extends World
     private int magesLevel;
     
     private int difficulty;
-    
-    //private boolean s; //want to add a boolean field
+
     
     //constructor
     public Settings()

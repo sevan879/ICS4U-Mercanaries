@@ -18,11 +18,14 @@ public class Button extends Actor
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[4];
+        buttons = new GreenfootImage[5];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
         buttons[3] = new GreenfootImage("spaceToContinue.png");
+        
+        buttons[4] = new GreenfootImage("up.png");
+        buttons[5] = new GreenfootImage("down.png");
         setImage(buttons[buttonChooser]);
 
         image = buttons[buttonChooser];
