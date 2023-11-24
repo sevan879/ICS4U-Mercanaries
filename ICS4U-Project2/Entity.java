@@ -43,9 +43,11 @@ public abstract class Entity extends SuperSmoothMover
         canMove = movable;
         isDying = false;
         hpBarExists = true;
+        animationConstructor();
     }
 
     protected abstract void death();
+    protected abstract void animationConstructor();
 
     /**
      * Take damage for entity

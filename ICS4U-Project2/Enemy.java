@@ -29,10 +29,7 @@ public abstract class Enemy extends Entity
     {
         super(hp, spd, delay, true);
         this.attackRange = attackRange;
-        animationConstructor();
     }
-    
-    protected abstract void animationConstructor();
 
     protected List<Party> playersUpClose(){
         List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);

@@ -55,6 +55,7 @@ public abstract class Party extends Entity
 
         runningSpeed = 1;
         inCombat = false;
+        idle = false;
         
         usesMana = manaClass;
     }
@@ -95,14 +96,17 @@ public abstract class Party extends Entity
                     inCombat = true;
                     actionCounter = actionDelay;
                     mainAction(targetEnemy);
-                    
-                    
                 }
                 else { // no enemy detected by this party member
                     inCombat = false;
                 }
                 
                 if (!inCombat) {
+                    for (Party member : partyMembersInWorld()) {
+                        if (member.getInCombat() == true) {
+                            idle = true;
+                        }
+                    }
                     if (!idle) { //party members not idle, and not in combat, so run
                         runningSpeed = (int) speed;
                         running();
@@ -161,7 +165,10 @@ public abstract class Party extends Entity
 
     protected abstract void idle();
 
-    public void setInCombat(boolean b) {
+    protected boolean getInCombat() {
+        return inCombat;
+    }
+    protected void setInCombat(boolean b) {
         inCombat = b;
     }
 
