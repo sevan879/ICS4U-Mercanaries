@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Projectiles here.
+ * Super class for all projectiles
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kenneth Jin 
+ * @version November 2023
  */
 public abstract class Projectiles extends Actor
 {
@@ -13,9 +13,13 @@ public abstract class Projectiles extends Actor
     protected int maxHeight;
     protected double yVelocity;
     private static final double accleration = 0.2;
+    
     /**
-     * Act - do whatever the Projectiles wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Main constructor for Projectiles class
+     * 
+     * @param spd projectile's speed
+     * @param direction projectile's direction
+     * @param yVel projectile's vertical velocity
      */
     public Projectiles(int spd, int direction, int maxH, double yVel){
         speed = spd;
@@ -26,6 +30,10 @@ public abstract class Projectiles extends Actor
         
     }
     
+    /**
+     * Act - do whatever the Projectiles wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act()
     {
         // Add your action code here.
@@ -33,6 +41,9 @@ public abstract class Projectiles extends Actor
     }
     
     boolean reachedMaxHeight = false;
+    /**
+     * have the projectile move in an arc
+     */
     public void moveInArc(){
       
       if(!reachedMaxHeight){
@@ -47,7 +58,9 @@ public abstract class Projectiles extends Actor
     }
     
     
-    
+    /**
+     * have the projectile move in a parabola
+     */
     public void moveInParabola(){
         setLocation(getX() + speed * direction, getY() - (int)yVelocity);
         yVelocity = yVelocity - accleration;

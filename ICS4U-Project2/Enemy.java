@@ -6,7 +6,7 @@ import java.util.List;
  * Enemy class, superclass for all enemie classes
  * 
  * @author Kenneth Jin
- * @version V0
+ * @version November 2023
  */
 public abstract class Enemy extends Entity
 {
@@ -24,7 +24,6 @@ public abstract class Enemy extends Entity
      * @param movable can the enemy move around
      * @param attackRange enemie's attack range
      */
-
     public Enemy(int hp, double spd, int delay, int dmg, boolean movable, int attackRange)
     {
         super(hp, spd, delay, true);
@@ -62,6 +61,9 @@ public abstract class Enemy extends Entity
         }
     }
 
+    /**
+     * move if there are no player in the attack range
+     */
     public void move(){
         //if no player is detected within attack range, move 
         if(targetPlayer() == null){
@@ -78,6 +80,9 @@ public abstract class Enemy extends Entity
 
     protected abstract void attackAnimation();
 
+    /**
+     * attacks party member if they are in the attack range
+     */
     public void attack(){
         if(targetPlayer() != null){
             Party targetPlayer = targetPlayer();
@@ -93,12 +98,17 @@ public abstract class Enemy extends Entity
         }
     }
 
+    
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 40, 5, 60, Color.YELLOW, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
     }
 
+    /**
+     * check if there are any player in the attack range
+     * @return Party  null if no player detected, the player detected if it's detected
+     */
     public Party targetPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);
         for (Party p : players) {

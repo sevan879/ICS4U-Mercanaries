@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Arrow here.
+ * Arrow class, the projectile for skeletonArcher's attacks
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kenneth Jin 
+ * @version November 2023
  */
 public class Arrow extends Projectiles
 {
@@ -49,6 +49,9 @@ public class Arrow extends Projectiles
     }
     */
     
+   /**
+    * check if the arrow hits a party, deals damage to the party, and remove itself from the world
+    */
     public void checkHitParty(){
     {
         if(isTouching(Party.class))
