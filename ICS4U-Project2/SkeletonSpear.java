@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class SkeletonSpear extends Enemy
 {
-    private static final int HP = 5;
+    private static final int HP = 10;
     private static final double SPEED = 2;
     private static final int DELAY = 30;
     private static final int DAMAGE = 2;
-    private static final int ATTACK_RANGE = 15;
+    private static final int ATTACK_RANGE = 115;
 
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
@@ -22,6 +22,11 @@ public class SkeletonSpear extends Enemy
     private int runningAnimationIndex;
     private int runningAnimationDelay;
     private int runningAnimationCounter;
+
+    private GreenfootImage[] deathPics;
+    private int deathAnimationIndex;
+    private int deathAnimationDelay;
+    private int deathAnimationCounter;
 
     private GreenfootImage[] attackOnePics;
     private int attackOneAnimationIndex;
@@ -33,11 +38,6 @@ public class SkeletonSpear extends Enemy
     private int attackTwoAnimationDelay;
     private int attackTwoAnimationCounter;
 
-    private GreenfootImage[] runningAttackPics;
-    private int runningAttackAnimationIndex;
-    private int runningAttackAnimationDelay;
-    private int runningAttackAnimationCounter;
-
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -45,24 +45,38 @@ public class SkeletonSpear extends Enemy
     public void act()
     {
         super.act();
-
     }
 
     public SkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
-        animationConstructor();
+        setImage(runningPics[1]);
     }
 
     protected void action(Party targetPlayer){
         mainAttack();
     }
 
+    public void attackAnimation() {
+        if (attackTracker == 0) { //attack one
+            attackOne();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 1;
+            }
+        }
+        else if (attackTracker == 1) { //attack two
+            attackTwo();
+            //stuff about dealing damage, whatever
+            if (!animationIsRunning()) {
+                attackTracker = 0;
+            }
+        }
+    }
+
     private void mainAttack(){
-        System.out.println("skeleton spear attacked");
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 if (attackTracker == 0) { //attack one
-                    System.out.println("SSATK1");
                     attackOne();
                     //stuff about dealing damage, whatever
                     if (!animationIsRunning()) {
@@ -85,22 +99,7 @@ public class SkeletonSpear extends Enemy
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
             }
-            runningAttack();
-            //stuff about dealing damage, whatever
-            if (!animationIsRunning()) {
-                attackTracker = 1;
-            }
         }
-    }
-
-    public List<Party> playersUpClose(){
-        List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);
-        return fullDamage;
-    }
-
-    public List<Party> playersFurtherAway(){
-        List<Party> halfDamage = getObjectsInRange(attackRange + 25, Party.class);
-        return halfDamage;
     }
 
     public void animationConstructor() {
@@ -116,6 +115,16 @@ public class SkeletonSpear extends Enemy
         runningAnimationIndex = 0;
         runningAnimationDelay = 10;
         runningAnimationCounter = runningAnimationDelay;
+
+        //death
+        deathPics = new GreenfootImage[5];
+        for (int i = 0; i < deathPics.length; i++) {
+            deathPics[i] = new GreenfootImage("SSD" + (i+1) + ".png");
+            deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
+        }
+        deathAnimationIndex = 0;
+        deathAnimationDelay = 10;
+        deathAnimationCounter = deathAnimationDelay;
 
         //attack one
         attackOnePics = new GreenfootImage[4];
@@ -136,16 +145,6 @@ public class SkeletonSpear extends Enemy
         attackTwoAnimationIndex = 0;
         attackTwoAnimationDelay = 10;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
-
-        //running attack
-        runningAttackPics = new GreenfootImage[5];
-        for (int i = 0; i < runningAttackPics.length; i++) {
-            runningAttackPics[i] = new GreenfootImage("SSRA" + (i+1) + ".png");
-            runningAttackPics[i].scale(runningAttackPics[i].getWidth()*2, runningAttackPics[i].getHeight()*2);
-        }
-        runningAttackAnimationIndex = 0;
-        runningAttackAnimationDelay = 10;
-        runningAttackAnimationCounter = runningAttackAnimationDelay;
     }
 
     public void running() {
@@ -178,6 +177,9 @@ public class SkeletonSpear extends Enemy
                 attackOneAnimationIndex = 0;
                 animationTracker++;
             }
+            if (attackOneAnimationIndex == 2) {
+                setLocation(getX()-15, getY());
+            }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -199,6 +201,9 @@ public class SkeletonSpear extends Enemy
                 attackTwoAnimationIndex = 0;
                 animationTracker++;
             }
+            if (attackTwoAnimationIndex == 3) {
+                setLocation(getX()+15, getY());
+            }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -207,28 +212,36 @@ public class SkeletonSpear extends Enemy
         }
     }
 
-    public void runningAttack() {
-        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
-            animationTracker++;
-        }
-        if (runningAttackAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            runningAttackAnimationCounter = runningAttackAnimationDelay; // reset counter to max 
-            runningAttackAnimationIndex++; // this will be used to set the image to the next frame
+    public void death() {
+        isDying = true;
+        boolean remove = false;
+        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
+            deathAnimationIndex++; // this will be used to set the image to the next frame
 
-            // If the image index has passed the last image, stop animation
-            if (runningAttackAnimationIndex == runningAttackPics.length){
-                runningAttackAnimationIndex = 0;
-                animationTracker++;
+            // If the image index has passed the last image, go back to first image
+            if (deathAnimationIndex == deathPics.length){
+                remove = true;
+                deathAnimationIndex = 0;
             }
             // Apply new image to this Actor
-            setImage (runningAttackPics[attackOneAnimationIndex]);
+            setLocation(getX(), getY()+5);
+            setImage (deathPics[deathAnimationIndex]);
+            if (deathAnimationIndex > 2) {
+                setLocation(getX(), getY()+25);
+            }
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
-            runningAttackAnimationCounter--;
+            deathAnimationCounter--;
+        }
+        if (remove) {
+            getWorld().removeObject(this);
         }
     }
 
     public boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
+    
+    protected void repelOtherEnemies(){}
 }
