@@ -253,6 +253,7 @@ public class MainWorld extends World
     private void checkGameOver()
     {
         ArrayList<Party> memberList = (ArrayList<Party>) (getObjects(Party.class));
+        GameOver g = new GameOver();
         if (memberList.isEmpty())
         {
             // Game Over stuff
