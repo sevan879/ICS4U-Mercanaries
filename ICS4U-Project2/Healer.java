@@ -158,21 +158,15 @@ public class Healer extends Party
     }
 
     public void death() {
+        boolean remove = true;
         isDying = true;
-        if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            deathAnimationCounter = deathAnimationDelay; // reset counter to max 
-            deathAnimationIndex++; // this will be used to set the image to the next frame
 
-            // If the image index has passed the last image, go back to first image
-            if (deathAnimationIndex == deathPics.length){
-                deathAnimationIndex = 0;
-                getWorld().removeObject(this);
-            }
-            // Apply new image to this Actor
-            setImage (deathPics[deathAnimationIndex]);
-        } else {// not ready to animate yet, still waiting
-            // so just decrement the counter          
-            deathAnimationCounter--;
+        if (remove) {
+            getWorld().removeObject(this);
         }
+    }
+    
+    public void animationConstructor() {
+        
     }
 }
