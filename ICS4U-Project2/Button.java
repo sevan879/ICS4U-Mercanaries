@@ -18,7 +18,7 @@ public class Button extends Actor
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
         buttons[3] = new GreenfootImage("ReStartButton.png");
-        buttons[3].scale(200, 100);
+        buttons[3].scale(350, 150);
         setImage(buttons[buttonChooser]);
         this.buttonChooser = buttonChooser;
     }
