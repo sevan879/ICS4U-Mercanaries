@@ -23,7 +23,7 @@ public class Fireball extends Projectiles
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public Fireball(){
-        super(speed, direction, maxHeight, yVelocity);
+        super(speed, direction, maxHeight, yVelocity, true);
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         small = new GreenfootSound[3];
         for(int i = 0; i < small.length; i++){
@@ -35,40 +35,34 @@ public class Fireball extends Projectiles
         }
     }
     
- 
-    
-  /**
-   * Act - do whatever the Fireball wants to do. This method is called whenever
-   * the 'Act' or 'Run' button gets pressed in the environment.
-   */
-  public void act()
-  {
+    /**
+    * Act - do whatever the Fireball wants to do. This method is called whenever
+    * the 'Act' or 'Run' button gets pressed in the environment.
+    */
+    public void act()
+    {
       // Add your action code here.
+      
       super.act();
-        
-  }
-  
-  public void checkHitEnemy(){
+      if (!getRemoved())
+      {
+          checkHitEnemy();
+      }
+    }
+    
+    public void checkHitEnemy(){
       Actor enemy = getOneIntersectingObject(Enemy.class);
       if(enemy != null){
           explode();
-          getWorld().removeObject(this);
+          removeProjectile();
       }
-  }
-  
-  public void explode(){
+    }
+    
+    public void explode(){
       List<Enemy> enemies = getObjectsInRange(range, Enemy.class);
       for(Enemy e: enemies){
           e.takeDamage(3);// adjust to mage's damage
           //explode animations?
       }
-  }
-  
-  
-    
-  
-  
-
-    
-    
+    }
 }

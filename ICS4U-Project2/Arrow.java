@@ -14,9 +14,11 @@ public class Arrow extends Projectiles
     private static final int direction = -1;
     private static final int maxHeight = 200;
     private static final double yVelocity = 6;
+    
+    private int range; // do some projectile motion;
+    
     public Arrow(){
-        super(speed, direction, maxHeight, yVelocity);
-
+        super(speed, direction, maxHeight, yVelocity, true);
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         a = new GreenfootSound[3];
         for(int i = 0; i < a.length; i++){
@@ -31,8 +33,12 @@ public class Arrow extends Projectiles
     public void act()
     {
         // Add your action code here.
+        
         super.act();
-        checkHitParty();
+        if (!getRemoved())
+        {
+            checkHitParty();
+        }
     }
     
     /*
@@ -55,8 +61,8 @@ public class Arrow extends Projectiles
         {
             Actor party = getOneIntersectingObject(Party.class);
             ((Party)party).takeDamage(3);
-            World world = getWorld();
-            world.removeObject(this);
+            
+            removeProjectile();
             
         }
     }
