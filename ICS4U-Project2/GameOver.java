@@ -14,13 +14,13 @@ public class GameOver extends World
      * 
      */
     public GameOver()
-    {    
+    {
         super(1068, 720, 1); 
         gameOver = new GreenfootImage("GameOverBackGround.jpg");
         setBackground(gameOver);
         
         
         addObject(new GameOverText(), 534, 150);
-        addObject(new Button(3), 534, 300);
+        addObject(new Button(4), 534, 300);
     }
 }
