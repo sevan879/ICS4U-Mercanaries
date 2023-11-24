@@ -10,6 +10,11 @@ public class GameOver extends World
 {
     private GreenfootImage gameOver;
     private speakCohen c;
+    private SuperTextBox sp;
+    private String[] text;
+    
+    private Font f;
+    
     /**
      * Constructor for objects of class GameOver.
      * 
@@ -20,12 +25,19 @@ public class GameOver extends World
         gameOver = new GreenfootImage("GameOverBackGround.jpg");
         setBackground(gameOver);
         c = new speakCohen();
+        f = new Font("Comic Sans MS", false, false, 16);
         
         addObject(new GameOverText(), 534, 150);
         addObject(new Button(4), 534, 300);
-        addObject(c, 801, 450);
+        addObject(c, 850, 475);
+        
+        text = new String[1];
+        text[0] = "Too easy";
+        sp = new SuperTextBox(text, Color.WHITE, Color.BLACK, f, false, 100, 10, Color.BLACK);
     }
+    
     public void act(){
         c.cohenSmile();
+        addObject(sp, 700, 525);
     }
 }
