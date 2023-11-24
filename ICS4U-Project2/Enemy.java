@@ -72,6 +72,7 @@ public abstract class Enemy extends Entity
             //moving animation
             running();
         }
+        
     }
 
     protected abstract void action(Party targetPlayer);
@@ -111,4 +112,23 @@ public abstract class Enemy extends Entity
 
         return null;
     }
+    
+    protected abstract void repelOtherEnemies();
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

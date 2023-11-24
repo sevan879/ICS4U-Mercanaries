@@ -33,6 +33,13 @@ public class Wolf extends Enemy
     private int runningAttackAnimationIndex;
     private int runningAttackAnimationDelay;
     private int runningAttackAnimationCounter;
+
+    private static boolean movable = true;
+
+    public Wolf(){
+        super(HP, SPEED, DELAY, DAMAGE, movable, ATTACK_RANGE);
+        animationConstructor();
+    }
     
     /**
      * Act - do whatever the Wolf wants to do. This method is called whenever
@@ -41,11 +48,6 @@ public class Wolf extends Enemy
     public void act()
     {
         super.act();
-    }
-    
-    public Wolf(){
-        super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
-        animationConstructor();
     }
     
     protected void action(Party targetPlayer){
@@ -190,4 +192,17 @@ public class Wolf extends Enemy
     public boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
+    protected void repelOtherEnemies(){
+        List<Wolf> wolves = getObjectsAtOffset(-attackRange, 0, Wolf.class);
+        if(wolves.size() > 3){
+            movable = false;
+        }
+        movable = true;
+    }
+    /*
+    protected void action(Party targetPlayer){
+        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
+        //attack animations
+    }
+    */
 }
