@@ -57,7 +57,9 @@ public class Button extends Actor
                 Greenfoot.setWorld(t);
             }
             if(buttonChooser == 4){
+                m = new MainWorld();
                 Greenfoot.setWorld(m);
+                m.started();
             }    
         }
     }
