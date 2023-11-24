@@ -109,4 +109,8 @@ public class Mage extends Party
             deathAnimationCounter--;
         }
     }
+    
+    public void animationConstructor() {
+        
+    }
 }

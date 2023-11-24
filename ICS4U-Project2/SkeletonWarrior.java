@@ -69,7 +69,6 @@ public class SkeletonWarrior extends Enemy
 
     public void attackAnimation() {
         if (attackTracker == 0) { //attack one
-            System.out.println("1");
             attackOne();
             //stuff about dealing damage, whatever
             if (!animationIsRunning()) {
@@ -78,7 +77,6 @@ public class SkeletonWarrior extends Enemy
         }
         else if (attackTracker == 1) { //attack two
             attackTwo();
-            System.out.println("2");
             //stuff about dealing damage, whatever
             if (!animationIsRunning()) {
                 attackTracker = 2;
@@ -86,7 +84,6 @@ public class SkeletonWarrior extends Enemy
         }
         else if (attackTracker == 2) { //attack three
             attackThree();
-            System.out.println("3");
 
             //stuff about dealing damage, whatever, this one should deal the most since its the last attack
             if (!animationIsRunning()) {
@@ -270,4 +267,6 @@ public class SkeletonWarrior extends Enemy
         attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
+    
+    protected void repelOtherEnemies(){}
 }

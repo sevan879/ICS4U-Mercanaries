@@ -11,13 +11,13 @@ public class Healer extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 4;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 30; // amount of acts
+    private static final int ACTION_DELAY = 120; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 160;
+    private static final int ATTACK_RANGE = 400;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;
-    
+
     //stats that are increased on each level up
     private static final int DAMAGE_INCREASE = 1; 
     private static final int HEALTH_INCREASE = 2; 
@@ -25,36 +25,54 @@ public class Healer extends Party
     private static final int MANA_INCREASE = 0;
 
     private int spellLevel = 0;
-    
+
     private int damage = 25; // damage to heal
-    
+
     private int smallSpellMana; // mana for small heal
     private int bigSpellMana; // mana for big heal
-    
+
     private GreenfootSound [] healing;//sounds for healing 
+
+    private GreenfootImage[] attackOnePics;
+    private int attackOneAnimationIndex;
+    private int attackOneAnimationDelay;
+    private int attackOneAnimationCounter;
+
+    private GreenfootImage[] attackTwoPics;
+    private int attackTwoAnimationIndex;
+    private int attackTwoAnimationDelay;
+    private int attackTwoAnimationCounter;
 
     private GreenfootImage[] deathPics;
     private int deathAnimationIndex;
     private int deathAnimationDelay;
     private int deathAnimationCounter;
 
+    private GreenfootImage[] runningPics;
+    private int runningAnimationIndex;
+    private int runningAnimationDelay;
+    private int runningAnimationCounter;
+
     public Healer()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
-        
+
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         healing = new GreenfootSound[3];
         for(int i = 0; i < healing.length; i++){
             healing[i] = new GreenfootSound("Heal.mp3");
         }
-        
+
         smallSpellMana = 15;
         bigSpellMana = 30;
+        setImage(runningPics[0]);
+        animationConstructor();
     }
 
     public void act()
     {
-        super.act(true);
+        super.act();
+        //inCombat = false;
     }
 
     protected void mainAction(Enemy target)
@@ -75,7 +93,7 @@ public class Healer extends Party
     }
 
     protected void mainAnimation() {
-
+        attackOne();
     }
 
     protected void levelUpStats()
@@ -92,7 +110,7 @@ public class Healer extends Party
 
     private void smallHeal(Party healTarget)
     {
-        
+
         if (spendMana(smallSpellMana))
         {
             healTarget.healDmg(damage);
@@ -128,8 +146,7 @@ public class Healer extends Party
         {
             return target;
         }
-        
-        
+
         for (Party p : pList)
         {
             if (target == null)
@@ -148,16 +165,53 @@ public class Healer extends Party
         return target;
     }
 
-    public void running()
-    {
-
+    public void idle() {
     }
 
-    public void idle() {
+    public void attackOne() {
+        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
+            animationTracker++;
+        }
+        if (attackOneAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            attackOneAnimationCounter = attackOneAnimationDelay; // reset counter to max 
+            attackOneAnimationIndex++; // this will be used to set the image to the next frame
 
+            // If the image index has passed the last image, stop animation
+            if (attackOneAnimationIndex == attackOnePics.length){
+                attackOneAnimationIndex = 0;
+                animationTracker++;
+            }
+            // Apply new image to this Actor
+            setImage (attackOnePics[attackOneAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            attackOneAnimationCounter--;
+        }
+    }
+
+    public void attackTwo() {
+        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
+            animationTracker++;
+        }
+        if (attackTwoAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            attackTwoAnimationCounter = attackTwoAnimationDelay; // reset counter to max 
+            attackTwoAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, stop animation
+            if (attackTwoAnimationIndex == attackTwoPics.length){
+                attackTwoAnimationIndex = 0;
+                animationTracker++;
+            }
+            // Apply new image to this Actor
+            setImage (attackTwoPics[attackTwoAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            attackTwoAnimationCounter--;
+        }
     }
 
     public void death() {
+        boolean remove = false;
         isDying = true;
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             deathAnimationCounter = deathAnimationDelay; // reset counter to max 
@@ -166,13 +220,78 @@ public class Healer extends Party
             // If the image index has passed the last image, go back to first image
             if (deathAnimationIndex == deathPics.length){
                 deathAnimationIndex = 0;
-                getWorld().removeObject(this);
+                remove = true;
             }
             // Apply new image to this Actor
+            setLocation(getX(), getY()+5);
             setImage (deathPics[deathAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             deathAnimationCounter--;
         }
+        if (remove) {
+            getWorld().removeObject(this);
+        }
+    }
+
+    public void running() {
+        if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            runningAnimationCounter = runningAnimationDelay; // reset counter to max 
+            runningAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (runningAnimationIndex == runningPics.length){
+                runningAnimationIndex = 0;
+            }
+            // Apply new image to this Actor
+            setImage (runningPics[runningAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            runningAnimationCounter--;
+        }
+    }
+
+    public void animationConstructor() {
+        animationTracker = 0;
+        attackTracker = 0;
+
+        //Animation
+        attackOnePics = new GreenfootImage[7];
+        for (int i = 0; i < attackOnePics.length; i++) {
+            attackOnePics[i] = new GreenfootImage("HA1" + (i+1) + ".png");
+            attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
+        }
+        attackOneAnimationIndex = 0;
+        attackOneAnimationDelay = 8;
+        attackOneAnimationCounter = attackOneAnimationDelay;
+
+        attackTwoPics = new GreenfootImage[4];
+        for (int i = 0; i < attackTwoPics.length; i++) {
+            attackTwoPics[i] = new GreenfootImage("KA2" + (i+1) + ".png");
+            attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
+        }
+        attackTwoAnimationIndex = 0;
+        attackTwoAnimationDelay = 8;
+        attackTwoAnimationCounter = attackTwoAnimationDelay;
+
+        //death
+        deathPics = new GreenfootImage[5];
+        for (int i = 0; i < deathPics.length; i++) {
+            deathPics[i] = new GreenfootImage("HD" + (i+1) + ".png");
+            deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
+        }
+        deathAnimationIndex = 0;
+        deathAnimationDelay = 10;
+        deathAnimationCounter = deathAnimationDelay;
+
+        //running
+        runningPics = new GreenfootImage[8];
+        for (int i = 0; i < runningPics.length; i++) {
+            runningPics[i] = new GreenfootImage("HR" + (i+1) + ".png");
+            runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
+        }
+        runningAnimationIndex = 0;
+        runningAnimationDelay = 8;
+        runningAnimationCounter = runningAnimationDelay;
     }
 }
