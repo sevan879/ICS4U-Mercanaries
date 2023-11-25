@@ -9,117 +9,115 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Settings extends World
 {
     private GreenfootImage background;
+    private final int MAX_PARTY = 8;
+    private int current;
 
+    //somehow transfer these numbers to the game world
     private int numKnights;
-    private int knightLevel;
-    private int numHealers;
-    private int healerLevel;
-    private int numMages;
-    private int magesLevel;
-    private int difficulty;
+    private SettingsButton kU;
+    private SettingsButton kD;
     
-    private GreenfootImage[] buttons;
+    private int numHealers;
+    private SettingsButton hU;
+    private SettingsButton hD;
+    
+    private int numMages;
+    private SettingsButton mU;
+    private SettingsButton mD;
     
     //constructor
     public Settings()
     {    
-        buttons = new GreenfootImage[2];
         super(1068, 720, 1);
         background = new GreenfootImage("SettingsBackground.png");
         setBackground(background);
-        
-        buttons[0] = new GreenfootImage("up.png");
-        buttons[0].scale(buttons[0].getWidth()/8, buttons[0].getHeight()/8);
-        buttons[1] = new GreenfootImage("down.png");
-        buttons[1].scale(buttons[1].getWidth()/8, buttons[1].getHeight()/8);
-        
-        buttons[2] = new GreenfootImage("up.png");
-        buttons[2].scale(buttons[2].getWidth()/8, buttons[2].getHeight()/8);
-        buttons[3] = new GreenfootImage("down.png");
-        buttons[3].scale(buttons[3].getWidth()/8, buttons[3].getHeight()/8);
-        
-        buttons[4] = new GreenfootImage("up.png");
-        buttons[4].scale(buttons[4].getWidth()/8, buttons[4].getHeight()/8);
-        buttons[5] = new GreenfootImage("down.png");
-        buttons[5].scale(buttons[5].getWidth()/8, buttons[5].getHeight()/8);
-        
-        buttons[6] = new GreenfootImage("up.png");
-        buttons[6].scale(buttons[6].getWidth()/8, buttons[6].getHeight()/8);
-        buttons[7] = new GreenfootImage("down.png");
-        buttons[7].scale(buttons[7].getWidth()/8, buttons[7].getHeight()/8);
-        
-        buttons[8] = new GreenfootImage("up.png");
-        buttons[8].scale(buttons[8].getWidth()/8, buttons[8].getHeight()/8);
-        buttons[9] = new GreenfootImage("down.png");
-        buttons[9].scale(buttons[9].getWidth()/8, buttons[9].getHeight()/8);
-        
-        buttons[10] = new GreenfootImage("up.png");
-        buttons[10].scale(buttons[10].getWidth()/8, buttons[10].getHeight()/8);
-        buttons[11] = new GreenfootImage("down.png");
-        buttons[11].scale(buttons[11].getWidth()/8, buttons[11].getHeight()/8);
-        
-        buttons[12] = new GreenfootImage("up.png");
-        buttons[12].scale(buttons[12].getWidth()/8, buttons[12].getHeight()/8);
-        buttons[13] = new GreenfootImage("down.png");
-        buttons[13].scale(buttons[13].getWidth()/8, buttons[13].getHeight()/8);
-        
-        buttons[14] = new GreenfootImage("up.png");
-        buttons[14].scale(buttons[14].getWidth()/8, buttons[14].getHeight()/8);
-        buttons[15] = new GreenfootImage("down.png");
-        buttons[15].scale(buttons[15].getWidth()/8, buttons[15].getHeight()/8);
-        
-        
-        addObject(new Button(5), 350, 100);
-        addObject(new Button(4), 700, 100);
-        
-        addObject(new Button(5), 350, 175);
-        addObject(new Button(4), 700, 175);
-        
-        addObject(new Button(5), 350, 250);
-        addObject(new Button(4), 700, 250);
-        
-        addObject(new Button(5), 350, 325);
-        addObject(new Button(4), 700, 325);
-        
-        addObject(new Button(5), 350, 400);
-        addObject(new Button(4), 700, 400);
-        
-        addObject(new Button(5), 350, 475);
-        addObject(new Button(4), 700, 475);
-        
-        addObject(new Button(5), 350, 550);
-        addObject(new Button(4), 700, 550);
-        
-        addObject(new Button(5), 350, 625);
-        addObject(new Button(4), 700, 625);
-        
-        setImage(buttons[4]);
-        setImage(buttons[5]);
+        numKnights = 4;
+        numHealers = 1;
+        numMages = 1;
+        current = 6;
 
-        image = buttons[buttonChooser];
-        this.buttonChooser = buttonChooser;
+        
+        kD = new SettingsButton(false);
+        kU = new SettingsButton(true);
+        
+        hD = new SettingsButton(false);
+        hU = new SettingsButton(true);
+        
+        mD = new SettingsButton(false);
+        mU = new SettingsButton(true);
+        
+        addObject(kD, 350, 200);
+        addObject(kU, 700, 200);
+        addObject(new Button(4), 500, 200);
+        
+        addObject(hD, 350, 300);
+        addObject(hU, 700, 300);
+        addObject(new Button(5), 500, 300);
+        
+        addObject(mD, 350, 400);
+        addObject(mU, 700, 400);
+        addObject(new Button(6), 500, 400);
+        set(0);
+        set(1);
+        set(2);
 
     }
     
     public void act(){
-        if (Greenfoot.mouseClicked(this)) {
-            if (buttonChooser == 0) {
-                m = new MainWorld();
-                Greenfoot.setWorld(m);
-                m.started();
+        if (Greenfoot.mouseClicked(kU)) {
+            if(current < MAX_PARTY){
+                numKnights++;
+                current++;
+                set(0);
             }
-            if (buttonChooser == 1) {
-                s = new Settings();
-                Greenfoot.setWorld(s);
+        }
+        if (Greenfoot.mouseClicked(kD)) {
+            if(current > 0 && numKnights > 0){
+                numKnights--;
+                current--;
+                set(0);
             }
-            if (buttonChooser == 2) {
-                b = new Backstory();
-                Greenfoot.setWorld(b);
-            }    
-            if(buttonChooser == 3){
-                t = new TitleScreen();
-                Greenfoot.setWorld(t);
+        }
+        
+        if (Greenfoot.mouseClicked(hU)) {
+            if(current < MAX_PARTY){
+                numHealers++;
+                current++;
+                set(1);
             }
+        }
+        if (Greenfoot.mouseClicked(hD)) {
+            if(current > 0 && numHealers > 0){
+                numHealers--;
+                current--;
+                set(1);
+            }
+        }
+        
+        if (Greenfoot.mouseClicked(mU)) {
+            if(current < MAX_PARTY){
+                numMages++;
+                current++;
+                set(2);
+            }
+        }
+        if (Greenfoot.mouseClicked(mD)) {
+            if(current > 0 && numMages >0){
+                numMages--;
+                current--;
+                set(2);
+            }
+        }
+    }
+    public void set(int type){
+        if(type == 0){
+            addObject(new Button(7+numKnights),635, 200);
+        }
+        else if(type == 1){
+            addObject(new Button(7+numHealers),635, 300 );
+        }
+        else{
+            addObject(new Button(7+numMages),635, 400);
         }
     }
 }

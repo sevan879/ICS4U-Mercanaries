@@ -18,15 +18,18 @@ public class Button extends Actor
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[4];
+        buttons = new GreenfootImage[16];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
         buttons[3] = new GreenfootImage("spaceToContinue.png");
-        buttons[4] = new GreenfootImage("up.png");
-        buttons[4].scale(buttons[4].getWidth()/8, buttons[4].getHeight()/8);
-        buttons[5] = new GreenfootImage("down.png");
-        buttons[5].scale(buttons[5].getWidth()/8, buttons[5].getHeight()/8);
+        buttons[4] = new GreenfootImage("k.png");
+        buttons[5] = new GreenfootImage("h.png");
+        buttons[6] = new GreenfootImage("m.png");
+        for(int i = 0; i < 9; i++){
+             buttons[i+7] = new GreenfootImage(i + ".png");
+             buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
+        }
     
         setImage(buttons[buttonChooser]);
 
@@ -58,6 +61,4 @@ public class Button extends Actor
             }
         }
     }
-    
-    public void presser(int value)
 }
