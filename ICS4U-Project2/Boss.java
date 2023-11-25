@@ -9,7 +9,7 @@ import java.util.*;
 public abstract class Boss extends Entity
 {
     private SuperStatBar hpBar;
-    private int n;
+    private int actionChooser;
     /**
      * Main constructor for Enemy class
      * 
@@ -21,11 +21,11 @@ public abstract class Boss extends Entity
     public Boss(int hp, int delay)
     {
         super(hp, 0, delay, false);
-        n = 0;
+        actionChooser = 0;
     }
 
     protected abstract void action(int attackNum);
-    
+
     protected abstract void idle();
 
     public void act()
@@ -35,28 +35,30 @@ public abstract class Boss extends Entity
 
     public void attackLoop()
     {
-        if (actionCounter <= 0)
+        /**
+         *         if (actionCounter <= 0)
         {
-            int selectedAttack = n;
+            actionChooser = Greenfoot.getRandomNumber(8);
             if (!animationIsRunning()) { //animation not running, no action currently taking place
-                //Select an attack
-                if (partyMembersInWorld().size() != 0) { //party members exist in the world
-                    n = Greenfoot.getRandomNumber(4); //random number to choose which action to perform
-                    actionCounter = actionDelay;
-                    action(selectedAttack); //do the action
-                }
-                else {
-                    //crazy OMG YOU LOST ANIMATION
-                }
+                //Select an action
+                //random number to choose which action to perform
+                action(actionChooser); //do the action, start animation
+
             }
-            else {
-                action(selectedAttack);
+            else { //animation running, continue doing the frames bruhhhh
+
+                action(actionChooser);
+                actionCounter = actionDelay;
             }
         }
         else
         {
+            if (!animationIsRunning()) {
+                idle();
+            }
             actionCounter--;
         }
+         */
     }
 
     public Party targetPlayer() {
@@ -68,4 +70,5 @@ public abstract class Boss extends Entity
 
         return null;
     }
+
 }
