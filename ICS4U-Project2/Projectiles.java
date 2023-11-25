@@ -12,6 +12,8 @@ public abstract class Projectiles extends Actor
     protected int maxHeight;
     protected double yVelocity;
     private static final double accleration = 0.2;
+    protected int yDirection;
+    protected int angle;
     
     /**
      * Main constructor for Projectiles class
@@ -20,11 +22,13 @@ public abstract class Projectiles extends Actor
      * @param direction projectile's direction
      * @param yVel projectile's vertical velocity
      */
-    public Projectiles(int spd, int direction, int maxH, double yVel){
+    public Projectiles(int spd, int direction, int maxH, double yVel, int angle, int yDirection){
         speed = spd;
         this.direction = direction;
         maxHeight = maxH;
         yVelocity = yVel;
+        this.angle = angle;
+        this.yDirection = yDirection;
         
         
     }
@@ -63,6 +67,11 @@ public abstract class Projectiles extends Actor
     public void moveInParabola(){
         setLocation(getX() + speed * direction, getY() - (int)yVelocity);
         yVelocity = yVelocity - accleration;
+        
+        
+        setRotation(angle);
+        angle = angle - yDirection;
+        
     }
     
     

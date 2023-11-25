@@ -17,10 +17,12 @@ public class Fireball extends Projectiles
     private static final int maxHeight = 200;
     private static final double yVelocity = 8;
     private static final int range = 30;
+    private static int angle = 315;
+    private static final int yDirection = -1;
 
-
+    GreenfootImage image = getImage();
     public Fireball(){
-        super(speed, direction, maxHeight, yVelocity);
+        super(speed, direction, maxHeight, yVelocity, angle, yDirection);
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         small = new GreenfootSound[3];
         for(int i = 0; i < small.length; i++){
@@ -30,6 +32,9 @@ public class Fireball extends Projectiles
         for(int i = 0; i < big.length; i++){
             big[i] = new GreenfootSound("BigFireBall.mp3");
         }
+        
+        image.scale(80, 45);
+        image.mirrorHorizontally();
     }
     
  

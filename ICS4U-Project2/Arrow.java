@@ -14,14 +14,21 @@ public class Arrow extends Projectiles
     private static final int direction = -1;
     private static final int maxHeight = 200;
     private static final double yVelocity = 6;
+    private static int angle = 45;
+    private static final int yDirection = 1;
+    
+    GreenfootImage image = getImage();
     public Arrow(){
-        super(speed, direction, maxHeight, yVelocity);
+        super(speed, direction, maxHeight, yVelocity, angle, yDirection);
 
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         a = new GreenfootSound[3];
         for(int i = 0; i < a.length; i++){
             a[i] = new GreenfootSound("Arrow.wav");
         }
+        
+        image.scale(100, 1);
+        //image.mirrorHorizontally();
     }
     
     /**
@@ -34,6 +41,8 @@ public class Arrow extends Projectiles
         super.act();
         checkHitParty();
     }
+    
+    
     
     /*
     public void checkHitParty(){
