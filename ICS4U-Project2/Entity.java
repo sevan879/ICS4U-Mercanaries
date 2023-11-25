@@ -117,4 +117,9 @@ public abstract class Entity extends SuperSmoothMover
             return true;
         }
     }
+    
+    public boolean checkDying()
+    {
+        return isDying;
+    }
 }

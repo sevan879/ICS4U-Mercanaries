@@ -18,8 +18,8 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 4;
-    private int numOfMages = 0;
+    private int numOfKnights = 2;
+    private int numOfMages = 2;
     private int numOfHealers = 1;
     private int spacingBetween = 60;
     private int spawningXParty = 50;
@@ -121,13 +121,13 @@ public class MainWorld extends World
     }
 
     public void spawnParty(){
-        for (int i = 0; i < numOfMages; i++)
-        {
-            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
-        }
         for (int i = 0; i < numOfHealers; i++)
         {
             addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
+        }
+        for (int i = 0; i < numOfMages; i++)
+        {
+            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfKnights; i++)
         {
@@ -156,10 +156,10 @@ public class MainWorld extends World
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     int enemyType = Greenfoot.getRandomNumber(4);
                     if(enemyType == 0){
-                        //addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
-                        //enemiesSpawned++;
+                        addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                        enemiesSpawned++;
                     } else if(enemyType == 1){
-                        //addObject(new Archer(), 0, 0); // modify placement after
+                        //addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
                         //enemiesSpawned++;
                     } else if(enemyType == 2){
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
@@ -173,7 +173,7 @@ public class MainWorld extends World
         }
 
         if(wave == 1){
-            if(enemiesSpawned == 2){
+            if(enemiesSpawned == 5){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {

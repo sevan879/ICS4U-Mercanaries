@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.concurrent.Phaser;
-import java.util.List;
+import java.util.*;
 
 /**
  * Enemy class, superclass for all enemie classes
@@ -11,7 +11,13 @@ import java.util.List;
 public abstract class Enemy extends Entity
 {
     protected int attackRange;
-
+    protected boolean rangedEnemy;
+    
+    protected boolean attacking;
+    protected boolean canAttack;
+    
+    private int reloadTimer;
+    
     private SuperStatBar hpBar;
 
     /**
@@ -29,6 +35,9 @@ public abstract class Enemy extends Entity
     {
         super(hp, spd, delay, true);
         this.attackRange = attackRange;
+        attacking = false;
+        canAttack = true;
+        reloadTimer = (2*actionDelay)/3;
     }
 
     protected List<Party> playersUpClose(){
@@ -56,20 +65,60 @@ public abstract class Enemy extends Entity
         }
         else {
             hpBar.update(health);
-            move();
-            attack();
-            // Add your action code here.
+            if (rangedEnemy)
+            {
+                if (canAttack)
+                {
+                    rangedAttack();
+                }
+                else // if cant attack, reload
+                {
+                    if(reloadTimer == 0){
+                        reloadTimer = (actionDelay*2)/3;
+                        canAttack = true;
+                    } else{
+                        reloadTimer--;
+                    }
+                }
+                
+                if (!attacking)
+                {
+                    //System.out.println("moving");
+                    move(false);
+                }
+            }
+            else
+            {
+                move(true);
+                attack();
+            }
         }
     }
-
-    public void move(){
+    // if boolean is set to true, dont move if player is in range
+    public void move(boolean compareRange){
         //if no player is detected within attack range, move 
-        if(targetPlayer() == null){
+        if (compareRange)
+        {
+            if(targetPlayer() == null){
+                setLocation(getX() - speed, getY());
+                //moving animation
+                running();
+            }
+        }
+        else
+        {
+            ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
+            for (Party p : partyList)
+            {
+                double distanceFromP = Math.hypot(getX() - p.getX(), getY() - p.getY());
+                if (distanceFromP <= 20)
+                {
+                    return;
+                }
+            }
             setLocation(getX() - speed, getY());
-            //moving animation
             running();
         }
-        
     }
 
     protected abstract void action(Party targetPlayer);
@@ -78,18 +127,42 @@ public abstract class Enemy extends Entity
 
     protected abstract void attackAnimation();
 
-    public void attack(){
+    protected void attack(){
         if(targetPlayer() != null){
-            Party targetPlayer = targetPlayer();
+            Party target = targetPlayer();
             if(actionCounter == 0){
 
-                action(targetPlayer);
+                action(target);
 
                 actionCounter = actionDelay;
             } else{
                 actionCounter--;
             }
             attackAnimation();
+        }
+    }
+    
+    protected void rangedAttack()
+    {
+        Party target = targetRandomPlayer();
+        if (target != null)
+        {
+            attacking = true;
+            if(actionCounter == 0){
+                
+                action(target);
+
+                actionCounter = actionDelay;
+                attacking = false;
+                canAttack = false;
+            } else{
+                actionCounter--;
+            }
+            attackAnimation();
+        }
+        else
+        {
+            attacking = false;
         }
     }
 
@@ -99,33 +172,41 @@ public abstract class Enemy extends Entity
         getWorld().addObject(hpBar, 0, 0);
     }
 
-    public Party targetPlayer() {
+    protected Party targetPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);
+        
+        Party target = null;
+        
         for (Party p : players) {
+            double distanceFromP = Math.hypot(getX() - p.getX(), getY() - p.getY());
             if (!players.isEmpty() && !p.isDying) {
-                return p; 
+                if (target == null)
+                {
+                    target = p;
+                }
+                else
+                {
+                    double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
+                    if (distanceFromP < distanceFromTarget && !p.checkDying())
+                    {
+                        target = p;
+                    }
+                }
             }
+        }
+
+        return target;
+    }
+    
+    protected Party targetRandomPlayer() {
+        List<Party> players = getObjectsInRange(attackRange, Party.class);
+        if (!players.isEmpty())
+        {
+            return (players.get(Greenfoot.getRandomNumber(players.size())));
         }
 
         return null;
     }
     
     protected abstract void repelOtherEnemies();
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

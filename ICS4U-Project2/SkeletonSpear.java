@@ -84,7 +84,6 @@ public class SkeletonSpear extends Enemy
                     }
                 }
                 else if (attackTracker == 1) { //attack two
-                    System.out.println("SSATK2");
                     attackTwo();
                     //stuff about dealing damage, whatever
                     if (!animationIsRunning()) {
@@ -238,6 +237,8 @@ public class SkeletonSpear extends Enemy
             getWorld().removeObject(this);
         }
     }
+    
+    
 
     public boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
