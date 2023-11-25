@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @Arthur
  * @version (a version number or a date)
  */
-public class Cohen extends Boss
+public abstract class Cohen extends Boss
 {
     private static final int SET_HP = 600;
     private static final int ACTION_DELAY = 200;
