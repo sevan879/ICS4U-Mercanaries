@@ -10,7 +10,7 @@ public class Arrow extends Projectiles
 {
     private GreenfootSound[] a;// sound effect for arrow release and whoosh noise
     
-    private static final int speed = 6;
+    private static final int speed = 7;
     private static final int direction = -1;
     private static final int maxHeight = 200;
     private static final double yVelocity = 6;
