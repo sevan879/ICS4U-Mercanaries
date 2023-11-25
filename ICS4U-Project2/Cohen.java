@@ -11,9 +11,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Cohen extends Boss
 {
-    private static final int SET_HP = 5;
-    private static final int ACTION_DELAY = 240;
+    private static final int SET_HP = 600;
+    private static final int ACTION_DELAY = 200;
     private static final int ATTACK_COUNT = 8;
+    private static final int downTimeDelay = 240;
+    private int downTimeCounter;
 
     //ultimate attack
     private GreenfootImage[] attackOnePics;
@@ -36,18 +38,79 @@ public class Cohen extends Boss
     private int idleAnimationDelay;
     private int idleAnimationCounter;
 
+    private GreenfootImage[] hitPics;
+    private int hitAnimationIndex;
+    private int hitAnimationDelay;
+    private int hitAnimationCounter;
+
     private GreenfootImage smileCohen;
     private GreenfootImage angryCohen;
+    private boolean fallen;
+
+    private int introCount;
+    private int introTotalWait;
     public Cohen()
     {
         super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
         setImage(idlePics[0]);
+        downTimeCounter = 0;
+        introCount = 0;
+        introTotalWait = 220;
+        fallen = false;
     }
 
     public void act()
     {
-        super.act();
+        if (introCount < introTotalWait) {
+            GreenfootImage img = new GreenfootImage("SecretCohen-removebg-preview.png");
+            img.scale(img.getWidth()*2, img.getHeight()*2);
+            setImage(new GreenfootImage(img));
+            introCount++;
+        }
+        else { //actual act method
+            //knock down
+            if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) {
+                if (downTimeCounter == 0) {
+                    cohenDownAndHit();
+                    for (Enemy e : enemiesInWorld()) {
+                        getWorld().removeObject(e);
+                    }
+                    for (Party member : partyMembersInWorld()) {
+                        //member.setLocation(member.getCohenAttackXPos(), member.getY());
+                        member.setCohenExists(true);
+                    }
+                }
+                //start loop
+                if (fallen) {
+                    if (downTimeCounter < downTimeDelay) {
+                        if (downTimeCounter%2 == 0) {
+                            setImage(new GreenfootImage("CohenDown4-removebg-preview.png"));
+                        }
+                        else {
+                            setImage(new GreenfootImage("CohenDown5-removebg-preview.png"));
+                            health--;
+                        }
+                        downTimeCounter++;
+                    }
+                    else { //reset values
+                        for (Party member : partyMembersInWorld()) {
+                            //member.setLocation(member.getCohenAttackXPos(), member.getY());
+                            member.setCohenExists(false);
+                        }
+
+                        downTimeCounter = 0;
+                        numOfActionsSoFar++;
+                        fallen = false;
+                    }
+                }
+            }
+            else //actual ACTUAL act method lol
+            {
+                super.act();
+            }
+        }
     }
+
     /**
      * POSSIBLE ACTIONS
      * summons wave 
@@ -70,7 +133,7 @@ public class Cohen extends Boss
         }
         if (attackNum%2 == 0) //summon
         {
-            summon();  
+            summon();
         }
         else if (attackNum == 3 || attackNum == 5)
         {
@@ -83,7 +146,8 @@ public class Cohen extends Boss
     }
 
     public void death() {
-
+        getWorld().setBackground(new GreenfootImage("BackstoryBackground.png"));
+        Greenfoot.setWorld(new EndScreen(false));
     }
 
     public void summon() {
@@ -96,16 +160,17 @@ public class Cohen extends Boss
 
             // If the image index has passed the last image, stop animation
             if (summonAnimationIndex == 2){
-                if (Greenfoot.getRandomNumber(2) == 0) {
-                    getWorld().addObject(new MiniCohen(), 900, 650);
+                if (Greenfoot.getRandomNumber(9)%3 != 0) {
+                    getWorld().addObject(new MiniCohen(), 900, 605);
                 }
                 else {
-                    getWorld().addObject(new Karel(), 900, 650);
+                    getWorld().addObject(new Karel(), 900, 605);
                 }
             }
             if (summonAnimationIndex == summonPics.length){
                 summonAnimationIndex = 0;
                 animationTracker++;
+                numOfActionsSoFar++;
                 attacking = false;
             }
             else {
@@ -148,11 +213,15 @@ public class Cohen extends Boss
             if (attackOneAnimationIndex == attackOnePics.length){
                 attackOneAnimationIndex = 0;
                 animationTracker++;
+                numOfActionsSoFar++;
                 attacking = false;
             }
             else {
                 // Apply new image to this Actor
                 setImage (attackOnePics[attackOneAnimationIndex]);
+                for (Party member : partyMembersInWorld()) {
+                    member.takeDamage(2);
+                }
             }
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
@@ -183,6 +252,7 @@ public class Cohen extends Boss
             // If the image index has passed the last image, stop animation
             if (attackTwoAnimationIndex == attackTwoPics.length){
                 attackTwoAnimationIndex = 0;
+                numOfActionsSoFar++;
                 animationTracker++;
                 attacking = false;
             }
@@ -193,6 +263,30 @@ public class Cohen extends Boss
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackTwoAnimationCounter--;
+        }
+    }
+
+    public void cohenDownAndHit() {
+        if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
+            animationTracker++;
+        }
+        else if (hitAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            hitAnimationCounter = hitAnimationDelay; // reset counter to max 
+            hitAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, stop animation
+            if (hitAnimationIndex == hitPics.length){
+                hitAnimationIndex = 0;
+                animationTracker++;
+                attacking = false;
+                fallen = true;
+            }
+            else {
+                setImage (hitPics[hitAnimationIndex]);
+            }
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            hitAnimationCounter--;
         }
     }
 
@@ -237,5 +331,14 @@ public class Cohen extends Boss
         summonAnimationIndex = 0;
         summonAnimationDelay = 15;
         summonAnimationCounter = summonAnimationDelay;
+
+        //attack two
+        hitPics = new GreenfootImage[4];
+        for (int i = 0; i < hitPics.length; i++) {
+            hitPics[i] = new GreenfootImage("CohenDown" + (i+1) + "-removebg-preview.png");
+        }
+        hitAnimationIndex = 0;
+        hitAnimationDelay = 16;
+        hitAnimationCounter = hitAnimationDelay;
     }
 }

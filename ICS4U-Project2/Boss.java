@@ -12,14 +12,7 @@ public abstract class Boss extends Entity
     private int actionChooser;
     private int attackCount;
     protected boolean attacking;
-    
-    /**
-     * Main constructor for Enemy class
-     * 
-     * @param hp enemie's health
-     * @param delay delay between actions
-     * @param movable can the enemy move around
-     */
+    protected int numOfActionsSoFar;
 
     public Boss(int hp, int delay, int attackCount)
     {
@@ -35,7 +28,12 @@ public abstract class Boss extends Entity
 
     public void act()
     {
+        if (health > 0) {
         attackLoop();
+        }
+        else {
+            death();
+        }
     }
 
     public void attackLoop()
@@ -44,7 +42,7 @@ public abstract class Boss extends Entity
         {
             if (actionChooser == -1)
             {
-                
+
                 actionChooser = Greenfoot.getRandomNumber(attackCount);
                 action(actionChooser);
             }
@@ -63,7 +61,7 @@ public abstract class Boss extends Entity
             idle();
             actionCounter--;
         }
-        
+
     }
 
     public Party targetPlayer() {

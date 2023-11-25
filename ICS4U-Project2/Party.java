@@ -21,6 +21,8 @@ public abstract class Party extends Entity
     protected int runningSpeed;
     protected boolean inCombat;
     protected boolean idle;
+    protected int cohenAttackXPos;
+    protected boolean cohenExists;
 
     private int manaRegenCounter;
     private static final int MANA_REGEN_DELAY = 30;
@@ -56,7 +58,7 @@ public abstract class Party extends Entity
         runningSpeed = 1;
         inCombat = false;
         idle = false;
-        
+        cohenExists = false;
         usesMana = manaClass;
     }
 
@@ -87,9 +89,15 @@ public abstract class Party extends Entity
             if (targetEnemy != null) {
                 mainAnimation();
             }
+            if (cohenExists) {
+                    runningSpeed = 0;
+                    inCombat = true;
+                    actionCounter = actionDelay;
+                    mainAnimation();    
+                }
             if (actionCounter <= 0) 
             {
-                
+
                 if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
                 {
                     runningSpeed = 0;
@@ -124,6 +132,10 @@ public abstract class Party extends Entity
                 actionCounter--;
             }
         }
+    }
+    
+    public void setCohenExists(boolean b) {
+        cohenExists = b;
     }
 
     public void setIdle() {
@@ -224,6 +236,10 @@ public abstract class Party extends Entity
         }
 
         return target;
+    }
+    
+    public int getCohenAttackXPos() {
+        return cohenAttackXPos;
     }
 
     /**
