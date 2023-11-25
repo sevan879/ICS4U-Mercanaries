@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @Arthur
  * @version (a version number or a date)
  */
-public abstract class Cohen extends Boss
+public class Cohen extends Boss
 {
     private static final int SET_HP = 600;
     private static final int ACTION_DELAY = 200;
@@ -129,7 +129,7 @@ public abstract class Cohen extends Boss
         attacking = true;
         setLocation(463, 311);
         if (attackNum == 1) { //single attack
-            attackOne();
+            attackTwo();
         }
         if (attackNum%2 == 0) //summon
         {
@@ -220,7 +220,7 @@ public abstract class Cohen extends Boss
                 // Apply new image to this Actor
                 setImage (attackOnePics[attackOneAnimationIndex]);
                 for (Party member : partyMembersInWorld()) {
-                    member.takeDamage(3);
+                    member.takeDamage(2);
                 }
             }
         } else {// not ready to animate yet, still waiting
@@ -245,7 +245,7 @@ public abstract class Cohen extends Boss
                         getWorld().removeObject(m);
                     }
                     else {
-                        m.takeDamage(m.health/2);
+                        m.takeDamage(m.getMaxHP()/2);
                     }
                 }
             }

@@ -8,11 +8,12 @@ import java.util.*;
  */
 public abstract class Boss extends Entity
 {
-    private SuperStatBar hpBar;
     private int actionChooser;
     private int attackCount;
     protected boolean attacking;
     protected int numOfActionsSoFar;
+    
+    private SuperStatBar hpBar;
 
     public Boss(int hp, int delay, int attackCount)
     {
@@ -26,8 +27,15 @@ public abstract class Boss extends Entity
 
     protected abstract void idle();
 
+    public void addedToWorld(World w)
+    {
+        hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 60, Color.YELLOW, Color.RED, false);
+        getWorld().addObject(hpBar, getWorld().getWidth()/2, getWorld().getHeight()*2/7);
+    }
+    
     public void act()
     {
+        hpBar.update(health);
         if (health > 0) {
         attackLoop();
         }

@@ -60,6 +60,14 @@ public class TitleScreen extends World
             }
 
         }
+        else if (n == 1) {
+            s = new Settings();
+            Greenfoot.setWorld(s);
+        }
+        else if (n == 2) {
+            b = new Backstory();
+            Greenfoot.setWorld(b);
+        }
     }
 
 }

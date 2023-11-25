@@ -13,17 +13,32 @@ public class Settings extends World
     private int current;
 
     //somehow transfer these numbers to the game world
-    private int numKnights;
+    private static int numKnights = 4;
     private SettingsButton kU;
     private SettingsButton kD;
     
-    private int numHealers;
+    private static int numHealers = 1;
     private SettingsButton hU;
     private SettingsButton hD;
     
-    private int numMages;
+    private static int numMages = 1;
     private SettingsButton mU;
     private SettingsButton mD;
+    
+    public static int getNumOfKnights()
+    {
+        return numKnights;
+    }
+    
+    public static int getNumOfMages()
+    {
+        return numMages;
+    }
+    
+    public static int getNumOfHealers()
+    {
+        return numHealers;
+    }
     
     //constructor
     public Settings()

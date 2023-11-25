@@ -12,7 +12,7 @@ public class MainWorld extends World
     private int partyRunningSpeed;
     private boolean waveOver = false;
     private boolean waitForWaveToEnd;
-    private int wave = 3;
+    private int wave = 1;
     private int enemiesSpawned = 0;
 
     private int worldYLevel = 605;
@@ -21,15 +21,15 @@ public class MainWorld extends World
     private int numOfKnights = 2;
     private int numOfMages = 2;
     private int numOfHealers = 1;
-    private int spacingBetween = 60;
+    private int spacingBetween = 70;
     private int spawningXParty = 50;
-
+    
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 10;
+    private int waveTwoEnemies = 8;
     private int waveThreeEnemies = 15;
     private int spawningXEnemy;
-
+    
     //Transition Variables
     private int transitionDelay = 300;
     private int transitionCounter = 0;
@@ -41,10 +41,6 @@ public class MainWorld extends World
 
     private GreenfootSound mainWorldMusic; //level 1 and 2 music
     private GreenfootSound bossMusic; //boss music
-    
-    private GreenfootSound forest; //level 1 background music
-    private GreenfootSound boss; // level 2 background music (boss)
-    private GreenfootSound dank;
 
     //constructor
     public MainWorld()
@@ -61,6 +57,10 @@ public class MainWorld extends World
 
         waitForWaveToEnd = false;
 
+        numOfKnights = Settings.getNumOfKnights();
+        numOfHealers = Settings.getNumOfHealers();
+        numOfMages = Settings.getNumOfMages();
+        
         spawnParty();
         //spawnEnemies();
 
@@ -155,7 +155,7 @@ public class MainWorld extends World
                 }
             }
 
-            if(!waveOver && wave != 5){
+            if(!waveOver && wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     int enemyType = Greenfoot.getRandomNumber(5);
                     if(enemyType == 0){
@@ -188,7 +188,6 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay;
-                    forest.playLoop();
                     addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
                     worldLvl = 1;
                     stopped();
@@ -205,8 +204,6 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
-                    forest.stop();
-                    boss.playLoop(); 
                     addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
                     background.setWorldBackground(1);
                     worldLvl = 2;
@@ -224,8 +221,6 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
-                    boss.stop();
-                    dank.playLoop();
                     addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
                     background.setWorldBackground(2);
                     addObject(new Cohen(), 463, 311);

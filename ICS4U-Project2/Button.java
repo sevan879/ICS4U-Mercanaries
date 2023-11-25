@@ -47,10 +47,10 @@ public class Button extends Actor
                 t.transitionToNewWorld(0);
             }
             if (buttonChooser == 1) {
-                
+                t.transitionToNewWorld(1);
             }
             if (buttonChooser == 2) {
-                
+                t.transitionToNewWorld(2);
             }    
             if(buttonChooser == 3 || buttonChooser == 16){
                 t = new TitleScreen();

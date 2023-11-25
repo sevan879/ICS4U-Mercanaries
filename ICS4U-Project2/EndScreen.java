@@ -27,6 +27,6 @@ public class EndScreen extends World
         else {
             setBackground(img2);
         }
-        addObject(new Button(4), 534, 360);
+        addObject(new Button(16), 534, 360);
     }
 }
