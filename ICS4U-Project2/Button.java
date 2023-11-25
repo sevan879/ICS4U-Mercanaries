@@ -29,7 +29,7 @@ public class Button extends Actor
     //act method
     public void act()
     {
-        if (Greenfoot.mouseMoved(this)) {
+        if (Greenfoot.mouseMoved(this)) { //hover effect
             
         }
         if (Greenfoot.mouseClicked(this)) {

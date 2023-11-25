@@ -20,7 +20,7 @@ public class TitleScreen extends World
     public TitleScreen()
     {    
         super(1068, 720, 1); 
-        titleScreenMusic = new GreenfootSound("TitleScreen.mp3");
+        titleScreenMusic = new GreenfootSound("TitleMusic.mp3");
         titleScreenMusic.setVolume(40);
         background = new GreenfootImage("titleBackground.png");
         setBackground(background);

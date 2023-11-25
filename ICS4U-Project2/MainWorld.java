@@ -39,9 +39,8 @@ public class MainWorld extends World
     
     private int tempSpeed = 0;
     
-    private GreenfootSound forest; //level 1 background music
-    private GreenfootSound boss; // level 3 background music (boss)
-    private GreenfootSound dank;
+    private GreenfootSound mainWorldMusic; //level 1 and 2 music
+    private GreenfootSound bossMusic; //boss music
 
     //constructor
     public MainWorld()
@@ -61,10 +60,8 @@ public class MainWorld extends World
         spawnParty();
         //spawnEnemies();
 
-        forest = new GreenfootSound("Forest.mp3");
-        boss = new GreenfootSound("Boss.mp3");
-        dank = new GreenfootSound("road0.mp3");
-        dank.setVolume(40);
+        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
+        bossMusic = new GreenfootSound("BossMusic.mp3");
     }
 
     //act method
@@ -265,19 +262,16 @@ public class MainWorld extends World
     }
     //to start playing the music when pressed run
     public void started(){
-        if(worldLvl == 1){
-            dank.playLoop();
+        if(worldLvl == 1 && worldLvl == 2){
+            mainWorldMusic.playLoop();
         }
-        //if(worldLvl == 2){
-        //    ____.playLoop(); // will find music for this
-        //}
         if(worldLvl == 3){
-            boss.playLoop();
+            bossMusic.playLoop();
         }
     }
     //to stop playing the music when pressed pause or reset
     public void stopped(){
-        forest.stop();
-        boss.stop();
+        mainWorldMusic.stop();
+       bossMusic.stop();
     }
 }
