@@ -35,6 +35,7 @@ public class Settings extends World
         numHealers = 1;
         numMages = 1;
         current = 6;
+        addObject(new Button(16), 534, 600);
 
         
         kD = new SettingsButton(false);

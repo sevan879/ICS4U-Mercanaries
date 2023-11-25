@@ -18,7 +18,7 @@ public class Button extends Actor
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[16];
+        buttons = new GreenfootImage[17];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
@@ -30,6 +30,7 @@ public class Button extends Actor
              buttons[i+7] = new GreenfootImage(i + ".png");
              buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
         }
+        buttons[16] = new GreenfootImage("back.png");
     
         setImage(buttons[buttonChooser]);
 
@@ -55,7 +56,7 @@ public class Button extends Actor
                 b = new Backstory();
                 Greenfoot.setWorld(b);
             }    
-            if(buttonChooser == 3){
+            if(buttonChooser == 3 || buttonChooser == 16){
                 t = new TitleScreen();
                 Greenfoot.setWorld(t);
             }
