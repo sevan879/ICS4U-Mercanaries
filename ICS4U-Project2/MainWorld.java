@@ -26,8 +26,8 @@ public class MainWorld extends World
     
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 8;
-    private int waveThreeEnemies = 15;
+    private int waveTwoEnemies = 12;
+    private int waveThreeEnemies = 22;
     private int spawningXEnemy;
     
     //Transition Variables
