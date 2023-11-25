@@ -98,7 +98,7 @@ public class Mage extends Party
     protected void mainAnimation() {
         if (attackTracker == 0 && !manaSpent)
         {
-            if (spendMana(smallSpellMana));
+            if (spendMana(smallSpellMana))
             {
                 manaSpent = true;
                 //System.out.println("spent Mana on small");
@@ -106,7 +106,7 @@ public class Mage extends Party
         }
         else if (attackTracker == 1 && !manaSpent)
         {
-            if (spendMana(bigSpellMana));
+            if (spendMana(bigSpellMana))
             {
                 manaSpent = true;
                 //System.out.println("spent Mana on big");
@@ -159,18 +159,12 @@ public class Mage extends Party
 
     private void smallSpell()
     {
-        if (spendMana(smallSpellMana));
-        {
-            getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
-        }
+        getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
     }
 
     private void bigSpell()
     {
-        if (spendMana(bigSpellMana));
-        {
-            getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
-        }
+        getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
     }
 
     public void idle() {

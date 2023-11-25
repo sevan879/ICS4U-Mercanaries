@@ -63,8 +63,8 @@ public class Healer extends Party
             healing[i] = new GreenfootSound("Heal.mp3");
         }
 
-        smallSpellMana = 15;
-        bigSpellMana = 30;
+        smallSpellMana = 15; // 15
+        bigSpellMana = 40; // 30
         setImage(runningPics[0]);
         animationConstructor();
     }

@@ -277,7 +277,7 @@ public abstract class Party extends Entity
      */
     public boolean spendMana(int cost)
     {
-        if (mana - cost < 0)
+        if ((mana - cost) < 0)
         {
             return false;
         }
