@@ -220,7 +220,7 @@ public class Cohen extends Boss
                 // Apply new image to this Actor
                 setImage (attackOnePics[attackOneAnimationIndex]);
                 for (Party member : partyMembersInWorld()) {
-                    member.takeDamage(2);
+                    member.takeDamage(3);
                 }
             }
         } else {// not ready to animate yet, still waiting

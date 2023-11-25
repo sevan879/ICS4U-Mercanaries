@@ -12,7 +12,7 @@ public class MainWorld extends World
     private int partyRunningSpeed;
     private boolean waveOver = false;
     private boolean waitForWaveToEnd;
-    private int wave = 1;
+    private int wave = 3;
     private int enemiesSpawned = 0;
 
     private int worldYLevel = 605;
@@ -26,8 +26,8 @@ public class MainWorld extends World
 
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 4;
-    private int waveThreeEnemies = 2;
+    private int waveTwoEnemies = 10;
+    private int waveThreeEnemies = 15;
     private int spawningXEnemy;
 
     //Transition Variables
@@ -52,7 +52,6 @@ public class MainWorld extends World
 
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
-        wave = 0;
 
         addObject(background, 1086, 360); //add background first, so its behind everything
 
@@ -171,10 +170,10 @@ public class MainWorld extends World
                 }
             }
         }
-
         if(wave == 1){
-            if(enemiesSpawned == waveOneEnemies){
+            if(enemiesSpawned >= waveOneEnemies){
                 waitForWaveToEnd = true;
+                
                 if (checkWaveOver())
                 {
                     waitForWaveToEnd = false;
@@ -190,7 +189,7 @@ public class MainWorld extends World
                 }
             }
         }else if(wave == 2){
-            if(enemiesSpawned == waveTwoEnemies){
+            if(enemiesSpawned >= waveTwoEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -208,7 +207,7 @@ public class MainWorld extends World
                 }                
             }
         }else if(wave == 3){
-            if(enemiesSpawned == waveThreeEnemies){
+            if(enemiesSpawned >= waveThreeEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
