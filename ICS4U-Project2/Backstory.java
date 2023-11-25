@@ -45,7 +45,7 @@ public class Backstory extends World
         addObject(k, 200,400);
         addObject(c, 900, 400);
         f = new Font ("Comic Sans MS", false, false, 16);
-        p = 1;
+        p = 2;
         counter = 0;
         w = new TitleScreen();
         b = new Button(3);
@@ -54,7 +54,7 @@ public class Backstory extends World
         sentence1[0] = "Sir Cohen, there appears to be another death";
         sentence1[1] = "in our village! It seems like this viral";
         sentence1[2] = "disease you have been speculating about";
-        sentence1[3] = "is true. What do we do wolf?!";
+        sentence1[3] = "is true. What do we do?!";
         p1 = new SuperTextBox(sentence1, Color.WHITE, Color.BLACK, f, false, 375,  10, Color.BLACK);
         
         sentence2 = new String[1];
@@ -69,7 +69,7 @@ public class Backstory extends World
         
         sentence4 = new String[3];
         sentence4[0] = "Okay, so I will send you along with some other";
-        sentence4[1] = "mercenaries. I will send mages and Healers to";
+        sentence4[1] = "mercenaries. I will send mages and healers to";
         sentence4[2] = "support your quest. We will start right away!";
         p4 = new SuperTextBox(sentence4, Color.WHITE, Color.BLACK, f, false, 400,  10, Color.BLACK);
         
@@ -77,6 +77,7 @@ public class Backstory extends World
         sentence5[0] = "aighbet.";
         p5 = new SuperTextBox(sentence5, Color.WHITE, Color.BLACK, f, false, 150,  10, Color.BLACK);
         
+        addObject(p1, 300, 225);
         
     }
     public void act(){
@@ -88,12 +89,7 @@ public class Backstory extends World
     }
     public void conversation(){
         if(Greenfoot.isKeyDown("space")){
-            if(p == 1){
-                addObject(p1, 300, 225);
-                p++;
-                
-            }
-            else if(p == 2){
+            if(p == 2){
                 removeObject(p1);
                 c.cohenSmile();
                 addObject(p2, 750, 250);
@@ -119,11 +115,7 @@ public class Backstory extends World
             }
             else if(p == 6){
                 removeObject(p5);
-                addObject(new Button(3), 534, 140);
-                p++;
-            }
-            else if(p == 7){
-                Greenfoot.setWorld(w);
+                addObject(new Button(16), 534, 600);
             }
         }
     }

@@ -8,55 +8,78 @@ import java.util.*;
  */
 public abstract class Boss extends Entity
 {
+    private int actionChooser;
+    private int attackCount;
+    protected boolean attacking;
+    protected int numOfActionsSoFar;
+    
     private SuperStatBar hpBar;
-    protected int attackIDs[];
-    
-    /**
-     * Main constructor for Enemy class
-     * 
-     * @param hp enemie's health
-     * @param delay delay between actions
-     * @param movable can the enemy move around
-     */
-    
-    public Boss(int hp, int delay, int[] attackList)
+
+    public Boss(int hp, int delay, int attackCount)
     {
         super(hp, 0, delay, false);
-        attackIDs = attackList;
+        this.attackCount = attackCount;
+        actionChooser = -1;
+        attacking = false;
     }
-    
+
     protected abstract void action(int attackNum);
+
+    protected abstract void idle();
+
+    public void addedToWorld(World w)
+    {
+        hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 60, Color.YELLOW, Color.RED, false);
+        getWorld().addObject(hpBar, getWorld().getWidth()/2, getWorld().getHeight()*2/7);
+    }
     
     public void act()
     {
+        hpBar.update(health);
+        if (health > 0) {
         attackLoop();
+        }
+        else {
+            death();
+        }
     }
-    
+
     public void attackLoop()
     {
-        if (targetPlayer() != null)
+        if (actionCounter <= 0)
         {
-            if (actionCounter <= 0)
+            if (actionChooser == -1)
             {
-                actionCounter = actionDelay;
-                //Select an attack
-                int selectedAttack = Greenfoot.getRandomNumber(attackIDs.length-1);
-                action(selectedAttack);
+
+                actionChooser = Greenfoot.getRandomNumber(attackCount);
+                action(actionChooser);
+            }
+            if (attacking)
+            {
+                action(actionChooser);
             }
             else
             {
-                actionCounter--;
+                actionCounter = actionDelay;
+                actionChooser = -1;
             }
         }
+        else
+        {
+            idle();
+            actionCounter--;
+        }
+
     }
-    
+
     public Party targetPlayer() {
         List<Party> players = (ArrayList<Party>) (getWorld().getObjects(Party.class));
 
         if (!players.isEmpty()) {
-            return players.get(Greenfoot.getRandomNumber(players.size() - 1)); 
+            return players.get(Greenfoot.getRandomNumber(players.size())); 
         }
 
         return null;
     }
+
 }

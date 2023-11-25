@@ -9,11 +9,11 @@ import java.util.*;
 public class Healer extends Party
 {
     //BASE STATS AT LEVEL ONE
-    private static final int SET_HP = 4;
+    private static final int SET_HP = 80;
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 120; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 400;
+    private static final int ATTACK_RANGE = 580;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;

@@ -6,22 +6,33 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Projectiles extends Actor
+public abstract class Projectiles extends SuperSmoothMover
 {
-    protected int speed;
+    //Settings
+    protected double speed;
     protected int direction; //-1 = left, 1 = right
-    protected int maxHeight;
     protected double yVelocity;
-    private static final double accleration = 0.2;
+    protected static double acceleration = -0.2;
+    
+    private double range;
+    
+    private boolean removed;
+    private boolean hasGravity;
+    
     /**
      * Act - do whatever the Projectiles wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Projectiles(int spd, int direction, int maxH, double yVel){
+    public Projectiles(double spd, int direction, double yVel, boolean gravityProj){
         speed = spd;
         this.direction = direction;
-        maxHeight = maxH;
         yVelocity = yVel;
+        hasGravity = gravityProj;
+        removed = false;
+        if (hasGravity)
+        {
+             range = speed * ((-2*yVelocity)/(acceleration));
+        }
         
         
     }
@@ -29,31 +40,57 @@ public abstract class Projectiles extends Actor
     public void act()
     {
         // Add your action code here.
-        moveInParabola();
+        if (hasGravity)
+        {
+            moveInParabola();
+        }
+        else
+        {
+            moveInLine();
+        }
+        if (!removed)
+        {
+            checkOutOfWorld();
+        }
     }
     
-    boolean reachedMaxHeight = false;
-    public void moveInArc(){
-      
-      if(!reachedMaxHeight){
-          setLocation(getX() + speed * direction, getY() - speed);
-      }else{
-          setLocation(getX() + speed * direction, getY() + speed);
-      }
-      
-      if(getY() <= maxHeight){
-          reachedMaxHeight = true;
-      } 
+    public void setSpeed(double spd)
+    {
+        speed = spd;
     }
     
-    
+    public void setYVelocity(double yVel)
+    {
+        yVelocity = yVel;
+    }
     
     public void moveInParabola(){
-        setLocation(getX() + speed * direction, getY() - (int)yVelocity);
-        yVelocity = yVelocity - accleration;
+        setLocation(getX() + speed * (double)direction, getY() - (int)yVelocity);
+        yVelocity = yVelocity + acceleration;
     }
     
+    public void moveInLine()
+    {
+        setLocation(getX() + speed * (double)direction, getY());
+    }
     
-        
+    private void checkOutOfWorld()
+    {
+        World world = getWorld();
+        if (getX() <= 5 || getX() >= world.getWidth() -5 || getY() <= 5 || getY() >= world.getHeight() - 5)
+        {
+            removeProjectile();
+        }
+    }
     
+    protected void removeProjectile()
+    {
+        removed = true;
+        getWorld().removeObject(this);
+    }
+    
+    protected boolean getRemoved()
+    {
+        return removed;
+    }
 }
