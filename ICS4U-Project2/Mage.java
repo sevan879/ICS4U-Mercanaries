@@ -101,7 +101,7 @@ public class Mage extends Party
             if (spendMana(smallSpellMana));
             {
                 manaSpent = true;
-                System.out.println("spent Mana on small");
+                //System.out.println("spent Mana on small");
             }
         }
         else if (attackTracker == 1 && !manaSpent)
@@ -109,7 +109,7 @@ public class Mage extends Party
             if (spendMana(bigSpellMana));
             {
                 manaSpent = true;
-                System.out.println("spent Mana on big");
+                //System.out.println("spent Mana on big");
             }
         }
         if (canAttack && manaSpent)
