@@ -114,6 +114,8 @@ public class Healer extends Party
         if (spendMana(smallSpellMana))
         {
             healTarget.healDmg(damage);
+            getWorld().addObject(new Light(), healTarget.getX(), healTarget.getY());
+            
         }
     }
 
