@@ -143,6 +143,7 @@ public class Mage extends Party
         
     }
 
+
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;

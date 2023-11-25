@@ -3,28 +3,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Button here.
  * 
- * @author (your name) 
+ * @Arthur 
  * @version (a version number or a date)
  */
 public class Button extends Actor
 {
     private int buttonChooser;
     private GreenfootImage[] buttons;
-    private MainWorld m;
-    private Backstory b;
-    private Settings s;
     private TitleScreen t;
     private GreenfootImage image;
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[4];
+        buttons = new GreenfootImage[5];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
         buttons[3] = new GreenfootImage("spaceToContinue.png");
+        buttons[4] = new GreenfootImage("back.png");
         setImage(buttons[buttonChooser]);
-
         image = buttons[buttonChooser];
         setImage(image);
         this.buttonChooser = buttonChooser;
@@ -33,26 +30,25 @@ public class Button extends Actor
     //act method
     public void act()
     {
-        if (Greenfoot.mouseMoved(this)) {
+        if (Greenfoot.mouseMoved(this)) { //hover effect
             
         }
         if (Greenfoot.mouseClicked(this)) {
+            t = new TitleScreen();
             if (buttonChooser == 0) {
-                m = new MainWorld();
-                Greenfoot.setWorld(m);
-                m.started();
+                t.transitionToNewWorld(0);
             }
             if (buttonChooser == 1) {
-                s = new Settings();
-                Greenfoot.setWorld(s);
+                
             }
             if (buttonChooser == 2) {
-                b = new Backstory();
-                Greenfoot.setWorld(b);
+                
             }    
             if(buttonChooser == 3){
-                t = new TitleScreen();
-                Greenfoot.setWorld(t);
+                
+            }
+            if (buttonChooser == 4) {
+               Greenfoot.setWorld(t); 
             }
         }
     }

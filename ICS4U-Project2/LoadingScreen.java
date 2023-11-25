@@ -6,55 +6,112 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class LoadingScreen extends Actor
+public class LoadingScreen extends Effects
 {
-    /**
-     * Act - do whatever the LoadingScreen wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
 
+    private int fadeCounter;
+    private int fadeTime;
+
+    private boolean fadeStyle; // false = fadeIn, true = fadeout
     private GreenfootImage[] images;
-    private int AnimationIndex;
-    private int AnimationDelay;
-    private int AnimationCounter;
+    private GreenfootImage[] loading;
+    private int imageChooser;
+    private boolean isActuallyLoad;
+    private int loadingAnimationCounter;
+    private int loadingAnimationDelay;
+    private int loadingAnimationIndex;
 
-    public LoadingScreen() {
+    private GreenfootImage image1;
+    private boolean loadingFinished;
+
+    public LoadingScreen(int totalFadeTime, int imageChooser, boolean l) {
+        image1 = new GreenfootImage(1400, 1000);
+        image1.setColor(Color.BLACK);
+        image1.fill();
+        image1.setTransparency(0);
+        setImage(image);
         images = new GreenfootImage[3];
-        AnimationIndex = 0 ;
-        AnimationDelay = 45;
-        AnimationCounter = AnimationIndex;
-        for (int i = 0; i < 3; i++) {
-            images[i] = new GreenfootImage("loading"+i+".png");
+        for (int i = 0; i < images.length; i++) {
+            images[i] = new GreenfootImage("LS" + (i+1) + ".png");
         }
+        loading = new GreenfootImage[4];
+        for (int i = 0; i < loading.length; i++) {
+            loading[i] = new GreenfootImage("loading" + i + ".png");
+        }
+        this.imageChooser = imageChooser;
+        fadeTime = totalFadeTime;
+        fadeCounter = 0;
+        isActuallyLoad = l;
+        image = images[imageChooser];
+
+        loadingAnimationIndex = 0;
+        loadingAnimationDelay = 5;
+        loadingAnimationCounter = loadingAnimationDelay;
+
+        loadingFinished = false;
     }
 
     public void act()
     {
-        Animation();
-    }
-    
-    public void bringDown() {
-        
-    }
-    
-    public void bringUp() {
-        
+        if (!fadeStyle)
+        {
+            if (fadeCounter >= fadeTime)
+            {
+                setImage(images[imageChooser]);
+                fadeStyle = true;
+                fadeCounter = 0;
+            }
+            else
+            {
+                fadeCounter++;
+                fadeIn(fadeCounter, fadeTime);
+                if (isActuallyLoad) {
+                    actualLoadAnimation();
+                }
+                else {
+                    setImage(image);
+                }
+            }
+        }
+        else
+        {
+            if (fadeCounter >= fadeTime)
+            {
+                getWorld().removeObject(this);
+                loadingFinished = true;
+            }
+            else
+            {
+                fadeCounter++;
+                fadeOut(fadeCounter, fadeTime);
+                if (isActuallyLoad) {
+                    actualLoadAnimation();
+                }
+                else {
+                    setImage(image);
+                }
+            }
+        }
     }
 
-    public void Animation() {
-        if (AnimationCounter == 0){ // counter reaches 0 means ready for next frame
-            AnimationCounter = AnimationDelay; // reset counter to max 
-            AnimationIndex++; // this will be used to set the image to the next frame
+    public boolean getLoadingFinished() {
+        return loadingFinished;
+    }
 
-            // If the image index has passed the last image, stop animation
-            if (AnimationIndex == images.length){
-                AnimationIndex = 0;
+    public void actualLoadAnimation() {
+        if (loadingAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            loadingAnimationCounter = loadingAnimationDelay; // reset counter to max 
+            loadingAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (loadingAnimationIndex == loading.length){
+                loadingAnimationIndex = 0;
             }
             // Apply new image to this Actor
-            setImage (images[AnimationIndex]);
+            setImage (loading[loadingAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
-            AnimationCounter--;
+            loadingAnimationCounter--;
         }
     }
 }

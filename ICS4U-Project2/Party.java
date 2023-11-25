@@ -21,6 +21,8 @@ public abstract class Party extends Entity
     protected int runningSpeed;
     protected boolean inCombat;
     protected boolean idle;
+    protected int cohenAttackXPos;
+    protected boolean cohenExists;
 
     private int manaRegenCounter;
     private static final int MANA_REGEN_DELAY = 30;
@@ -56,7 +58,7 @@ public abstract class Party extends Entity
         runningSpeed = 1;
         inCombat = false;
         idle = false;
-        
+        cohenExists = false;
         usesMana = manaClass;
     }
 
@@ -112,9 +114,15 @@ public abstract class Party extends Entity
                 }
             }
             
+            if (cohenExists) {
+                    runningSpeed = 0;
+                    inCombat = true;
+                    actionCounter = actionDelay;
+                    mainAnimation();    
+            }
             if (actionCounter <= 0) 
             {
-                
+
                 if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
                 {
                     runningSpeed = 0;
@@ -152,6 +160,10 @@ public abstract class Party extends Entity
         }
         
     }
+    
+    public void setCohenExists(boolean b) {
+        cohenExists = b;
+    }
 
     public void setIdle() {
         if (!inCombat) {
@@ -161,17 +173,7 @@ public abstract class Party extends Entity
             idle = false;
         }
     }
-
-    public ArrayList<Party> partyMembersInWorld() {
-        ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
-        return partyList;
-    }
-
-    public ArrayList<Enemy> enemiesInWorld() {
-        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
-        return enemyList;
-    }
-
+    
     public boolean isIdle() {
         return idle;
     }
@@ -261,6 +263,10 @@ public abstract class Party extends Entity
         }
 
         return target;
+    }
+    
+    public int getCohenAttackXPos() {
+        return cohenAttackXPos;
     }
 
     /**

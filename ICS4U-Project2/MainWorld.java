@@ -26,8 +26,8 @@ public class MainWorld extends World
 
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 10;
-    private int waveThreeEnemies = 15;
+    private int waveTwoEnemies = 4;
+    private int waveThreeEnemies = 2;
     private int spawningXEnemy;
 
     //Transition Variables
@@ -36,12 +36,11 @@ public class MainWorld extends World
     //private int backgroundSwapCounter; // makes sure background only changes when fader is black
     private int fadeTime = 120;
     private int worldLvl;
-    
+
     private int tempSpeed = 0;
-    
-    private GreenfootSound forest; //level 1 background music
-    private GreenfootSound boss; // level 3 background music (boss)
-    private GreenfootSound dank;
+
+    private GreenfootSound mainWorldMusic; //level 1 and 2 music
+    private GreenfootSound bossMusic; //boss music
 
     //constructor
     public MainWorld()
@@ -53,6 +52,7 @@ public class MainWorld extends World
 
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
+        wave = 0;
 
         addObject(background, 1086, 360); //add background first, so its behind everything
 
@@ -61,10 +61,10 @@ public class MainWorld extends World
         spawnParty();
         //spawnEnemies();
 
-        forest = new GreenfootSound("Forest.mp3");
-        boss = new GreenfootSound("Boss.mp3");
-        dank = new GreenfootSound("road0.mp3");
-        dank.setVolume(40);
+        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
+        mainWorldMusic.setVolume(44);
+        bossMusic = new GreenfootSound("BossMusic.mp3");
+        bossMusic.setVolume(44);
     }
 
     //act method
@@ -98,7 +98,7 @@ public class MainWorld extends World
             }
         }
     }
-    
+
     //tells us if the party members are running or not, if one member stops running, all members stop also
     public boolean partyIsRunning() {
         boolean continueRunning = true; //true by default
@@ -159,8 +159,8 @@ public class MainWorld extends World
                         addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 1){
-                        //addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
-                        //enemiesSpawned++;
+                        addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                        enemiesSpawned++;
                     } else if(enemyType == 2){
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
                         enemiesSpawned++;
@@ -173,7 +173,7 @@ public class MainWorld extends World
         }
 
         if(wave == 1){
-            if(enemiesSpawned == 5){
+            if(enemiesSpawned == waveOneEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -184,10 +184,13 @@ public class MainWorld extends World
                     transitionCounter = transitionDelay; 
                     //background.setWorldBackground(1);
                     addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
+                    worldLvl = 1;
+                    stopped();
+                    started();
                 }
             }
         }else if(wave == 2){
-            if(enemiesSpawned == 10){
+            if(enemiesSpawned == waveTwoEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -198,10 +201,14 @@ public class MainWorld extends World
                     transitionCounter = transitionDelay; 
                     //background.setWorldBackground(2);
                     addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
+                    background.setWorldBackground(1);
+                    worldLvl = 2;
+                    stopped();
+                    started();
                 }                
             }
         }else if(wave == 3){
-            if(enemiesSpawned == 15){
+            if(enemiesSpawned == waveThreeEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -211,12 +218,14 @@ public class MainWorld extends World
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
                     addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
+                    background.setWorldBackground(2);
+                    addObject(new Cohen(), 463, 311);
+                    worldLvl = 3;
+                    stopped();
+                    started();
                 }
             }
-        }else if(wave == 4){
-            //spawnboss
         }
-
     }
 
     private void partyRun()
@@ -255,7 +264,7 @@ public class MainWorld extends World
         ArrayList<Party> memberList = (ArrayList<Party>) (getObjects(Party.class));
         if (memberList.isEmpty())
         {
-            // Game Over stuff
+            Greenfoot.setWorld(new EndScreen(true));
         }
     }
 
@@ -265,19 +274,16 @@ public class MainWorld extends World
     }
     //to start playing the music when pressed run
     public void started(){
-        if(worldLvl == 1){
-            dank.playLoop();
+        if(worldLvl == 1 || worldLvl == 2){
+            mainWorldMusic.playLoop();
         }
-        //if(worldLvl == 2){
-        //    ____.playLoop(); // will find music for this
-        //}
         if(worldLvl == 3){
-            boss.playLoop();
+            bossMusic.playLoop();
         }
     }
     //to stop playing the music when pressed pause or reset
     public void stopped(){
-        forest.stop();
-        boss.stop();
+        mainWorldMusic.stop();
+        bossMusic.stop();
     }
 }
