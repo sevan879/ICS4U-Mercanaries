@@ -18,30 +18,29 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 4;
-    private int numOfMages = 0;
+    private int numOfKnights = 2;
+    private int numOfMages = 2;
     private int numOfHealers = 1;
-    private int spacingBetween = 60;
+    private int spacingBetween = 70;
     private int spawningXParty = 50;
-
+    
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 10;
+    private int waveTwoEnemies = 8;
     private int waveThreeEnemies = 15;
     private int spawningXEnemy;
-
+    
     //Transition Variables
     private int transitionDelay = 300;
     private int transitionCounter = 0;
     //private int backgroundSwapCounter; // makes sure background only changes when fader is black
     private int fadeTime = 120;
     private int worldLvl;
-    
+
     private int tempSpeed = 0;
-    
-    private GreenfootSound forest; //level 1 background music
-    private GreenfootSound boss; // level 3 background music (boss)
-    private GreenfootSound dank;
+
+    private GreenfootSound mainWorldMusic; //level 1 and 2 music
+    private GreenfootSound bossMusic; //boss music
 
     //constructor
     public MainWorld()
@@ -58,13 +57,17 @@ public class MainWorld extends World
 
         waitForWaveToEnd = false;
 
+        numOfKnights = Settings.getNumOfKnights();
+        numOfHealers = Settings.getNumOfHealers();
+        numOfMages = Settings.getNumOfMages();
+        
         spawnParty();
         //spawnEnemies();
 
-        forest = new GreenfootSound("Forest.mp3");
-        boss = new GreenfootSound("Boss.mp3");
-        dank = new GreenfootSound("road0.mp3");
-        dank.setVolume(40);
+        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
+        mainWorldMusic.setVolume(44);
+        bossMusic = new GreenfootSound("BossMusic.mp3");
+        bossMusic.setVolume(44);
     }
 
     //act method
@@ -98,7 +101,7 @@ public class MainWorld extends World
             }
         }
     }
-    
+
     //tells us if the party members are running or not, if one member stops running, all members stop also
     public boolean partyIsRunning() {
         boolean continueRunning = true; //true by default
@@ -121,13 +124,13 @@ public class MainWorld extends World
     }
 
     public void spawnParty(){
-        for (int i = 0; i < numOfMages; i++)
-        {
-            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
-        }
         for (int i = 0; i < numOfHealers; i++)
         {
             addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
+        }
+        for (int i = 0; i < numOfMages; i++)
+        {
+            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfKnights; i++)
         {
@@ -154,40 +157,45 @@ public class MainWorld extends World
 
             if(!waveOver && wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                    int enemyType = Greenfoot.getRandomNumber(4);
+                    int enemyType = Greenfoot.getRandomNumber(5);
                     if(enemyType == 0){
-                        //addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
-                        //enemiesSpawned++;
+                        addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                        enemiesSpawned++;
                     } else if(enemyType == 1){
-                        //addObject(new Archer(), 0, 0); // modify placement after
-                        //enemiesSpawned++;
+                        addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                        enemiesSpawned++;
                     } else if(enemyType == 2){
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 3){
                         //addObject(new Flying(), 0, 0); //ylocation should be higher
                         //enemiesSpawned++;
+                    } else if(enemyType == 4){
+                        //addObject(new Wolf(), 0,0); 
+                        //enemiesSpawned++;
                     }
                 }
             }
         }
-
         if(wave == 1){
-            if(enemiesSpawned == 2){
+            if(enemiesSpawned >= waveOneEnemies){
                 waitForWaveToEnd = true;
+                
                 if (checkWaveOver())
                 {
                     waitForWaveToEnd = false;
                     waveOver = true;
                     enemiesSpawned = 0;
                     wave = wave + 1;
-                    transitionCounter = transitionDelay; 
-                    //background.setWorldBackground(1);
+                    transitionCounter = transitionDelay;
                     addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
+                    worldLvl = 1;
+                    stopped();
+                    started();
                 }
             }
         }else if(wave == 2){
-            if(enemiesSpawned == 10){
+            if(enemiesSpawned >= waveTwoEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -196,12 +204,15 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
-                    //background.setWorldBackground(2);
                     addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
+                    background.setWorldBackground(1);
+                    worldLvl = 2;
+                    stopped();
+                    started();
                 }                
             }
         }else if(wave == 3){
-            if(enemiesSpawned == 15){
+            if(enemiesSpawned >= waveThreeEnemies){
                 waitForWaveToEnd = true;
                 if (checkWaveOver())
                 {
@@ -211,12 +222,14 @@ public class MainWorld extends World
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
                     addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
+                    background.setWorldBackground(2);
+                    addObject(new Cohen(), 463, 311);
+                    worldLvl = 3;
+                    stopped();
+                    started();
                 }
             }
-        }else if(wave == 4){
-            //spawnboss
         }
-
     }
 
     private void partyRun()
@@ -255,7 +268,7 @@ public class MainWorld extends World
         ArrayList<Party> memberList = (ArrayList<Party>) (getObjects(Party.class));
         if (memberList.isEmpty())
         {
-            // Game Over stuff
+            Greenfoot.setWorld(new EndScreen(true));
         }
     }
 
@@ -265,19 +278,16 @@ public class MainWorld extends World
     }
     //to start playing the music when pressed run
     public void started(){
-        if(worldLvl == 1){
-            dank.playLoop();
+        if(worldLvl == 1 || worldLvl == 2){
+            mainWorldMusic.playLoop();
         }
-        //if(worldLvl == 2){
-        //    ____.playLoop(); // will find music for this
-        //}
         if(worldLvl == 3){
-            boss.playLoop();
+            bossMusic.playLoop();
         }
     }
     //to stop playing the music when pressed pause or reset
     public void stopped(){
-        forest.stop();
-        boss.stop();
+        mainWorldMusic.stop();
+        bossMusic.stop();
     }
 }

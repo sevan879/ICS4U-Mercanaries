@@ -3,28 +3,33 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Button here.
  * 
- * @author (your name) 
+ * @Arthur 
  * @version (a version number or a date)
  */
 public class Button extends Actor
 {
     private int buttonChooser;
     private GreenfootImage[] buttons;
-    private MainWorld m;
-    private Backstory b;
-    private Settings s;
     private TitleScreen t;
     private GreenfootImage image;
 
     //constructor
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[4];
+        buttons = new GreenfootImage[17];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
         buttons[3] = new GreenfootImage("spaceToContinue.png");
+        buttons[4] = new GreenfootImage("k.png");
+        buttons[5] = new GreenfootImage("h.png");
+        buttons[6] = new GreenfootImage("m.png");
+        for(int i = 0; i < 9; i++){
+             buttons[i+7] = new GreenfootImage(i + ".png");
+             buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
+        }
+        buttons[16] = new GreenfootImage("back.png");
+    
         setImage(buttons[buttonChooser]);
-
         image = buttons[buttonChooser];
         setImage(image);
         this.buttonChooser = buttonChooser;
@@ -33,24 +38,21 @@ public class Button extends Actor
     //act method
     public void act()
     {
-        if (Greenfoot.mouseMoved(this)) {
+        if (Greenfoot.mouseMoved(this)) { //hover effect
             
         }
         if (Greenfoot.mouseClicked(this)) {
+            t = new TitleScreen();
             if (buttonChooser == 0) {
-                m = new MainWorld();
-                Greenfoot.setWorld(m);
-                m.started();
+                t.transitionToNewWorld(0);
             }
             if (buttonChooser == 1) {
-                s = new Settings();
-                Greenfoot.setWorld(s);
+                t.transitionToNewWorld(1);
             }
             if (buttonChooser == 2) {
-                b = new Backstory();
-                Greenfoot.setWorld(b);
+                t.transitionToNewWorld(2);
             }    
-            if(buttonChooser == 3){
+            if(buttonChooser == 3 || buttonChooser == 16){
                 t = new TitleScreen();
                 Greenfoot.setWorld(t);
             }

@@ -12,9 +12,9 @@ public class SkeletonArcher extends Enemy
 {
     private static final int HP = 2;
     private static final double SPEED = 3;
-    private static final int DELAY = 25;
-    private static final int DAMAGE = 3;
-    private static final int ATTACK_RANGE = 200;
+    private static final int DELAY = 90;
+    private static final int DAMAGE = 10;
+    private static final int ATTACK_RANGE = 580;
 
     private GreenfootImage[] deathPics;
     private int deathAnimationIndex;
@@ -36,37 +36,26 @@ public class SkeletonArcher extends Enemy
     private int attackTwoAnimationDelay;
     private int attackTwoAnimationCounter;
 
-    private static final int RELOAD_TIME = 120; 
-    private int reloadTimer = 0;
     /**
      * Act - do whatever the Archer wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        if (Greenfoot.isKeyDown("w")) {
-            attackAnimation();
-        }
-        if (Greenfoot.isKeyDown("s")) {
-            running();
-        }
-        if (Greenfoot.isKeyDown("p")) {
-            death();
-        }
-        //super.act();    
-        //move();
-        //action(targetPastTanks());
-
+        super.act();    
     }
 
     public SkeletonArcher(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        rangedEnemy = true;
         setImage(runningPics[1]);
     }
 
     protected void action(Party targetPlayer){
-        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
-        //attack animations
+        int distance = Math.abs(targetPlayer.getX() - getX());
+        
+        
+        getWorld().addObject(new Arrow(distance, DAMAGE), getX(), getY()-20);
     }
     
     public void attackAnimation() {
@@ -130,7 +119,6 @@ public class SkeletonArcher extends Enemy
                 attackOneAnimationIndex = 0;
                 animationTracker++;
             }
-            setLocation(getX()-10, getY());
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -151,9 +139,6 @@ public class SkeletonArcher extends Enemy
             if (attackTwoAnimationIndex == attackTwoPics.length){
                 attackTwoAnimationIndex = 0;
                 animationTracker++;
-            }
-            if (attackTwoAnimationIndex == 3) {
-                setLocation(getX()+15, getY());
             }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);
@@ -188,10 +173,6 @@ public class SkeletonArcher extends Enemy
         if (remove) {
             getWorld().removeObject(this);
         }
-    }
-
-    public boolean animationIsRunning() {
-        return animationTracker %2 == 1; //this means that the animation is running, 
     }
 
     public void animationConstructor() {

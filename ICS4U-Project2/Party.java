@@ -21,6 +21,8 @@ public abstract class Party extends Entity
     protected int runningSpeed;
     protected boolean inCombat;
     protected boolean idle;
+    protected int cohenAttackXPos;
+    protected boolean cohenExists;
 
     private int manaRegenCounter;
     private static final int MANA_REGEN_DELAY = 30;
@@ -56,7 +58,7 @@ public abstract class Party extends Entity
         runningSpeed = 1;
         inCombat = false;
         idle = false;
-        
+        cohenExists = false;
         usesMana = manaClass;
     }
 
@@ -87,9 +89,40 @@ public abstract class Party extends Entity
             if (targetEnemy != null) {
                 mainAnimation();
             }
+            else
+            {
+                inCombat = false;
+            }
+            
+            // IF WE RANDOMLY START GETTING BUGS ABOUT PARTY MEMBERS IN COMBAT, FEEL FREE TO DELETE THIS BLOCK OF CODE
+            // AND UNCOMMENT THE IDENTICAL VERSION BELOW
+            if (!inCombat) {
+                for (Party member : partyMembersInWorld()) {
+                    if (member.getInCombat() == true) {
+                        idle = true;
+                    }
+                }
+                if (!idle) { //party members not idle, and not in combat, so run
+                    runningSpeed = (int) speed;
+                    running();
+                }
+                else { //party member is idle and not in combat. run idle animation
+                    if (enemiesInWorld().size() == 0) {
+                        idle = false;
+                    }
+                    idle();
+                }
+            }
+            
+            if (cohenExists) {
+                    runningSpeed = 0;
+                    inCombat = true;
+                    actionCounter = actionDelay;
+                    mainAnimation();    
+            }
             if (actionCounter <= 0) 
             {
-                
+
                 if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
                 {
                     runningSpeed = 0;
@@ -100,7 +133,7 @@ public abstract class Party extends Entity
                 else { // no enemy detected by this party member
                     inCombat = false;
                 }
-                
+                /*
                 if (!inCombat) {
                     for (Party member : partyMembersInWorld()) {
                         if (member.getInCombat() == true) {
@@ -118,12 +151,18 @@ public abstract class Party extends Entity
                         idle();
                     }
                 }
+                */
             }
             else
             {
                 actionCounter--;
             }
         }
+        
+    }
+    
+    public void setCohenExists(boolean b) {
+        cohenExists = b;
     }
 
     public void setIdle() {
@@ -134,17 +173,7 @@ public abstract class Party extends Entity
             idle = false;
         }
     }
-
-    public ArrayList<Party> partyMembersInWorld() {
-        ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
-        return partyList;
-    }
-
-    public ArrayList<Enemy> enemiesInWorld() {
-        ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
-        return enemyList;
-    }
-
+    
     public boolean isIdle() {
         return idle;
     }
@@ -210,7 +239,7 @@ public abstract class Party extends Entity
      */
     private Enemy detectEnemy()
     {
-        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld  ().getObjects(Enemy.class));
+        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
         Enemy target = null;
 
         for (Enemy e : targetList)
@@ -225,7 +254,7 @@ public abstract class Party extends Entity
                 else
                 {
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
-                    if (distanceFromE < distanceFromTarget && !isDying)
+                    if (distanceFromE < distanceFromTarget && !isDying && !target.checkDying())
                     {
                         target = e;
                     }
@@ -234,6 +263,10 @@ public abstract class Party extends Entity
         }
 
         return target;
+    }
+    
+    public int getCohenAttackXPos() {
+        return cohenAttackXPos;
     }
 
     /**
