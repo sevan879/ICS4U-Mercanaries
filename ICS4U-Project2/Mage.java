@@ -11,9 +11,9 @@ public class Mage extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 4;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 150; // amount of acts
+    private static final int ACTION_DELAY = 50; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 400;
+    private static final int ATTACK_RANGE = 550;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;
@@ -51,15 +51,29 @@ public class Mage extends Party
 
     private int spellLevel = 0;
 
-    private int damage = 5;
+    private int smallDamage = 10;
+    private int bigDamage = 20;
+    private int smallRange = 100;
+    private int bigRange = 150;
 
     private int smallSpellMana;
     private int bigSpellMana;
 
+    private boolean canAttack;
+    private boolean manaSpent;
+    
+    private int spellDelay;
+    private int spellCDCounter;
+    
     public Mage()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
-
+        smallSpellMana = 15;
+        bigSpellMana = 25;
+        canAttack = true;
+        manaSpent = false;
+        spellDelay = ACTION_DELAY;
+        spellCDCounter = ACTION_DELAY;
     }
 
     public void act()
@@ -69,27 +83,64 @@ public class Mage extends Party
 
     protected void mainAction(Enemy target)
     {
-        int dealtDamage = damage + Greenfoot.getRandomNumber(2);
-        target.takeDamage(dealtDamage);
-        //Make Enemy take damage
+        /*
+        if (Greenfoot.getRandomNumber(3) == 0)
+        {
+            bigSpell();
+        }
+        else
+        {
+            smallSpell();
+        }
+        */
     }
 
     protected void mainAnimation() {
-        if (attackTracker == 0) { //attack one
-            attackOne();
-            getWorld().addObject(new Fireball(1, 1), 1, 1);
-            //stuff about dealing damage, whatever
-            if (!animationIsRunning()) {
-                attackTracker = 1;
+        if (attackTracker == 0 && !manaSpent)
+        {
+            if (spendMana(smallSpellMana));
+            {
+                manaSpent = true;
+                System.out.println("spent Mana on small");
             }
         }
-        else if (attackTracker == 1) { //attack two
-            attackTwo();
-            //stuff about dealing damage, whatever
-            if (!animationIsRunning()) {
-                attackTracker = 0;
+        else if (attackTracker == 1 && !manaSpent)
+        {
+            if (spendMana(bigSpellMana));
+            {
+                manaSpent = true;
+                System.out.println("spent Mana on big");
             }
         }
+        if (canAttack && manaSpent)
+        {
+            if (attackTracker == 0) { //attack one
+                attackOne();
+                if (!animationIsRunning() && Greenfoot.getRandomNumber(2) == 0) {
+                    attackTracker = 1;
+                }
+            }
+            else if (attackTracker == 1) { //attack two
+                attackTwo();
+                if (!animationIsRunning()) {
+                    attackTracker = 0;
+                }
+            }
+            
+        }
+        else
+        {
+            if (spellCDCounter == 0)
+            {
+                spellCDCounter = spellDelay;
+                canAttack = true;
+            }
+            else
+            {
+                spellCDCounter --;
+            }
+        }
+        
     }
 
     protected void levelUpStats()
@@ -100,20 +151,25 @@ public class Mage extends Party
         maxMana += MANA_INCREASE;
         mana = maxMana;
 
-        damage += DAMAGE_INCREASE;
+        smallDamage += DAMAGE_INCREASE;
+        bigDamage += DAMAGE_INCREASE;
         attackRange += RANGE_INCREASE;
     }
 
     private void smallSpell()
     {
-        spendMana(smallSpellMana);
-        // CREATE PROJECTILE OBJECT
+        if (spendMana(smallSpellMana));
+        {
+            getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
+        }
     }
 
     private void bigSpell()
     {
-        spendMana(bigSpellMana);
-        // CREATE PROJECTILE OBJECT
+        if (spendMana(bigSpellMana));
+        {
+            getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
+        }
     }
 
     public void idle() {
@@ -145,9 +201,15 @@ public class Mage extends Party
             if (attackOneAnimationIndex == attackOnePics.length){
                 attackOneAnimationIndex = 0;
                 animationTracker++;
+                smallSpell();
+                canAttack = false;
+                manaSpent = false;
             }
             if (attackOneAnimationIndex == 2) {
-                setLocation(getX()-15, getY());
+                setLocation(getX()-5, getY());
+            }
+            if (attackOneAnimationIndex == 3) {
+                setLocation(getX()+5, getY());
             }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
@@ -169,9 +231,15 @@ public class Mage extends Party
             if (attackTwoAnimationIndex == attackTwoPics.length){
                 attackTwoAnimationIndex = 0;
                 animationTracker++;
+                canAttack = false;
+                manaSpent = false;
             }
             if (attackTwoAnimationIndex == 3) {
-                setLocation(getX()+15, getY());
+                setLocation(getX()+0, getY());
+            }
+            if (attackTwoAnimationIndex == 8)
+            {
+                bigSpell();
             }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);

@@ -18,8 +18,8 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 3;
-    private int numOfMages = 0;
+    private int numOfKnights = 2;
+    private int numOfMages = 2;
     private int numOfHealers = 1;
     private int spacingBetween = 60;
     private int spawningXParty = 50;
@@ -159,8 +159,8 @@ public class MainWorld extends World
                         addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 1){
-                        addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
-                        enemiesSpawned++;
+                        //addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                        //enemiesSpawned++;
                     } else if(enemyType == 2){
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
                         enemiesSpawned++;

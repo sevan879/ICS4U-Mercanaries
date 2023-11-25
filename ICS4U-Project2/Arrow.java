@@ -57,7 +57,6 @@ public class Arrow extends Projectiles
     public Arrow(int aimedDistance, int damage){
         this (SET_SPEED, SET_DIRECTION, SET_YVEL, damage);
         double baseSpeedUnit = (aimedDistance * acceleration)/(-48);
-        System.out.println(baseSpeedUnit);
         setSpeed(2*baseSpeedUnit);
         setYVelocity(6*baseSpeedUnit);
         
@@ -121,7 +120,7 @@ public class Arrow extends Projectiles
         if(isTouching(Party.class))
         {
             Actor party = getOneIntersectingObject(Party.class);
-            ((Party)party).takeDamage(3);
+            ((Party)party).takeDamage(damage);
             
             removeProjectile();
             
