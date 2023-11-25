@@ -17,9 +17,10 @@ public class TestWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1068, 720, 1); 
-        //addObject(new MiniCohen(), 900, 200);
-        addObject(new Healer(), 100, 200);
+        addObject(new MiniCohen(), 900, 200);
+        addObject(new Mage(), 100, 200);
         //addObject(new Knight(), 300, 200);
         //addObject(new Knight(), 200, 200);
     }
+    
 }
