@@ -10,6 +10,9 @@ public abstract class Boss extends Entity
 {
     private SuperStatBar hpBar;
     private int actionChooser;
+    private int attackCount;
+    protected boolean attacking;
+    
     /**
      * Main constructor for Enemy class
      * 
@@ -18,10 +21,12 @@ public abstract class Boss extends Entity
      * @param movable can the enemy move around
      */
 
-    public Boss(int hp, int delay)
+    public Boss(int hp, int delay, int attackCount)
     {
         super(hp, 0, delay, false);
-        actionChooser = 0;
+        this.attackCount = attackCount;
+        actionChooser = -1;
+        attacking = false;
     }
 
     protected abstract void action(int attackNum);
@@ -35,30 +40,30 @@ public abstract class Boss extends Entity
 
     public void attackLoop()
     {
-        /**
-         *         if (actionCounter <= 0)
+        if (actionCounter <= 0)
         {
-            actionChooser = Greenfoot.getRandomNumber(8);
-            if (!animationIsRunning()) { //animation not running, no action currently taking place
-                //Select an action
-                //random number to choose which action to perform
-                action(actionChooser); //do the action, start animation
-
-            }
-            else { //animation running, continue doing the frames bruhhhh
-
+            if (actionChooser == -1)
+            {
+                
+                actionChooser = Greenfoot.getRandomNumber(attackCount);
                 action(actionChooser);
+            }
+            if (attacking)
+            {
+                action(actionChooser);
+            }
+            else
+            {
                 actionCounter = actionDelay;
+                actionChooser = -1;
             }
         }
         else
         {
-            if (!animationIsRunning()) {
-                idle();
-            }
+            idle();
             actionCounter--;
         }
-         */
+        
     }
 
     public Party targetPlayer() {

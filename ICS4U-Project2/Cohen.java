@@ -13,6 +13,7 @@ public class Cohen extends Boss
 {
     private static final int SET_HP = 5;
     private static final int ACTION_DELAY = 240;
+    private static final int ATTACK_COUNT = 8;
 
     //ultimate attack
     private GreenfootImage[] attackOnePics;
@@ -39,7 +40,7 @@ public class Cohen extends Boss
     private GreenfootImage angryCohen;
     public Cohen()
     {
-        super(SET_HP, ACTION_DELAY);
+        super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
         setImage(idlePics[0]);
     }
 
@@ -47,8 +48,6 @@ public class Cohen extends Boss
     {
         super.act();
     }
-
-    public void action(int attackNum)
     /**
      * POSSIBLE ACTIONS
      * summons wave 
@@ -62,7 +61,9 @@ public class Cohen extends Boss
      * 
      * 
      */
+    public void action(int attackNum)
     {
+        attacking = true;
         setLocation(463, 311);
         if (attackNum == 1) { //single attack
             attackOne();
@@ -77,13 +78,8 @@ public class Cohen extends Boss
         }
         else if (attackNum == 7)
         {
-                attackTwo();
+            attackTwo();
         }
-    }
-
-    private void singleTarget()
-    {
-
     }
 
     public void death() {
@@ -110,6 +106,7 @@ public class Cohen extends Boss
             if (summonAnimationIndex == summonPics.length){
                 summonAnimationIndex = 0;
                 animationTracker++;
+                attacking = false;
             }
             else {
                 // Apply new image to this Actor
@@ -151,6 +148,7 @@ public class Cohen extends Boss
             if (attackOneAnimationIndex == attackOnePics.length){
                 attackOneAnimationIndex = 0;
                 animationTracker++;
+                attacking = false;
             }
             else {
                 // Apply new image to this Actor
@@ -186,6 +184,7 @@ public class Cohen extends Boss
             if (attackTwoAnimationIndex == attackTwoPics.length){
                 attackTwoAnimationIndex = 0;
                 animationTracker++;
+                attacking = false;
             }
             else {
                 // Apply new image to this Actor
