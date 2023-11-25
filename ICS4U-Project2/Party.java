@@ -210,7 +210,7 @@ public abstract class Party extends Entity
      */
     private Enemy detectEnemy()
     {
-        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld  ().getObjects(Enemy.class));
+        ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
         Enemy target = null;
 
         for (Enemy e : targetList)
@@ -225,7 +225,7 @@ public abstract class Party extends Entity
                 else
                 {
                     double distanceFromTarget = Math.hypot(getX() - target.getX(), getY() - target.getY());
-                    if (distanceFromE < distanceFromTarget && !isDying)
+                    if (distanceFromE < distanceFromTarget && !isDying && !target.checkDying())
                     {
                         target = e;
                     }

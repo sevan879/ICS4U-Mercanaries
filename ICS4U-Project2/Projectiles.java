@@ -6,33 +6,35 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Projectiles extends Actor
+public abstract class Projectiles extends SuperSmoothMover
 {
     //Settings
-    protected int speed;
+    protected double speed;
     protected int direction; //-1 = left, 1 = right
-    protected int maxHeight;
     protected double yVelocity;
-    private static final double accleration = 0.2;
+    protected static double acceleration = -0.2;
+    
+    private double range;
     
     private boolean removed;
     private boolean hasGravity;
-    
-    private boolean reachedMaxHeight = false;
-    
-    
     
     /**
      * Act - do whatever the Projectiles wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Projectiles(int spd, int direction, int maxH, double yVel, boolean gravityProj){
+    public Projectiles(double spd, int direction, double yVel, boolean gravityProj){
         speed = spd;
         this.direction = direction;
-        maxHeight = maxH;
         yVelocity = yVel;
         hasGravity = gravityProj;
         removed = false;
+        if (hasGravity)
+        {
+             range = speed * ((-2*yVelocity)/(acceleration));
+        }
+        
+        
     }
     
     public void act()
@@ -52,14 +54,24 @@ public abstract class Projectiles extends Actor
         }
     }
     
+    public void setSpeed(double spd)
+    {
+        speed = spd;
+    }
+    
+    public void setYVelocity(double yVel)
+    {
+        yVelocity = yVel;
+    }
+    
     public void moveInParabola(){
-        setLocation(getX() + speed * direction, getY() - (int)yVelocity);
-        yVelocity = yVelocity - accleration;
+        setLocation(getX() + speed * (double)direction, getY() - (int)yVelocity);
+        yVelocity = yVelocity + acceleration;
     }
     
     public void moveInLine()
     {
-        setLocation(getX() + speed * direction, getY());
+        setLocation(getX() + speed * (double)direction, getY());
     }
     
     private void checkOutOfWorld()

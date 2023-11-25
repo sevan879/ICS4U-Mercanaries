@@ -92,6 +92,7 @@ public class Mage extends Party
     }
 
     public void death() {
+        boolean remove = false;
         isDying = true;
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             deathAnimationCounter = deathAnimationDelay; // reset counter to max 
@@ -100,13 +101,17 @@ public class Mage extends Party
             // If the image index has passed the last image, go back to first image
             if (deathAnimationIndex == deathPics.length){
                 deathAnimationIndex = 0;
-                getWorld().removeObject(this);
+                remove = true;
             }
             // Apply new image to this Actor
+            setLocation(getX(), getY()+5);
             setImage (deathPics[deathAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             deathAnimationCounter--;
+        }
+        if (remove) {
+            getWorld().removeObject(this);
         }
     }
     
