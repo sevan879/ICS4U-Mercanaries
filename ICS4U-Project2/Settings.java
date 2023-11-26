@@ -14,16 +14,35 @@ public class Settings extends World
 
     //somehow transfer these numbers to the game world
     private static int numKnights = 4;
+    private Button knightsLabel;
     private SettingsButton kU;
     private SettingsButton kD;
     
     private static int numHealers = 1;
+    private Button healersLabel;
     private SettingsButton hU;
     private SettingsButton hD;
     
     private static int numMages = 1;
+    private Button magesLabel;
     private SettingsButton mU;
     private SettingsButton mD;
+    
+    private static int waveOne = 5;
+    private Button waveOneLabel;
+    private SettingsButton oneU;
+    private SettingsButton oneD;
+    
+    private static int waveTwo = 15;
+    private Button waveTwoLabel;
+    private SettingsButton twoU;
+    private SettingsButton twoD;
+    
+    private static int waveThree = 25;
+    private Button waveThreeLabel;
+    private SettingsButton threeU;
+    private SettingsButton threeD;
+    
     /**
      * Getter for the amount of Knights to add.
      * @return int
@@ -48,6 +67,30 @@ public class Settings extends World
     {
         return numHealers;
     }
+    /**
+     * Getter for the amount of wave one enemies to add.
+     * @return int
+     */
+    public static int getWaveOne()
+    {
+        return waveOne;
+    }
+    /**
+     * Getter for the amount of wave two enemies to add.
+     * @return int
+     */
+    public static int getWaveTwo()
+    {
+        return waveTwo;
+    }
+    /**
+     * Getter for the amount of wave three enemies to add.
+     * @return int
+     */
+    public static int getWaveThree()
+    {
+        return waveThree;
+    }
     
     /**
      * Main Constructor for Settings
@@ -61,7 +104,10 @@ public class Settings extends World
         numHealers = 1;
         numMages = 1;
         current = 6;
-        addObject(new Button(16), 534, 600);
+        waveOne = 5;
+        waveTwo = 15;
+        waveThree = 20;
+        addObject(new Button(16), 534, 650);
 
         
         kD = new SettingsButton(false);
@@ -73,21 +119,45 @@ public class Settings extends World
         mD = new SettingsButton(false);
         mU = new SettingsButton(true);
         
-        addObject(kD, 350, 200);
-        addObject(kU, 700, 200);
-        addObject(new Button(4), 500, 200);
+        oneU = new SettingsButton(true);
+        oneD = new SettingsButton(false);
         
-        addObject(hD, 350, 300);
-        addObject(hU, 700, 300);
-        addObject(new Button(5), 500, 300);
+        twoU = new SettingsButton(true);
+        twoD = new SettingsButton(false);
         
-        addObject(mD, 350, 400);
-        addObject(mU, 700, 400);
-        addObject(new Button(6), 500, 400);
+        threeU = new SettingsButton(true);
+        threeD = new SettingsButton(false);
+        
+        addObject(knightsLabel = new Button(4), 500, 100);
+        addObject(kD, knightsLabel.getX() - 150, knightsLabel.getY());
+        addObject(kU, knightsLabel.getX() + 200, knightsLabel.getY());
+        
+        addObject(healersLabel = new Button(5), 500, 170);
+        addObject(hD, healersLabel.getX() - 150, healersLabel.getY());
+        addObject(hU, healersLabel.getX() + 200, healersLabel.getY());
+        
+        addObject(magesLabel = new Button(6), 500, 240);
+        addObject(mD, magesLabel.getX() - 150, magesLabel.getY());
+        addObject(mU, magesLabel.getX() + 200, magesLabel.getY());
+        
+        addObject(waveOneLabel = new Button(5), 500, 310);
+        addObject(oneD, waveOneLabel.getX() - 150, waveOneLabel.getY());
+        addObject(oneU, waveOneLabel.getX() + 200, waveOneLabel.getY());
+        
+        addObject(waveTwoLabel = new Button(5), 500, 380);
+        addObject(twoD, waveTwoLabel.getX() - 150, waveTwoLabel.getY());
+        addObject(twoU, waveTwoLabel.getX() + 200, waveTwoLabel.getY());
+        
+        addObject(waveThreeLabel = new Button(5), 500, 450);
+        addObject(threeD, waveThreeLabel.getX() - 150, waveThreeLabel.getY());
+        addObject(threeU, waveThreeLabel.getX() + 200, waveThreeLabel.getY());
+        
         set(0);
         set(1);
         set(2);
-
+        set(3);
+        set(4);
+        set(5);
     }
     
     public void act(){
@@ -135,16 +205,60 @@ public class Settings extends World
                 set(2);
             }
         }
+        
+        if (Greenfoot.mouseClicked(oneU)) {
+            waveOne++;
+            set(3);
+        }
+        if (Greenfoot.mouseClicked(oneD)) {
+            if (waveOne > 0)
+            {
+                waveOne--;
+                set(3);
+            }
+        }
+        if (Greenfoot.mouseClicked(twoU)) {
+            waveTwo++;
+            set(4);
+        }
+        if (Greenfoot.mouseClicked(twoD)) {
+            if (waveTwo > 0)
+            {
+                waveTwo--;
+                set(4);
+
+            }
+        }
+        if (Greenfoot.mouseClicked(threeU)) {
+            waveThree++;
+            set(5);
+        }
+        if (Greenfoot.mouseClicked(threeD)) {
+            if (waveThree > 0)
+            {
+                waveThree--;
+                set(5);
+            }
+        }
     }
     private void set(int type){
         if(type == 0){
-            addObject(new Button(7+numKnights),635, 200);
+            addObject(new Button(7+numKnights),knightsLabel.getX() + 135, knightsLabel.getY());
         }
         else if(type == 1){
-            addObject(new Button(7+numHealers),635, 300 );
+            addObject(new Button(7+numHealers),healersLabel.getX() + 135, healersLabel.getY());
         }
-        else{
-            addObject(new Button(7+numMages),635, 400);
+        else if (type == 2){
+            addObject(new Button(7+numMages),magesLabel.getX() + 135, magesLabel.getY());
+        }
+        else if (type == 3) {
+            addObject(new SuperTextBox(Integer.toString(waveOne), new Font("OptimusPrinceps", true, false , 20), 50), waveOneLabel.getX() + 135, waveOneLabel.getY());
+        }
+        else if (type == 4) {
+            addObject(new SuperTextBox(Integer.toString(waveTwo), new Font("OptimusPrinceps", true, false , 20), 50), waveTwoLabel.getX() + 135, waveTwoLabel.getY());
+        }
+        else if (type == 5) {
+            addObject(new SuperTextBox(Integer.toString(waveThree), new Font("OptimusPrinceps", true, false , 20), 50), waveThreeLabel.getX() + 135, waveThreeLabel.getY());
         }
     }
 }

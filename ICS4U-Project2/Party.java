@@ -25,7 +25,7 @@ public abstract class Party extends Entity
     protected boolean cohenExists;
 
     private int manaRegenCounter;
-    private static final int MANA_REGEN_DELAY = 30;
+    private static final int MANA_REGEN_DELAY = 10;
     
     private SuperStatBar hpBar;
     private SuperStatBar manaBar;

@@ -230,6 +230,7 @@ public class Cohen extends Boss
                     int n = getWorld().getObjects(Party.class).size();
                     int random = Greenfoot.getRandomNumber(n);
                     Party m = partyMembersInWorld().get(random);
+                    
                     if (Greenfoot.getRandomNumber(2) == 1) {
                         getWorld().removeObject(m);
                     }

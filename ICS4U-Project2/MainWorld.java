@@ -18,16 +18,16 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 2;
-    private int numOfMages = 2;
-    private int numOfHealers = 1;
+    private int numOfKnights;
+    private int numOfMages;
+    private int numOfHealers;
     private int spacingBetween = 70;
     private int spawningXParty = 50;
     
     //Spawning Enemies Variables
-    private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 12;
-    private int waveThreeEnemies = 22;
+    private int waveOneEnemies;
+    private int waveTwoEnemies;
+    private int waveThreeEnemies;
     private int spawningXEnemy;
     
     //Transition Variables
@@ -62,6 +62,10 @@ public class MainWorld extends World
         numOfKnights = Settings.getNumOfKnights();
         numOfHealers = Settings.getNumOfHealers();
         numOfMages = Settings.getNumOfMages();
+        
+        waveOneEnemies = Settings.getWaveOne();
+        waveTwoEnemies = Settings.getWaveTwo();
+        waveThreeEnemies = Settings.getWaveThree();
         
         spawnParty();
         //spawnEnemies();
