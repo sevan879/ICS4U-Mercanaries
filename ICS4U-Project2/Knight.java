@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * CQC/Tank class party member, blocks attacks with shield effect, can attack with sword 
  * 
- * @Arthur
- * @version (a version number or a date)
+ * @author Evan Ma, Arthur Tian
+ * @version V1
  */
 public class Knight extends Party
 {
@@ -61,7 +61,29 @@ public class Knight extends Party
 
     private int spellLevel = 0;
     private int damage = 2;
+    
+    
+    /**
+    * Main Constructor for Knight Class
+    */
+    public Knight() {
+        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
 
+        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
+        knightTaunt = new GreenfootSound[3];
+        for(int i = 0; i < knightTaunt.length; i++){
+            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
+        }
+        knightSlash = new GreenfootSound[3];
+        for(int i = 0; i < knightSlash.length; i++){
+            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
+        }
+
+        //visuals/animation
+        animationConstructor();
+        setImage(idlePics[1]);
+    }
+    
     protected void mainAction(Enemy target)
     {
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
@@ -93,24 +115,6 @@ public class Knight extends Party
         }
     }
 
-    public Knight() {
-        super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
-
-        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
-        knightTaunt = new GreenfootSound[3];
-        for(int i = 0; i < knightTaunt.length; i++){
-            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
-        }
-        knightSlash = new GreenfootSound[3];
-        for(int i = 0; i < knightSlash.length; i++){
-            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
-        }
-
-        //visuals/animation
-        animationConstructor();
-        setImage(idlePics[1]);
-    }
-
     /**
      * Act - do whatever the Knight wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -121,10 +125,9 @@ public class Knight extends Party
         //if damage dealt to knight but no enemies in range, block attacks. 
     }
 
-    //ANIMATION
-
-    //ADD SOMETHING ABOUT HOW DAMAGE SHOULD BE DEALT WITH OFFSET AT A CERTAIN FRAME OF THE ATTACK ANIMATION WHEN SLASH IS ON SCREEN
-
+    /**
+    * Plays the idle animation for Knight class
+    */
     public void idle() {
         if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             idleAnimationCounter = idleAnimationDelay; // reset counter to max 
@@ -141,7 +144,9 @@ public class Knight extends Party
             idleAnimationCounter--;
         }
     }
-
+    /**
+    * Plays death animation and remove object from world.
+    */
     public void death() {
         boolean remove = false;
         isDying = true;
@@ -165,7 +170,9 @@ public class Knight extends Party
             getWorld().removeObject(this);
         }
     }
-
+    /**
+    * Plays running animation
+    */
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -182,8 +189,10 @@ public class Knight extends Party
             runningAnimationCounter--;
         }
     }
-
-    public void attackOne() {
+    /**
+    * Plays first attack animation.
+    */
+    private void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -203,8 +212,10 @@ public class Knight extends Party
             attackOneAnimationCounter--;
         }
     }
-
-    public void attackTwo() {
+    /**
+    * Plays second attack animation.
+    */
+    private void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -224,8 +235,10 @@ public class Knight extends Party
             attackTwoAnimationCounter--;
         }
     }
-
-    public void attackThree() {
+    /**
+    * Plays third attack animation.
+    */
+    private void attackThree() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
