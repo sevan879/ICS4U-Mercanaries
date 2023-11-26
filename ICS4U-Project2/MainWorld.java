@@ -41,6 +41,11 @@ public class MainWorld extends World
 
     private GreenfootSound mainWorldMusic; //level 1 and 2 music
     private GreenfootSound bossMusic; //boss music
+    
+    //scoreboard variables
+    public static int kills = 0;
+    public static Label scoreLabel;
+    public static Label label;
 
     //constructor
     public MainWorld()
@@ -68,6 +73,11 @@ public class MainWorld extends World
         mainWorldMusic.setVolume(44);
         bossMusic = new GreenfootSound("BossMusic.mp3");
         bossMusic.setVolume(44);
+        
+        scoreLabel = new Label(0, 75);
+        addObject(scoreLabel, 210, 60); 
+        label = new Label("kills: ", 75);
+        addObject(label, 100, 60);
     }
 
     //act method
@@ -75,6 +85,12 @@ public class MainWorld extends World
         partyActions();
         spawnWaves();
         checkGameOver();
+    }
+    
+    public static void increaseScore()
+    {
+        kills++;
+        scoreLabel.setValue(kills);
     }
 
     private void partyActions()

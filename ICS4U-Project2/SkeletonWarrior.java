@@ -210,6 +210,7 @@ public class SkeletonWarrior extends Enemy
         }
         if (remove) {
             getWorld().removeObject(this);
+            MainWorld.increaseScore();
         }
     }
 

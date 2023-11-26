@@ -235,6 +235,7 @@ public class SkeletonSpear extends Enemy
         }
         if (remove) {
             getWorld().removeObject(this);
+            MainWorld.increaseScore();
         }
     }
     

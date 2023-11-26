@@ -172,7 +172,10 @@ public class SkeletonArcher extends Enemy
         }
         if (remove) {
             getWorld().removeObject(this);
+            MainWorld.increaseScore();
+        
         }
+        
     }
 
     public void animationConstructor() {

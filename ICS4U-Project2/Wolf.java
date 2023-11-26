@@ -215,6 +215,7 @@ public class Wolf extends Enemy
         }
         if (remove) {
             getWorld().removeObject(this);
+            MainWorld.increaseScore();
         }
     }
 

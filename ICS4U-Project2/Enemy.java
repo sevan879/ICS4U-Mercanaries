@@ -93,6 +93,7 @@ public abstract class Enemy extends Entity
                 attack();
             }
         }
+        
     }
     // if boolean is set to true, dont move if player is in range
     public void move(boolean compareRange){
@@ -120,6 +121,8 @@ public abstract class Enemy extends Entity
             running();
         }
     }
+    
+    
 
     protected abstract void action(Party targetPlayer);
 
