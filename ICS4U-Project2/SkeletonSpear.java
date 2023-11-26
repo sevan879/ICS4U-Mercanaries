@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Spear here.
+ * SkeletonSpear is an enemy class that deals melee damage and has a longer attack range.
  * 
  * @author (your name) 
- * @version (a version number or a date)
+ * @version V1
  */
 public class SkeletonSpear extends Enemy
 {
@@ -46,7 +46,9 @@ public class SkeletonSpear extends Enemy
     {
         super.act();
     }
-
+    /**
+     * Main constructor for SkeltonSpear
+     */
     public SkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
@@ -72,7 +74,7 @@ public class SkeletonSpear extends Enemy
             }
         }
     }
-
+    
     private void mainAttack(){
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
@@ -162,7 +164,9 @@ public class SkeletonSpear extends Enemy
             runningAnimationCounter--;
         }
     }
-
+    /**
+     * Play first attack animation.
+     */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -186,7 +190,9 @@ public class SkeletonSpear extends Enemy
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+     * Play second attack animation.
+     */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -243,6 +249,4 @@ public class SkeletonSpear extends Enemy
     public boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
-    
-    protected void repelOtherEnemies(){}
 }

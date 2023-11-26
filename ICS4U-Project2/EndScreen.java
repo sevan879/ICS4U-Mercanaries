@@ -1,17 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class YouDied here.
+ * Game Over screen world. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arthur Tian 
+ * @version V1
  */
 public class EndScreen extends World
 {
 
     /**
-     * Constructor for objects of class YouDied.
-     * 
+     * Constructor for EndScreen.
+     * @param cohenWon Varies the end screen based on boolean value. True = Party Lost. False = Party Won.
      */
     public EndScreen(boolean cohenWon)
     {    

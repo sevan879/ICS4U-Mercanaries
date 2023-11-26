@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Healer here.
+ * Healer class. Descendant of party class. Healer uses mana to heal their teammates. Healer has two heal spells, one that is single target, and one that affects all teammates.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Arthur Tian
+ * @version V1
  */
 public class Healer extends Party
 {
@@ -52,7 +52,10 @@ public class Healer extends Party
     private int runningAnimationIndex;
     private int runningAnimationDelay;
     private int runningAnimationCounter;
-
+    
+    /**
+    * Main Constructor for Knight Class
+    */
     public Healer()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
@@ -74,7 +77,10 @@ public class Healer extends Party
         super.act();
         //inCombat = false;
     }
-
+    /**
+    * The main action for a Party member. Either an attack or spell;
+    * @param target The target of the Party member's main action. Use null if no target is given
+    */
     protected void mainAction(Enemy target)
     {
         Party healTarget = findHealTarget();
@@ -91,11 +97,15 @@ public class Healer extends Party
             }
         }
     }
-
+    /**
+    * Play all the action animations for a class.
+    */
     protected void mainAnimation() {
         attackOne();
     }
-
+    /**
+    * Level up all stats for a party class
+    */    
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;
@@ -164,10 +174,14 @@ public class Healer extends Party
 
         return target;
     }
-
+    /**
+    * Plays idle animation.
+    */
     public void idle() {
     }
-
+    /**
+    * Plays first attack animation.
+    */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -188,7 +202,9 @@ public class Healer extends Party
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+    * Plays second attack animation.
+    */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -209,7 +225,9 @@ public class Healer extends Party
             attackTwoAnimationCounter--;
         }
     }
-
+    /**
+    * Plays death animation and remove object from world.
+    */
     public void death() {
         boolean remove = false;
         isDying = true;
@@ -233,7 +251,9 @@ public class Healer extends Party
             getWorld().removeObject(this);
         }
     }
-
+    /**
+    * Plays running animation
+    */
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -250,7 +270,7 @@ public class Healer extends Party
             runningAnimationCounter--;
         }
     }
-
+    
     public void animationConstructor() {
         animationTracker = 0;
         attackTracker = 0;

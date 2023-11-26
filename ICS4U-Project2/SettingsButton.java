@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SettingsButton here.
+ * The up and down arrows for creating settings.
  * 
  * @author Justin Wu
  * @version (a version number or a date)
@@ -10,7 +10,10 @@ public class SettingsButton extends Actor
 {
     private GreenfootImage[] buttons;
     private boolean up;
-    
+    /**
+     * Main Constructor for SettingButton
+     * @param up Current state of button. True = button points up. False = button points down.
+     */
     public SettingsButton(boolean up){
         this.up = up;
         buttons = new GreenfootImage[2];

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Explosion here.
+ * Brief explosion effect. Purely visual.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma
+ * @version V1
  */
 public class Explosion extends Effects
 {
@@ -23,6 +23,7 @@ public class Explosion extends Effects
     private GreenfootSound effectSound;
     /**
      * Constructor for Explosion, takes a double to determine how large the explosion should be
+     * @param imageScale Size of explosion
      */
     public Explosion(double imageScale)
     {

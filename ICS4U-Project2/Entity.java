@@ -46,8 +46,13 @@ public abstract class Entity extends SuperSmoothMover
         hpBarExists = true;
         animationConstructor();
     }
-
+    /**
+    * Plays death animation and remove object from world.
+    */
     protected abstract void death();
+    /**
+    * Initializes all animations for class
+    */
     protected abstract void animationConstructor();
 
     /**
@@ -59,16 +64,25 @@ public abstract class Entity extends SuperSmoothMover
     {
         health -= dmg;
     }
-
+    /**
+    * Checks if Entity is running
+    * return @boolean
+    */
     protected boolean animationIsRunning() {
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
-
-        protected ArrayList<Party> partyMembersInWorld() {
+    /**
+    * Returns an ArrayList<Party> of all party members in the world
+    * @return ArrayList<Party>
+    */
+    protected ArrayList<Party> partyMembersInWorld() {
         ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
         return partyList;
     }
-
+    /**
+    * Returns an ArrayList<Enemy> of all enemies in the world
+    * @return ArrayList<Enemy>
+    */
     protected ArrayList<Enemy> enemiesInWorld() {
         ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
         return enemyList;
@@ -128,7 +142,11 @@ public abstract class Entity extends SuperSmoothMover
             return true;
         }
     }
-    
+    /**
+    * Returns if the Entity is dying
+    *
+    * @return boolean
+    */
     public boolean checkDying()
     {
         return isDying;

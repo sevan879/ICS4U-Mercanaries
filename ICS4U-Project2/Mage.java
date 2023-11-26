@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Mage here.
+ * Ranged spell caster class. Uses mana and has two seperate spells. A single target fireball and an AOE large fireball.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Arthur Tian
+ * @version V1
  */
 public class Mage extends Party
 {
@@ -64,7 +64,9 @@ public class Mage extends Party
     
     private int spellDelay;
     private int spellCDCounter;
-    
+    /**
+    * Main Constructor for Mage Class
+    */
     public Mage()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
@@ -159,14 +161,16 @@ public class Mage extends Party
 
     private void smallSpell()
     {
-        getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
+        getWorld().addObject(new SmallFireball(smallDamage), getX(), getY());
     }
 
     private void bigSpell()
     {
         getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
     }
-
+    /**
+    * Plays idle animation
+    */
     public void idle() {
         if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             idleAnimationCounter = idleAnimationDelay; // reset counter to max 
@@ -183,7 +187,9 @@ public class Mage extends Party
             idleAnimationCounter--;
         }
     }
-
+    /**
+    * Plays first attack animation. Also launches fireball.
+    */
     private void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -213,7 +219,9 @@ public class Mage extends Party
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+    * Plays second attack animation. Also launches fireball.
+    */
     private void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -243,7 +251,9 @@ public class Mage extends Party
             attackTwoAnimationCounter--;
         }
     }
-
+    /**
+    * Plays death animation and remove object from world.
+    */
     public void death() {
         boolean remove = false;
         isDying = true;
@@ -267,7 +277,9 @@ public class Mage extends Party
             getWorld().removeObject(this);
         }
     }
-
+    /**
+    * Plays animation for running.
+    */
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -284,7 +296,7 @@ public class Mage extends Party
             runningAnimationCounter--;
         }
     }
-
+    
     public void animationConstructor() {
         animationTracker = 0;
         attackTracker = 0;

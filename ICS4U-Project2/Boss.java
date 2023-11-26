@@ -3,8 +3,8 @@ import java.util.*;
 /**
  * Write a description of class Boss here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arthur Tian, Evan Ma
+ * @version V1
  */
 public abstract class Boss extends Entity
 {
@@ -14,7 +14,12 @@ public abstract class Boss extends Entity
     protected int numOfActionsSoFar;
     
     private SuperStatBar hpBar;
-
+    /**
+     * Main constructor for Boss Class
+     * @param hp Health of boss
+     * @param delay Frames between attacks for each boss attack.
+     * @param attackCount The amount of attacks the boss has.
+     */
     public Boss(int hp, int delay, int attackCount)
     {
         super(hp, 0, delay, false);
@@ -22,17 +27,26 @@ public abstract class Boss extends Entity
         actionChooser = -1;
         attacking = false;
     }
-
+    /**
+     * Do the main actions for the boss.
+     * @param attackNum the specific attack to do.
+     */
     protected abstract void action(int attackNum);
-
+    /**
+     * Play the idle animation for boss.
+     */
     protected abstract void idle();
-
+    /**
+     * Runs when added to world. Create HP bar.
+     */
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 60, Color.YELLOW, Color.RED, false);
         getWorld().addObject(hpBar, getWorld().getWidth()/2, getWorld().getHeight()*2/7);
     }
-    
+    /**
+     * act method for Boss.
+     */
     public void act()
     {
         hpBar.update(health);
@@ -44,7 +58,7 @@ public abstract class Boss extends Entity
         }
     }
 
-    public void attackLoop()
+    private void attackLoop()
     {
         if (actionCounter <= 0)
         {
@@ -71,8 +85,10 @@ public abstract class Boss extends Entity
         }
 
     }
-
-    public Party targetPlayer() {
+    /**
+     * Targets a random Party class in the world
+     */
+    protected Party targetPlayer() {
         List<Party> players = (ArrayList<Party>) (getWorld().getObjects(Party.class));
 
         if (!players.isEmpty()) {

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Backstory here.
+ * World for the backstory of the simulation. Dialogue world.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Wu
+ * @version V1
  */
 public class Backstory extends World
 {
@@ -32,7 +32,9 @@ public class Backstory extends World
     
     //add background music too
     
-    //constructor
+    /**
+     * Main Constructor for Backstory
+     */
     public Backstory()
     {    
         super(1068, 720, 1);
@@ -87,7 +89,7 @@ public class Backstory extends World
         }
         counter++;
     }
-    public void conversation(){
+    private void conversation(){
         if(Greenfoot.isKeyDown("space")){
             if(p == 2){
                 removeObject(p1);

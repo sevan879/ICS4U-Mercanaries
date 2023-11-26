@@ -13,7 +13,9 @@ public class TitleWords extends Actor
     private int animationDelay;
     private int animationCounter;
 
-    //constructor
+    /**
+     * Main constructor for TitleWords. Creates the title images.
+     */
     public TitleWords() {
         images = new GreenfootImage[6];
         for (int i = 0; i < images.length; i++) {

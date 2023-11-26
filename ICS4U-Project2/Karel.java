@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
- * Write a description of class SkeletonKnight here.
+ * Karel enemy. Simple melee enemy summoned by Cohen.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arthur Tian
+ * @version V1
  */
 public class Karel extends Enemy
 {
@@ -41,7 +41,9 @@ public class Karel extends Enemy
     private int attackThreeAnimationCounter;
     private GreenfootImage karel;
 
-    //constructor
+    /**
+     * Main constructor for Karel
+     */
     public Karel() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
     }
@@ -65,7 +67,7 @@ public class Karel extends Enemy
             }
         }
     }
-
+    
     public void attackAnimation() {
     }
 
@@ -99,10 +101,6 @@ public class Karel extends Enemy
         }
     }
 
-    protected void pickUp() {
-        movable = false;
-    }
-
     public void animationConstructor() {
         karel = new GreenfootImage("Karel.png");
         karel.scale(100, 100);
@@ -122,6 +120,4 @@ public class Karel extends Enemy
         deathAnimationDelay = 10;
         deathAnimationCounter = deathAnimationDelay;
     }
-
-    protected void repelOtherEnemies(){}
 }

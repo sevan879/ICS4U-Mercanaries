@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * CQC/Tank class party member, blocks attacks with shield effect, can attack with sword 
+ * CQC/Tank class party member. Has highest HP and uses melee attacks. 
  * 
  * @author Evan Ma, Arthur Tian
  * @version V1
@@ -125,9 +125,6 @@ public class Knight extends Party
         //if damage dealt to knight but no enemies in range, block attacks. 
     }
 
-    /**
-    * Plays the idle animation for Knight class
-    */
     public void idle() {
         if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             idleAnimationCounter = idleAnimationDelay; // reset counter to max 
@@ -144,9 +141,7 @@ public class Knight extends Party
             idleAnimationCounter--;
         }
     }
-    /**
-    * Plays death animation and remove object from world.
-    */
+    
     public void death() {
         boolean remove = false;
         isDying = true;
@@ -170,9 +165,7 @@ public class Knight extends Party
             getWorld().removeObject(this);
         }
     }
-    /**
-    * Plays running animation
-    */
+    
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -279,7 +272,7 @@ public class Knight extends Party
         attackRange += RANGE_INCREASE;
     }
 
-    public void animationConstructor() {
+    protected void animationConstructor() {
 
         animationTracker = 0;
         attackTracker = 0;

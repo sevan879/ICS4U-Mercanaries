@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Arrow here.
  * 
- * @author (your name) 
+ * @author Evan Ma, Kennith Jin
  * @version (a version number or a date)
  */
 public class Arrow extends Projectiles
@@ -22,7 +22,13 @@ public class Arrow extends Projectiles
     private GreenfootImage arrowFlatImage;
     private GreenfootImage arrowInclineImage;
     private GreenfootImage arrowDeclineImage;
-    
+    /**
+     * Main Constructor for Arrow. Includes speed, direction, YVelocity, and Damage.
+     * @param speed Speed of arrow
+     * @param direction Direction of arrow
+     * @param yVel Initial vertical velocity of the arrow
+     * @param damage Damage the arrow deals
+     */
     public Arrow(double speed, int direction, double yVel, int damage){
         super(speed, direction, yVel, true);
         this.damage = damage;
@@ -53,7 +59,11 @@ public class Arrow extends Projectiles
         //arrowImage.rotate(20);
         setImage(arrowUpImage);
     }
-    
+    /**
+     * Unique constructor that uses Kinematic formulas to aim the arrow at a specified distance away.
+     * @param aimedDistance Horozontal distance the arrow should travel.
+     * @param damage The damage of the arrow
+     */
     public Arrow(int aimedDistance, int damage){
         this (SET_SPEED, SET_DIRECTION, SET_YVEL, damage);
         double baseSpeedUnit = (aimedDistance * acceleration)/(-48);
@@ -61,7 +71,9 @@ public class Arrow extends Projectiles
         setYVelocity(6*baseSpeedUnit);
         
     }
-    
+    /**
+     * Simplest constructor, create a sample arrow.
+     */
     public Arrow(){
         this (SET_SPEED, SET_DIRECTION, SET_YVEL, SET_DAMAGE);
     }
@@ -115,7 +127,7 @@ public class Arrow extends Projectiles
     }
     */
     
-    public void checkHitParty(){
+    private void checkHitParty(){
     {
         if(isTouching(Party.class))
         {

@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class SmallFireball here.
+ * Main damage spell for the mage class. Single target.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma
+ * @version V1
  */
 public class SmallFireball extends Projectiles
 {
@@ -14,8 +14,7 @@ public class SmallFireball extends Projectiles
     private static final int SET_SPEED = 8;
     private static final int SET_DIRECTION = 1;
     private static final double SET_YVEL = 8;
-    
-    private int explosionRange;
+
     private int damage;
     
     private GreenfootImage[] fireBallSprites;
@@ -23,10 +22,10 @@ public class SmallFireball extends Projectiles
     private int animationIndex;
 
     /**
-     * Act - do whatever the SmallFireball wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Main constructor for SmallFireball class.
+     * @param damage The damage the explosion deals.
      */
-    public SmallFireball(int explosionRange, int damage){
+    public SmallFireball(int damage){
         super(SET_SPEED, SET_DIRECTION, SET_YVEL, false);
         
         animationIndex = 0;
@@ -44,7 +43,6 @@ public class SmallFireball extends Projectiles
             small[i] = new GreenfootSound("SmallFireBall.mp3");
         }
         
-        this.explosionRange = explosionRange;
         this.damage = damage;
     }
     
@@ -70,7 +68,7 @@ public class SmallFireball extends Projectiles
         setImage(fireBallSprites[animationIndex]);
     }
     
-    public void checkHitEnemy(){
+    private void checkHitEnemy(){
         Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
         if(enemy != null){
           enemy.takeDamage(damage);

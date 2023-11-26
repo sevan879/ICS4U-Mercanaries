@@ -61,7 +61,9 @@ public abstract class Party extends Entity
         cohenExists = false;
         usesMana = manaClass;
     }
-    
+    /**
+    * Runs when party is added to world. Adds HP and Mana bars.
+    */
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, false);
@@ -73,15 +75,26 @@ public abstract class Party extends Entity
             getWorld().addObject(manaBar, 0, 0);
         }
     }
-
+    /**
+    * The main action for a Party member. Either an attack or spell;
+    * @param target The target of the Party member's main action. Use null if no target is given
+    */
     protected abstract void mainAction(Enemy target);
-
+    /**
+    * Level up all stats for a party class
+    */
     protected abstract void levelUpStats();
-
+    /**
+    * Play all the action animations for a class.
+    */
     protected abstract void mainAnimation();
-    
+    /**
+    * Play running animation for class.
+    */    
     protected abstract void running();
-
+    /**
+    * Play idle animation for class
+    */
     protected abstract void idle();
     
     /**
@@ -210,10 +223,17 @@ public abstract class Party extends Entity
     public boolean isIdle() {
         return idle;
     }
-
+    /**
+    * Returns if the Party member is in combat.
+    * return @boolean
+    */
     protected boolean getInCombat() {
         return inCombat;
     }
+    /**
+    * Set party member to be in combat
+    * @param b Value of isCombat
+    */
     protected void setInCombat(boolean b) {
         inCombat = b;
     }

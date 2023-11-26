@@ -49,6 +49,9 @@ public class Cohen extends Boss
 
     private int introCount;
     private int introTotalWait;
+    /**
+     * Main constructor for Cohen Class.
+     */
     public Cohen()
     {
         super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
@@ -58,7 +61,6 @@ public class Cohen extends Boss
         introTotalWait = 220;
         fallen = false;
     }
-
     public void act()
     {
         if (introCount < introTotalWait) {
@@ -111,19 +113,6 @@ public class Cohen extends Boss
         }
     }
 
-    /**
-     * POSSIBLE ACTIONS
-     * summons wave 
-     *  - karel the dog
-     *  - minicohen
-     * attack one party member
-     *  - 
-     * ultimate attack (say voicelines)
-     *  - laser eyes
-     *  - laser beam from mouth
-     * 
-     * 
-     */
     public void action(int attackNum)
     {
         attacking = true;
@@ -150,7 +139,7 @@ public class Cohen extends Boss
         Greenfoot.setWorld(new EndScreen(false));
     }
 
-    public void summon() {
+    private void summon() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -201,7 +190,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void attackOne() {
+    private void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -229,7 +218,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void attackTwo() {
+    private void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -266,7 +255,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void cohenDownAndHit() {
+    private void cohenDownAndHit() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }

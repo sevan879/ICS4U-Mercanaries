@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Settings here.
+ * Settings for simulation changes
  * 
  * @author Justin Wu 
  * @version V0
@@ -24,23 +24,34 @@ public class Settings extends World
     private static int numMages = 1;
     private SettingsButton mU;
     private SettingsButton mD;
-    
+    /**
+     * Getter for the amount of Knights to add.
+     * @return int
+     */
     public static int getNumOfKnights()
     {
         return numKnights;
     }
-    
+    /**
+     * Getter for the amount of Mages to add.
+     * @return int
+     */
     public static int getNumOfMages()
     {
         return numMages;
     }
-    
+    /**
+     * Getter for the amount of Healers to add.
+     * @return int
+     */
     public static int getNumOfHealers()
     {
         return numHealers;
     }
     
-    //constructor
+    /**
+     * Main Constructor for Settings
+     */
     public Settings()
     {    
         super(1068, 720, 1);
@@ -125,7 +136,7 @@ public class Settings extends World
             }
         }
     }
-    public void set(int type){
+    private void set(int type){
         if(type == 0){
             addObject(new Button(7+numKnights),635, 200);
         }

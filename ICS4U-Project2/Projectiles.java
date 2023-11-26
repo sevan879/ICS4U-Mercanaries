@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Projectiles here.
+ * Abstract superclass for all moving projectiles. Accomodates for parabolic motion and linear motion.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kennith Jin
+ * @version V1
  */
 public abstract class Projectiles extends SuperSmoothMover
 {
@@ -19,9 +19,13 @@ public abstract class Projectiles extends SuperSmoothMover
     private boolean removed;
     private boolean hasGravity;
     
+    
     /**
-     * Act - do whatever the Projectiles wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Main constructor for Projectiles Class
+     * @param spd Speed of projectile
+     * @param direction Direction of projectile. -1 = left. 1 = right
+     * @param yVel Initial yVelocity of projectile. Only matters for arcing projectiles.
+     * @param gravityProj Set to true if projectile should have gravity applied.
      */
     public Projectiles(double spd, int direction, double yVel, boolean gravityProj){
         speed = spd;
@@ -36,7 +40,10 @@ public abstract class Projectiles extends SuperSmoothMover
         
         
     }
-    
+    /**
+     * Act - do whatever the Projectiles wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act()
     {
         // Add your action code here.
@@ -53,23 +60,29 @@ public abstract class Projectiles extends SuperSmoothMover
             checkOutOfWorld();
         }
     }
-    
+    /**
+     * Set the speed of the projectile
+     * @param spd Double representing the speed to set the object to.
+     */
     public void setSpeed(double spd)
     {
         speed = spd;
     }
-    
+    /**
+     * Set the vertical velocity of the projectile
+     * @param yVel Double representing the Y Velocity to set the object to.
+     */
     public void setYVelocity(double yVel)
     {
         yVelocity = yVel;
     }
     
-    public void moveInParabola(){
+    private void moveInParabola(){
         setLocation(getX() + speed * (double)direction, getY() - (int)yVelocity);
         yVelocity = yVelocity + acceleration;
     }
     
-    public void moveInLine()
+    private void moveInLine()
     {
         setLocation(getX() + speed * (double)direction, getY());
     }
@@ -82,13 +95,18 @@ public abstract class Projectiles extends SuperSmoothMover
             removeProjectile();
         }
     }
-    
+    /**
+     * Remove projectile once it leaves the world
+     */
     protected void removeProjectile()
     {
         removed = true;
         getWorld().removeObject(this);
     }
-    
+    /**
+     * Return true if Projectile has been removed
+     * @return boolean
+     */
     protected boolean getRemoved()
     {
         return removed;

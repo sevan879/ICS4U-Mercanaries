@@ -9,7 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class speakCohen extends SuperSmoothMover
 {
     private GreenfootImage w;
-    
+    /**
+     * Main constructor for Fireball class.
+     * @param explosionRange The size of the AOE of the fireball
+     * @param damage The damage the explosion deals.
+     */
     public speakCohen(){
         w = new GreenfootImage("rest.png");
         int percent = 100; 

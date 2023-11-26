@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SkeletonKnight here.
+ * SkeletonWarrior is the basic melee enemy. Runs up to Party members and deals melee damage.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -41,7 +41,9 @@ public class SkeletonWarrior extends Enemy
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
 
-    //constructor
+    /**
+     * Main constructor for SkeletonWarrior
+     */
     public SkeletonWarrior() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
@@ -110,6 +112,9 @@ public class SkeletonWarrior extends Enemy
         }
     }
 
+    /**
+     * Play animation for first attack.
+     */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -136,7 +141,9 @@ public class SkeletonWarrior extends Enemy
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for second attack.
+     */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -163,7 +170,9 @@ public class SkeletonWarrior extends Enemy
             attackTwoAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for third  attack.
+     */
     public void attackThree() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -211,10 +220,6 @@ public class SkeletonWarrior extends Enemy
         if (remove) {
             getWorld().removeObject(this);
         }
-    }
-
-    protected void pickUp() {
-        movable = false;
     }
 
     public void animationConstructor() {
@@ -267,6 +272,4 @@ public class SkeletonWarrior extends Enemy
         attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
-    
-    protected void repelOtherEnemies(){}
 }

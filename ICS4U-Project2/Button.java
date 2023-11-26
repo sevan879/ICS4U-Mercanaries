@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Button here.
  * 
- * @Arthur 
+ * @author Arthur 
  * @version (a version number or a date)
  */
 public class Button extends Actor
@@ -13,7 +13,10 @@ public class Button extends Actor
     private TitleScreen t;
     private GreenfootImage image;
 
-    //constructor
+    /**
+     * Main Constructor for Button.
+     * @param buttonChooser The specific button variation to create.
+     */
     public Button(int buttonChooser) {
         buttons = new GreenfootImage[17];
         buttons[0] = new GreenfootImage("startButton.png");
@@ -35,7 +38,9 @@ public class Button extends Actor
         this.buttonChooser = buttonChooser;
     }
 
-    //act method
+    /**
+     * Act method.
+     */
     public void act()
     {
         if (Greenfoot.mouseMoved(this)) { //hover effect
