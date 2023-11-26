@@ -10,7 +10,7 @@ public class Backstory extends World
 {
     private GreenfootImage background;
     private speakKnight k;
-    private speakCohen c;
+    private speakVillager c;
     private SuperTextBox p1;
     private String [] sentence1;
     private SuperTextBox p2;
@@ -41,7 +41,7 @@ public class Backstory extends World
         background.scale(background.getWidth()/resize, background.getHeight()/resize);
         setBackground(background);
         k = new speakKnight();
-        c = new speakCohen();
+        c = new speakVillager();
         addObject(k, 200,400);
         addObject(c, 900, 400);
         f = new Font ("Comic Sans MS", false, false, 16);
@@ -51,7 +51,7 @@ public class Backstory extends World
         b = new Button(3);
     
         sentence1 = new String[4];
-        sentence1[0] = "Sir Cohen, there appears to be another death";
+        sentence1[0] = "Sir, there appears to be another death";
         sentence1[1] = "in our village! It seems like this viral";
         sentence1[2] = "disease you have been speculating about";
         sentence1[3] = "is true. What do we do?!";
@@ -91,25 +91,21 @@ public class Backstory extends World
         if(Greenfoot.isKeyDown("space")){
             if(p == 2){
                 removeObject(p1);
-                c.cohenSmile();
                 addObject(p2, 750, 250);
                 p++;
             }
             else if(p == 3){
                 removeObject(p2);
-                c.cohenRest();
                 addObject(p3, 300, 225);
                 p++;
             }
             else if(p == 4){
                 removeObject(p3);
-                c.cohenYell();
                 addObject(p4, 750, 250);
                 p++;
             }
             else if(p == 5){
                 removeObject(p4);
-                c.cohenSmile();
                 addObject(p5, 300, 225);
                 p++;
             }
