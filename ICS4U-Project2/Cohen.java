@@ -11,7 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Cohen extends Boss
 {
-    private static final int SET_HP = 600;
+    private static final int SET_HP = 450;
     private static final int ACTION_DELAY = 200;
     private static final int ATTACK_COUNT = 8;
     private static final int downTimeDelay = 240;
@@ -91,6 +91,7 @@ public class Cohen extends Boss
                         //member.setLocation(member.getCohenAttackXPos(), member.getY());
                         member.setCohenExists(true);
                     }
+                    
                 }
                 //start loop
                 if (fallen) {

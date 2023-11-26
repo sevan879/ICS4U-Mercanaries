@@ -20,7 +20,7 @@ public class LoadingScreen extends Effects
     private int loadingAnimationIndex;
     private int loadingPresentDelay;
     private int loadingPresentCounter;
-    private boolean changeWorldOrLevel;
+    private boolean changeWorldOrLevel;//true means change world, false means change level
     private Background b;
     private MainWorld w;
 

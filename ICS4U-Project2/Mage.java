@@ -10,7 +10,7 @@ public class Mage extends Party
 {
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 80;
-    private static final double SET_SPEED = 3;
+    private static final double SET_SPEED = 2;
     private static final int ACTION_DELAY = 50; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 550;
@@ -205,6 +205,7 @@ public class Mage extends Party
                 smallSpell();
                 canAttack = false;
                 manaSpent = false;
+                setLocation(ogX, ogY);
             }
             if (attackOneAnimationIndex == 2) {
                 setLocation(getX()-5, getY());
@@ -235,15 +236,15 @@ public class Mage extends Party
                 canAttack = false;
                 manaSpent = false;
             }
-            if (attackTwoAnimationIndex == 3) {
-                setLocation(getX()+0, getY());
-            }
             if (attackTwoAnimationIndex == 8)
             {
                 bigSpell();
             }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);
+            if (attackTwoAnimationIndex > 4 && attackTwoAnimationIndex < 7) {
+                setLocation(getX()+11, getY()-5); 
+            }
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackTwoAnimationCounter--;
@@ -331,7 +332,7 @@ public class Mage extends Party
             attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
         }
         attackTwoAnimationIndex = 0;
-        attackTwoAnimationDelay = 8;
+        attackTwoAnimationDelay = 5;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
 
         //idle

@@ -11,11 +11,9 @@ public class TitleScreen extends World
     private GreenfootSound titleScreenMusic; // title screen music asset
     private GreenfootImage background;
     private Button start;
-
-    private MainWorld m;
-    private Backstory b;
-    private Settings s;
-
+    private Button settings;
+    private Button backstory;
+    private TitleWords titleWords;
     //construction
     public TitleScreen()
     {    
@@ -26,11 +24,14 @@ public class TitleScreen extends World
         setBackground(background);
 
         start = new Button(0);
+        settings = new Button(1);
+        backstory = new Button(2);
+        titleWords = new TitleWords();
         //buttons
         addObject(start, 534, 400);
-        addObject(new Button(1), 534, 520);
-        addObject(new Button(2), 534, 640);
-        addObject(new TitleWords(), 534, 190);
+        addObject(settings, 534, 520);
+        addObject(backstory, 534, 640);
+        addObject(titleWords, 534, 190);
     }
 
     //to start playing the music when pressed run
@@ -52,18 +53,16 @@ public class TitleScreen extends World
 
     public void transitionToNewWorld(int n) {
         if (n == 0) {
-            m = new MainWorld();
-            //LoadingScreen load = new LoadingScreen(false, 180, 1, false);
-            //addObject(load, getWidth()/2, getHeight()/2);
-
+            removeObject(start);
+            removeObject(settings);
+            removeObject(backstory);
+            removeObject(titleWords);
         }
         else if (n == 1) {
-            s = new Settings();
-            Greenfoot.setWorld(s);
+            Greenfoot.setWorld(new Settings());
         }
         else if (n == 2) {
-            b = new Backstory();
-            Greenfoot.setWorld(b);
+            Greenfoot.setWorld(new Backstory());
         }
     }
 

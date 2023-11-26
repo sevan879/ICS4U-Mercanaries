@@ -33,7 +33,7 @@ public class Explosion extends Effects
         this.imageScale = imageScale;
         // play sound effect
         effectSound = new GreenfootSound("ExplosionSound.wav");
-        effectSound.setVolume(44);
+        effectSound.setVolume(55);
         effectSound.play();images = new GreenfootImage[28];
         for (int i = 0; i < 28; i++)
         {

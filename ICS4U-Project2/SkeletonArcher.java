@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SkeletonArcher extends Enemy
 {
-    private static final int HP = 2;
+    private static final int HP = 10;
     private static final double SPEED = 3;
     private static final int DELAY = 90;
     private static final int DAMAGE = 10;

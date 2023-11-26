@@ -57,6 +57,7 @@ public class MainWorld extends World
         bossMusic = new GreenfootSound("BossMusic.mp3");
         bossMusic.setVolume(44);
         addObject(background, 1086, 360); //add background first, so its behind everything
+        started();
 
         waitForWaveToEnd = false;
 
@@ -154,41 +155,43 @@ public class MainWorld extends World
 
             if(!waveOver || wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                    if (worldLvl == 1) {
-                        addObject(new Wolf(), spawningXEnemy, worldYLevel);
-                        enemiesSpawned++;
-                    }
-                    else if(worldLvl == 2){
-                        int enemyType = Greenfoot.getRandomNumber(3);
-                        if (enemyType == 0) {
-                            addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                    if (Greenfoot.getRandomNumber(30)%10 == 0) {
+                        if (worldLvl == 1) {
+                            addObject(new Wolf(), spawningXEnemy, worldYLevel);
                             enemiesSpawned++;
                         }
-                        else if (enemyType == 1) {
-                            addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
-                            enemiesSpawned++;
-                        }
-                        else if (enemyType == 2) {
-                            addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
-                            enemiesSpawned++;
-                        }
-                    } else if(worldLvl == 3){
-                        int enemyType = Greenfoot.getRandomNumber(3);
-                        if (enemyType == 0) {
-                            addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
-                            enemiesSpawned++;
-                        }
-                        else if (enemyType == 1) {
-                            addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
-                            enemiesSpawned++;
-                        }
-                        else if (enemyType == 2) {
-                            addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
-                            enemiesSpawned++;
-                        }
-                        if (enemiesSpawned == waveThreeEnemies - 1) {
-                            addObject(new MiniCohen(), spawningXEnemy, worldYLevel);
-                            enemiesSpawned++;
+                        else if(worldLvl == 2){
+                            int enemyType = Greenfoot.getRandomNumber(3);
+                            if (enemyType == 0) {
+                                addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                                enemiesSpawned++;
+                            }
+                            else if (enemyType == 1) {
+                                addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                                enemiesSpawned++;
+                            }
+                            else if (enemyType == 2) {
+                                addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
+                                enemiesSpawned++;
+                            }
+                        } else if(worldLvl == 3){
+                            int enemyType = Greenfoot.getRandomNumber(3);
+                            if (enemyType == 0) {
+                                addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                                enemiesSpawned++;
+                            }
+                            else if (enemyType == 1) {
+                                addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                                enemiesSpawned++;
+                            }
+                            else if (enemyType == 2) {
+                                addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
+                                enemiesSpawned++;
+                            }
+                            if (enemiesSpawned == waveThreeEnemies - 1) {
+                                addObject(new MiniCohen(), spawningXEnemy, worldYLevel);
+                                enemiesSpawned++;
+                            }
                         }
                     }
                 }
@@ -205,7 +208,7 @@ public class MainWorld extends World
                     wave = wave + 1;
                     transitionCounter = transitionDelay;
                     worldLvl = 2;
-                    
+
                     addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
                 }
             }

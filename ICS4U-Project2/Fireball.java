@@ -86,10 +86,12 @@ public class Fireball extends Projectiles
 
     public void explode(){
         List<Enemy> enemies = getObjectsInRange(explosionRange, Enemy.class);
-        for(Enemy e: enemies){
-            e.takeDamage(damage);// adjust to mage's damage
-            //explode animations?
+        if (enemies.size() != 0) {
+            for(Enemy e: enemies){
+                e.takeDamage(damage);// adjust to mage's damage
+                //explode animations?
+            }
+            getWorld().addObject(new Explosion(5), getX(), getY() - 40);
         }
-        getWorld().addObject(new Explosion(5), getX(), getY() - 40);
     }
 }

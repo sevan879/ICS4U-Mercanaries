@@ -25,26 +25,27 @@ public class TestWorld extends World
          b = new Background();
         addObject(b, 1068, 360);
         b.setWorldBackground(4);
-        addObject(new Cohen(), 463, 311);
-        //addObject(new Karel(), 700, 650);
+        //addObject(new Cohen(), 463, 311);
+        addObject(new Karel(), 700, 650);
         //addObject(new MiniCohen(), 900, 650);
         addObject(new Mage(), 150, 650);
-        addObject(new Healer(), 100, 650);
-        addObject(new Knight(), 300, 650);
-        addObject(new Knight(), 200, 650);
-        addObject(new Knight(), 400, 650);
-        addObject(new Knight(), 500, 650);
-        //b = new Background(); 
-        m = new MainWorld();
-        s = new LoadingScreen(false, 60, true, b, m, 1);
+        //addObject(new Healer(), 100, 650);
+        //addObject(new Knight(), 300, 650);
+        //addObject(new Knight(), 200, 650);
+        //addObject(new Knight(), 400, 650);
+        //addObject(new Knight(), 500, 650);
+        //  b = new Background(); 
+        //m = new MainWorld();
+        //s = new LoadingScreen(false, 60, true, b, m, 1);
         n = 0;
-        GreenfootSound s = new GreenfootSound("BossMusic.mp3");
-        s.setVolume(55);
+        //GreenfootSound s = new GreenfootSound("BossMusic.mp3");
+        //s.setVolume(55);
         //s.play();
     }
 
     public void act() {
         b.scrollBackground(1);
+        
         //if (n == 0) {
         //    addObject(s, getWidth()/2,getHeight()/2);
         //    n++;
