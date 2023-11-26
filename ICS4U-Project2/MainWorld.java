@@ -190,8 +190,8 @@ public class MainWorld extends World
                     transitionCounter = transitionDelay;
                     addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
                     worldLvl = 1;
-                    stopped();
-                    started();
+                    //stopped();
+                    //started();
                 }
             }
         }else if(wave == 2){
@@ -207,8 +207,8 @@ public class MainWorld extends World
                     addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
                     background.setWorldBackground(1);
                     worldLvl = 2;
-                    stopped();
-                    started();
+                    //stopped();
+                    //started();
                 }                
             }
         }else if(wave == 3){
@@ -225,8 +225,8 @@ public class MainWorld extends World
                     background.setWorldBackground(2);
                     addObject(new Cohen(), 463, 311);
                     worldLvl = 3;
-                    stopped();
-                    started();
+                    //stopped();
+                    //started();
                 }
             }
         }
