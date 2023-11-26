@@ -13,13 +13,16 @@ public class TestWorld extends World
      * Constructor for objects of class TestWorld.
      * 
      */
-    
+
     private Background b;
+    LoadingScreen s;
+    MainWorld m;
     public TestWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1068, 720, 1); 
-        b = new Background();
+        /*
+         *        b = new Background();
         addObject(b, 1068, 360);
         b.setWorldBackground(2);
         addObject(new Cohen(), 463, 311);
@@ -28,10 +31,17 @@ public class TestWorld extends World
         addObject(new Healer(), 100, 650);
         addObject(new Knight(), 300, 650);
         addObject(new Knight(), 200, 650);
+         */
+        b = new Background();
+        m = new MainWorld();
+        s = new LoadingScreen(false, 60, 1, false, b, m, 3);
     }
-    
+
     public void act() {
-        b.scrollBackground(1);
+        //b.scrollBackground(1);
+        if (Greenfoot.isKeyDown("w")) {
+            addObject(s, getWidth()/2,getHeight()/2);
+        }
     }
-    
+
 }

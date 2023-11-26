@@ -53,11 +53,9 @@ public class TitleScreen extends World
     public void transitionToNewWorld(int n) {
         if (n == 0) {
             m = new MainWorld();
-            LoadingScreen load = new LoadingScreen(180, 1, false);
-            addObject(load, getWidth()/2, getHeight()/2);
+            //LoadingScreen load = new LoadingScreen(180, 1, false);
+            //addObject(load, getWidth()/2, getHeight()/2);
             Greenfoot.setWorld(m);
-            if (load.getLoadingFinished()) {
-            }
 
         }
         else if (n == 1) {

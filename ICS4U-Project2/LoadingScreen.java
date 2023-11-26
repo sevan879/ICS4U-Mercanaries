@@ -11,24 +11,22 @@ public class LoadingScreen extends Effects
 
     private int fadeCounter;
     private int fadeTime;
+    private int levelToChange;
 
     private boolean fadeStyle; // false = fadeIn, true = fadeout
     private GreenfootImage[] images;
     private GreenfootImage[] loading;
     private int imageChooser;
-    private boolean isActuallyLoad;
     private int loadingAnimationCounter;
     private int loadingAnimationDelay;
     private int loadingAnimationIndex;
+    private int loadingPresentDelay;
+    private int loadingPresentCounter;
+    private boolean changeWorldOrLevel;
+    private Background b;
+    private World w;
 
-    private GreenfootImage image1;
-    private boolean loadingFinished;
-
-    public LoadingScreen(int totalFadeTime, int imageChooser, boolean l) {
-        image1 = new GreenfootImage(1400, 1000);
-        image1.setColor(Color.BLACK);
-        image1.fill();
-        image1.setTransparency(0);
+    public LoadingScreen(boolean fadeStyle, int totalFadeTime, int imageChooser, boolean changeWorldOrLevel, Background b, World w, int levelToChange) {
         setImage(image);
         images = new GreenfootImage[3];
         for (int i = 0; i < images.length; i++) {
@@ -41,64 +39,75 @@ public class LoadingScreen extends Effects
         this.imageChooser = imageChooser;
         fadeTime = totalFadeTime;
         fadeCounter = 0;
-        isActuallyLoad = l;
         image = images[imageChooser];
 
         loadingAnimationIndex = 0;
         loadingAnimationDelay = 5;
         loadingAnimationCounter = loadingAnimationDelay;
 
-        loadingFinished = false;
+        loadingPresentDelay = 60;
+        loadingPresentCounter = 0;
+        this.b = b;
+        this.changeWorldOrLevel = changeWorldOrLevel;
+        this.w = w;
+        this.levelToChange = levelToChange;
+        this.fadeStyle = fadeStyle;
     }
 
     public void act()
     {
-        if (!fadeStyle)
+        setImage(image);
+        if (!fadeStyle) //fade in to world
         {
-            if (fadeCounter >= fadeTime)
+            if (!(fadeCounter >= fadeTime)) //end fade in, start fading out
+            //continue fading in 
             {
-                setImage(images[imageChooser]);
-                fadeStyle = true;
-                fadeCounter = 0;
-            }
-            else
-            {
-                fadeCounter++;
+                fadeCounter++; 
                 fadeIn(fadeCounter, fadeTime);
-                if (isActuallyLoad) {
-                    actualLoadAnimation();
-                }
-                else {
-                    setImage(image);
-                }
+                image = actualLoadAnimation();
+            }
+            else {
+                fadeCounter = fadeTime;
+                fadeStyle = true;
             }
         }
-        else
+        else 
         {
-            if (fadeCounter >= fadeTime)
-            {
-                getWorld().removeObject(this);
-                loadingFinished = true;
-            }
-            else
-            {
-                fadeCounter++;
-                fadeOut(fadeCounter, fadeTime);
-                if (isActuallyLoad) {
-                    actualLoadAnimation();
+            if (fadeCounter == fadeTime) { //keep opacity at max, running animation for a bit, then fade out
+                // have a delay and keep 100 opacity
+                if (loadingPresentCounter > loadingPresentDelay) { //counting is finished 
+                    fadeCounter = 0;
+                    loadingPresentCounter = 0;
                 }
-                else {
-                    setImage(image);
+                else { //count... keep changing frames at intervals
+                    loadingPresentCounter++;
+                    image = actualLoadAnimation();
+                    image.setTransparency(255);
                 }
             }
+            else {// fade out of world
+                if (fadeCounter >= fadeTime)
+                {
+                    if (changeWorldOrLevel) { //true means change world, false means change level
+                        w.addObject(new LoadingScreen(true, 60, 1, true, b, w, levelToChange), 534, 360);
+                        Greenfoot.setWorld(w);
+                    }
+                    else {
+                        b.setWorldBackground(levelToChange);
+                    }
+                    getWorld().removeObject(this);
+                }
+                else
+                {
+                    fadeCounter++;
+                    fadeOut(fadeCounter, fadeTime);
+                    image = actualLoadAnimation();
+                }
+            } 
         }
     }
 
-    public boolean getLoadingFinished() {
-        return loadingFinished;
-    }
-
-    public void actualLoadAnimation() {
+    public GreenfootImage actualLoadAnimation() {
         if (loadingAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             loadingAnimationCounter = loadingAnimationDelay; // reset counter to max 
             loadingAnimationIndex++; // this will be used to set the image to the next frame
@@ -107,11 +116,10 @@ public class LoadingScreen extends Effects
             if (loadingAnimationIndex == loading.length){
                 loadingAnimationIndex = 0;
             }
-            // Apply new image to this Actor
-            setImage (loading[loadingAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             loadingAnimationCounter--;
         }
+        return (loading[loadingAnimationIndex]);        
     }
 }
