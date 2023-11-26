@@ -23,13 +23,13 @@ public class MainWorld extends World
     private int numOfHealers = 1;
     private int spacingBetween = 70;
     private int spawningXParty = 50;
-    
+
     //Spawning Enemies Variables
     private int waveOneEnemies = 5;
     private int waveTwoEnemies = 12;
     private int waveThreeEnemies = 22;
     private int spawningXEnemy;
-    
+
     //Transition Variables
     private int transitionDelay = 300;
     private int transitionCounter = 0;
@@ -52,7 +52,10 @@ public class MainWorld extends World
 
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
-
+        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
+        mainWorldMusic.setVolume(44);
+        bossMusic = new GreenfootSound("BossMusic.mp3");
+        bossMusic.setVolume(44);
         addObject(background, 1086, 360); //add background first, so its behind everything
 
         waitForWaveToEnd = false;
@@ -60,14 +63,9 @@ public class MainWorld extends World
         numOfKnights = Settings.getNumOfKnights();
         numOfHealers = Settings.getNumOfHealers();
         numOfMages = Settings.getNumOfMages();
-        
+
         spawnParty();
         //spawnEnemies();
-
-        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
-        mainWorldMusic.setVolume(44);
-        bossMusic = new GreenfootSound("BossMusic.mp3");
-        bossMusic.setVolume(44);
     }
 
     //act method
@@ -146,7 +144,6 @@ public class MainWorld extends World
                 if (transitionCounter <= 0)
                 {
                     waveOver = false;
-                    // stop background
                 }
                 else
                 {
@@ -155,24 +152,44 @@ public class MainWorld extends World
                 }
             }
 
-            if(!waveOver && wave != 4){
+            if(!waveOver || wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                    int enemyType = Greenfoot.getRandomNumber(5);
-                    if(enemyType == 0){
-                        addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                    if (worldLvl == 1) {
+                        addObject(new Wolf(), spawningXEnemy, worldYLevel);
                         enemiesSpawned++;
-                    } else if(enemyType == 1){
-                        addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
-                        enemiesSpawned++;
-                    } else if(enemyType == 2){
-                        addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
-                        enemiesSpawned++;
-                    } else if(enemyType == 3){
-                        //addObject(new Flying(), 0, 0); //ylocation should be higher
-                        //enemiesSpawned++;
-                    } else if(enemyType == 4){
-                        //addObject(new Wolf(), 0,0); 
-                        //enemiesSpawned++;
+                    }
+                    else if(worldLvl == 2){
+                        int enemyType = Greenfoot.getRandomNumber(3);
+                        if (enemyType == 0) {
+                            addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                            enemiesSpawned++;
+                        }
+                        else if (enemyType == 1) {
+                            addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                            enemiesSpawned++;
+                        }
+                        else if (enemyType == 2) {
+                            addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
+                            enemiesSpawned++;
+                        }
+                    } else if(worldLvl == 3){
+                        int enemyType = Greenfoot.getRandomNumber(3);
+                        if (enemyType == 0) {
+                            addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
+                            enemiesSpawned++;
+                        }
+                        else if (enemyType == 1) {
+                            addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                            enemiesSpawned++;
+                        }
+                        else if (enemyType == 2) {
+                            addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
+                            enemiesSpawned++;
+                        }
+                        if (enemiesSpawned == waveThreeEnemies - 1) {
+                            addObject(new MiniCohen(), spawningXEnemy, worldYLevel);
+                            enemiesSpawned++;
+                        }
                     }
                 }
             }
@@ -180,7 +197,6 @@ public class MainWorld extends World
         if(wave == 1){
             if(enemiesSpawned >= waveOneEnemies){
                 waitForWaveToEnd = true;
-                
                 if (checkWaveOver())
                 {
                     waitForWaveToEnd = false;
@@ -188,10 +204,9 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay;
-                    addObject(new Fader(fadeTime, 1, background), getWidth()/2, getHeight()/2);
-                    worldLvl = 1;
-                    stopped();
-                    started();
+                    worldLvl = 2;
+                    
+                    addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
                 }
             }
         }else if(wave == 2){
@@ -203,12 +218,9 @@ public class MainWorld extends World
                     waveOver = true;
                     enemiesSpawned = 0;
                     wave = wave + 1;
+                    worldLvl = 3;
                     transitionCounter = transitionDelay; 
-                    addObject(new Fader(fadeTime, 2, background), getWidth()/2, getHeight()/2);
-                    background.setWorldBackground(1);
-                    worldLvl = 2;
-                    stopped();
-                    started();
+                    addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
                 }                
             }
         }else if(wave == 3){
@@ -221,32 +233,13 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     transitionCounter = transitionDelay; 
-                    addObject(new Fader(fadeTime, -1, background), getWidth()/2, getHeight()/2);
-                    background.setWorldBackground(2);
+                    worldLvl = 4;
+                    addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
                     addObject(new Cohen(), 463, 311);
-                    worldLvl = 3;
                     stopped();
                     started();
                 }
             }
-        }
-    }
-
-    private void partyRun()
-    {
-        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
-        for (Party member : partyList)
-        {
-            // make them run
-        }
-    }
-
-    private void partyIdle()
-    {
-        ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
-        for (Party member : partyList)
-        {
-            // make them idle
         }
     }
 
@@ -278,11 +271,11 @@ public class MainWorld extends World
     }
     //to start playing the music when pressed run
     public void started(){
-        if(worldLvl == 1 || worldLvl == 2){
-            mainWorldMusic.playLoop();
-        }
-        if(worldLvl == 3){
+        if(worldLvl == 4){
             bossMusic.playLoop();
+        }
+        else {
+            mainWorldMusic.playLoop();
         }
     }
     //to stop playing the music when pressed pause or reset

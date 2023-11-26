@@ -30,7 +30,7 @@ public abstract class Boss extends Entity
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 60, Color.YELLOW, Color.RED, false);
-        getWorld().addObject(hpBar, getWorld().getWidth()/2, getWorld().getHeight()*2/7);
+        getWorld().addObject(hpBar, getWorld().getWidth()/2, 50);
     }
     
     public void act()

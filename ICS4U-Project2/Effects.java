@@ -9,13 +9,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Effects extends Actor
 {
     protected GreenfootImage image;
-    
+
     protected void fadeIn (int timeLeft, int totalFadeTime){
         double percent = timeLeft / (double) totalFadeTime;
         int newTransparency = (int)(percent * 255);
-        image.setTransparency (newTransparency);
+        if (newTransparency <= 225) {
+            image.setTransparency (newTransparency);
+        }
     }
-    
+
     protected void fadeOut (int timeLeft, int totalFadeTime){
         double percent = timeLeft / (double) totalFadeTime;
         int newTransparency = (int)(percent * 255);

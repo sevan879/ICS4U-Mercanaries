@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class Wolf extends Enemy
 {
-    private static final int HP = 5;
-    private static final double SPEED = 4;
+    private static final int HP = 15;
+    private static final double SPEED = 2;
     private static final int DELAY = 10;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 95;
@@ -46,7 +46,6 @@ public class Wolf extends Enemy
     public Wolf() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
-        animationConstructor();
     }
 
     //act method
@@ -71,7 +70,6 @@ public class Wolf extends Enemy
 
     public void attackAnimation() {
         if (attackTracker == 0) { //attack one
-            System.out.println("1");
             attackOne();
             //stuff about dealing damage, whatever
             if (!animationIsRunning()) {
@@ -80,7 +78,6 @@ public class Wolf extends Enemy
         }
         else if (attackTracker == 1) { //attack two
             attackTwo();
-            System.out.println("2");
             //stuff about dealing damage, whatever
             if (!animationIsRunning()) {
                 attackTracker = 2;
@@ -88,7 +85,6 @@ public class Wolf extends Enemy
         }
         else if (attackTracker == 2) { //attack three
             attackThree();
-            System.out.println("3");
 
             //stuff about dealing damage, whatever, this one should deal the most since its the last attack
             if (!animationIsRunning()) {
@@ -128,12 +124,6 @@ public class Wolf extends Enemy
                 animationTracker++;
                 attackOneAnimationIndex = 0;
             }
-            if (attackOneAnimationIndex == 3) {
-                setLocation(getX() - 20, getY()-9);
-            }
-            if (attackOneAnimationIndex == 4) {
-                setLocation(getX() + 20, getY()+9);
-            }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
         } else {// not ready to animate yet, still waiting
@@ -156,12 +146,6 @@ public class Wolf extends Enemy
                 attackTwoAnimationIndex = 0;
             }
             // Apply new image to this Actor
-            if (attackTwoAnimationIndex == 3) {
-                setLocation(getX()-20, getY()-25);
-            }
-            if (attackTwoAnimationIndex == 5) {
-                setLocation(getX()+20, getY()+25);
-            }
             setImage (attackTwoPics[attackTwoAnimationIndex]);
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
@@ -228,7 +212,7 @@ public class Wolf extends Enemy
         //death
         deathPics = new GreenfootImage[2];
         for (int i = 0; i < deathPics.length; i++) {
-            deathPics[i] = new GreenfootImage("W1" + (i+1) + ".png");
+            deathPics[i] = new GreenfootImage("W1" + i + ".png");
             deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
         }
         deathAnimationIndex = 0;

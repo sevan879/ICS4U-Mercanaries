@@ -11,18 +11,18 @@ public class Fireball extends Projectiles
 {
     private GreenfootSound [] small; // sounds for small fireball
     private GreenfootSound [] big; //sounds for big fireball
-    
+
     private static final int SET_SPEED = 6;
     private static final int SET_DIRECTION = 1;
     private static final double SET_YVEL = 8;
-    
+
     private int explosionRange;
     private int damage;
 
     private GreenfootImage[] fireBallSprites;
-    
+
     private int animationIndex;
-    
+
     /**
      * Act - do whatever the Fireball wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -32,7 +32,7 @@ public class Fireball extends Projectiles
         this.explosionRange = explosionRange;
         this.damage = damage;
         animationIndex = 0;
-        
+
         fireBallSprites = new GreenfootImage[5];
         for (int i = 0; i < fireBallSprites.length; i++)
         {
@@ -51,21 +51,21 @@ public class Fireball extends Projectiles
         }
         setImage(fireBallSprites[0]);
     }
-    
+
     /**
-    * Act - do whatever the Fireball wants to do. This method is called whenever
-    * the 'Act' or 'Run' button gets pressed in the environment.
-    */
+     * Act - do whatever the Fireball wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act()
     {
         // Add your action code here.
-        
+
         super.act();
         if (!getRemoved())
         {
-          checkHitEnemy();
+            checkHitEnemy();
         }
-        
+
         animationIndex++;
         if (animationIndex == fireBallSprites.length)
         {
@@ -73,21 +73,23 @@ public class Fireball extends Projectiles
         }
         setImage(fireBallSprites[animationIndex]);
     }
-    
+
     public void checkHitEnemy(){
         Actor enemy = getOneIntersectingObject(Enemy.class);
         if(enemy != null){
-          explode();
-          removeProjectile();
+            if (enemy.getX()+5 <= this.getX()) {
+                explode();
+                removeProjectile();
+            }
         }
     }
-    
+
     public void explode(){
-      List<Enemy> enemies = getObjectsInRange(explosionRange, Enemy.class);
-      for(Enemy e: enemies){
-          e.takeDamage(damage);// adjust to mage's damage
-          //explode animations?
-      }
-      getWorld().addObject(new Explosion(5), getX(), getY() - 40);
+        List<Enemy> enemies = getObjectsInRange(explosionRange, Enemy.class);
+        for(Enemy e: enemies){
+            e.takeDamage(damage);// adjust to mage's damage
+            //explode animations?
+        }
+        getWorld().addObject(new Explosion(5), getX(), getY() - 40);
     }
 }

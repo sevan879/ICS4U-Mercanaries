@@ -46,17 +46,29 @@ public class Cohen extends Boss
     private GreenfootImage smileCohen;
     private GreenfootImage angryCohen;
     private boolean fallen;
+    
+    private GreenfootSound coffee;
+    private GreenfootSound vendingMachine;
+    private GreenfootSound no;
+    private GreenfootSound modular;
+    private GreenfootSound modular2;
 
     private int introCount;
-    private int introTotalWait;
+    private static final int introTotalWait = 180;
+    
     public Cohen()
     {
         super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
         setImage(idlePics[0]);
         downTimeCounter = 0;
         introCount = 0;
-        introTotalWait = 220;
         fallen = false;
+        coffee = new GreenfootSound("coffee.mp3");
+        vendingMachine = new GreenfootSound("vendingMachine.mp3");
+        no = new GreenfootSound("no.mp3");
+        no.setVolume(90);
+        modular = new GreenfootSound("modular.mp3");
+        modular2 = new GreenfootSound("modular2.mp3");
     }
 
     public void act()
@@ -151,6 +163,7 @@ public class Cohen extends Boss
     }
 
     public void summon() {
+        modular2.play();  
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -202,6 +215,7 @@ public class Cohen extends Boss
     }
 
     public void attackOne() {
+        coffee.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -230,6 +244,7 @@ public class Cohen extends Boss
     }
 
     public void attackTwo() {
+        modular.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -267,6 +282,7 @@ public class Cohen extends Boss
     }
 
     public void cohenDownAndHit() {
+        no.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }

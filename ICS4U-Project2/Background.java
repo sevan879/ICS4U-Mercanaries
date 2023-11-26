@@ -15,49 +15,73 @@ public class Background extends Actor
      */
 
     private GreenfootImage forestBackground;
+    private GreenfootImage caveBackground;
     private GreenfootImage dungeonBackground;
     private GreenfootImage bossRoomBackground;
     private int worldTracker;
 
     //constructor
     public Background() {
-            
+
         forestBackground = new GreenfootImage("ForestBackground.png");
         forestBackground.scale(forestBackground.getWidth()*2, forestBackground.getHeight()*2);
-        dungeonBackground = new GreenfootImage("CaveBackground.png");
+        caveBackground = new GreenfootImage("CaveBackground.png");
         bossRoomBackground = new GreenfootImage("bossBackground.png");
+        dungeonBackground = new GreenfootImage("dungeonBackground.png");
         setImage(forestBackground);
-        
+    
         worldTracker = 0;
     }
 
-    /**
-    * Change Background to specified world
-    *
-    * @param world Integer to represent the world to transition to.
-    */
-    public void setWorldBackground(int world) {
-        if (world == 0)
+    public GreenfootImage getWorldBackground(int world) {
+        if (world == 1)
         {
-            setImage(forestBackground);
-        }
-        else if (world == 1)
-        {
-            setImage(dungeonBackground);
+            return forestBackground;
         }
         else if (world == 2)
         {
+            return caveBackground;
+        }
+        else if (world == 3) {
+            return dungeonBackground;
+        }
+        else {
+            return bossRoomBackground;
+        }
+    }
+
+    /**
+     * Change Background to specified world
+     *
+     * @param world Integer to represent the world to transition to.
+     */
+    public void setWorldBackground(int world) {
+        if (world == 1)
+        {
+            setImage(forestBackground);
+        }
+        else if (world == 2)
+        {
+            setImage(caveBackground);
+        }
+        else if (world == 3)
+        {
+            setImage(dungeonBackground);
+        }
+        else {
             setImage(bossRoomBackground);
         }
     }
 
     //make the background have a scrolling effect
     public void scrollBackground(int speed) {
-        if (getX() == 0) {
-            setLocation(1086, getY());
-        }
-        if (speed != 0) { //party moving
-            setLocation(getX() - speed, getY());
+        if (this!=null) {
+            if (getX() == 0) {
+                setLocation(1086, getY());
+            }
+            if (speed != 0) { //party moving
+                setLocation(getX() - speed, getY());
+            }
         }
     }
 }
