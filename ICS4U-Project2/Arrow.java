@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Arrow extends Projectiles
 {
-    private GreenfootSound[] a;// sound effect for arrow release and whoosh noise
+    private GreenfootSound a;// sound effect for arrow release and whoosh noise
     
     private static final double SET_SPEED = 4;
     private static final int SET_DIRECTION = -1;
@@ -27,11 +27,8 @@ public class Arrow extends Projectiles
         super(speed, direction, yVel, true);
         this.damage = damage;
         
-        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
-        a = new GreenfootSound[3];
-        for(int i = 0; i < a.length; i++){
-            a[i] = new GreenfootSound("Arrow.wav");
-        }
+        a = new GreenfootSound("Arrow.wav");
+        a.setVolume(60);
         
         arrowUpImage = new GreenfootImage("ArrowUp.png");
         arrowUpImage.scale((int) (arrowUpImage.getWidth() * 1.3), (int) (arrowUpImage.getHeight() * 1.3));
@@ -121,7 +118,7 @@ public class Arrow extends Projectiles
         {
             Actor party = getOneIntersectingObject(Party.class);
             ((Party)party).takeDamage(damage);
-            
+            a.play();
             removeProjectile();
             
         }

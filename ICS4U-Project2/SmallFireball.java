@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class SmallFireball extends Projectiles
 {
-    private GreenfootSound [] small; // sounds for small fireball
+    private GreenfootSound small; // sounds for small fireball
     
     private static final int SET_SPEED = 8;
     private static final int SET_DIRECTION = 1;
@@ -39,10 +39,8 @@ public class SmallFireball extends Projectiles
             fireBallSprites[i] = image;
         }
         
-        small = new GreenfootSound[3];
-        for(int i = 0; i < small.length; i++){
-            small[i] = new GreenfootSound("SmallFireBall.mp3");
-        }
+        small = new GreenfootSound("SmallFireBall.mp3");
+        small.setVolume(30);
         
         this.explosionRange = explosionRange;
         this.damage = damage;
@@ -75,6 +73,7 @@ public class SmallFireball extends Projectiles
         if(enemy != null){
           enemy.takeDamage(damage);
           removeProjectile();
+          small.play();
         }
     }
 }
