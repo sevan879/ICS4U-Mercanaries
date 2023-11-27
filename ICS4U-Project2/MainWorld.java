@@ -87,33 +87,35 @@ public class MainWorld extends World
         bossMusic = new GreenfootSound("BossMusic.mp3");
         bossMusic.setVolume(44);
         
+        int scoreBoardYPos = 140;
+        
         kills = 0;
         scoreLabel = new Label(0, 50);
-        addObject(scoreLabel, 135, 60); 
+        addObject(scoreLabel, 135, scoreBoardYPos); 
         scoreLabel.setValue(0);
         label1 = new Label("Kills: ", 50);
-        addObject(label1, 65, 60);
+        addObject(label1, 65, scoreBoardYPos);
         
         damageDealt = 0;
         damageDealtLabel = new Label(0, 50);
-        addObject(damageDealtLabel, 495, 60);
+        addObject(damageDealtLabel, 495, scoreBoardYPos);
         damageDealtLabel.setValue(0);
         label2 = new Label("Damage Dealt: ", 50);
-        addObject(label2, 330, 60);
+        addObject(label2, 330, scoreBoardYPos);
         
         damageTaken = 0;
         damageTakenLabel = new Label(0, 50);
-        addObject(damageTakenLabel, 885, 60);
+        addObject(damageTakenLabel, 885, scoreBoardYPos);
         damageTakenLabel.setValue(0);
         label3 = new Label("Damage Taken: ", 50);
-        addObject(label3, 700, 60);
+        addObject(label3, 700, scoreBoardYPos);
         
         time = 0;
         timeLabel = new Label(0, 50);
-        addObject(timeLabel, 995, 60);
+        addObject(timeLabel, 995, scoreBoardYPos);
         damageTakenLabel.setValue(0);
         label4 = new Label("S", 50);
-        addObject(label4, 1035, 60);
+        addObject(label4, 1035, scoreBoardYPos);
         
         
     }
