@@ -54,7 +54,7 @@ public class Mage extends Party
     private int smallDamage = 10;
     private int bigDamage = 20;
     private int smallRange = 100;
-    private int bigRange = 250;
+    private int bigRange = 200;
 
     private int smallSpellMana;
     private int bigSpellMana;

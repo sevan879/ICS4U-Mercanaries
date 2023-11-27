@@ -116,6 +116,7 @@ public class Settings extends World
         numKnights = 4;
         numHealers = 1;
         numMages = 1;
+        numDarkMages = 0;
         current = 6;
         waveOne = 5;
         waveTwo = 15;
