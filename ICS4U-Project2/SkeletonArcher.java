@@ -35,6 +35,8 @@ public class SkeletonArcher extends Enemy
     private int attackTwoAnimationIndex;
     private int attackTwoAnimationDelay;
     private int attackTwoAnimationCounter;
+    
+    private GreenfootSound a;// sound effect for arrow release and whoosh noise
 
     /**
      * Act - do whatever the Archer wants to do. This method is called whenever
@@ -51,6 +53,8 @@ public class SkeletonArcher extends Enemy
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         rangedEnemy = true;
         setImage(runningPics[1]);
+        a = new GreenfootSound("Arrow.wav");
+        a.setVolume(60);
     }
     
     protected void action(Party targetPlayer){
@@ -58,6 +62,7 @@ public class SkeletonArcher extends Enemy
         
         
         getWorld().addObject(new Arrow(distance, DAMAGE), getX(), getY()-20);
+        a.play();
     }
     
     public void attackAnimation() {

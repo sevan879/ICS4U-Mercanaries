@@ -39,9 +39,8 @@ public class Knight extends Party
     private int attackThreeAnimationIndex;
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
-
-    private GreenfootSound[] knightTaunt; //taunting sound effect 
-    private GreenfootSound[] knightSlash; //sword slashing sound effect 
+    
+    private GreenfootSound knightSlash; //sword slashing sound effect 
 
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 160;
@@ -69,15 +68,8 @@ public class Knight extends Party
     public Knight() {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
 
-        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
-        knightTaunt = new GreenfootSound[3];
-        for(int i = 0; i < knightTaunt.length; i++){
-            knightTaunt[i] = new GreenfootSound("KnightTaunt.mp3");
-        }
-        knightSlash = new GreenfootSound[3];
-        for(int i = 0; i < knightSlash.length; i++){
-            knightSlash[i] = new GreenfootSound("KnightSlash.mp3");
-        }
+        knightSlash = new GreenfootSound("KnightSlash.mp3");
+        knightSlash.setVolume(40);
 
         //visuals/animation
         animationConstructor();
@@ -204,6 +196,7 @@ public class Knight extends Party
             // so just decrement the counter          
             attackOneAnimationCounter--;
         }
+        knightSlash.play();
     }
     /**
     * Plays second attack animation.
@@ -227,6 +220,7 @@ public class Knight extends Party
             // so just decrement the counter          
             attackTwoAnimationCounter--;
         }
+        knightSlash.play();
     }
     /**
     * Plays third attack animation.
@@ -258,6 +252,7 @@ public class Knight extends Party
             // so just decrement the counter          
             attackThreeAnimationCounter--;
         }
+        knightSlash.play();
     }
 
     protected void levelUpStats()

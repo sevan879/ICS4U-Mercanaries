@@ -23,6 +23,9 @@ public class Mage extends Party
     private static final int HEALTH_INCREASE = 2; 
     private static final int RANGE_INCREASE = 0;
     private static final int MANA_INCREASE = 0;
+    
+    private GreenfootSound bF;
+    private GreenfootSound sF;
 
     private GreenfootImage[] runningPics;
     private int runningAnimationIndex;
@@ -76,6 +79,10 @@ public class Mage extends Party
         manaSpent = false;
         spellDelay = ACTION_DELAY;
         spellCDCounter = ACTION_DELAY;
+        bF = new GreenfootSound("BigFireBall.mp3");
+        bF.setVolume(50);
+        sF = new GreenfootSound("SmallFireBall.mp3");
+        sF.setVolume(30);
     }
 
     public void act()
@@ -161,11 +168,13 @@ public class Mage extends Party
     private void smallSpell()
     {
         getWorld().addObject(new SmallFireball(smallDamage), getX(), getY());
+        sF.play();
     }
 
     private void bigSpell()
     {
         getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
+        bF.play();
     }
     /**
     * Plays idle animation

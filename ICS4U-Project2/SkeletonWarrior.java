@@ -14,6 +14,8 @@ public class SkeletonWarrior extends Enemy
     private static final int DAMAGE = 8;
     private static final int ATTACK_RANGE = 95;
     private static boolean movable = true;
+    
+    private GreenfootSound s;
 
     //Animation   
     private GreenfootImage[] deathPics;
@@ -47,6 +49,8 @@ public class SkeletonWarrior extends Enemy
     public SkeletonWarrior() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
+        s = new GreenfootSound("KnightSlash.mp3");
+        s.setVolume(40);
     }
 
     //act method
@@ -59,12 +63,14 @@ public class SkeletonWarrior extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                s.play();
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                s.play();
             }
         }
     }

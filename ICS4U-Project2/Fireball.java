@@ -9,9 +9,7 @@ import java.util.List;
  */
 public class Fireball extends Projectiles
 {
-    private GreenfootSound [] small; // sounds for small fireball
-    private GreenfootSound [] big; //sounds for big fireball
-
+    
     private static final int SET_SPEED = 6;
     private static final int SET_DIRECTION = 1;
     private static final double SET_YVEL = 8;
@@ -41,15 +39,7 @@ public class Fireball extends Projectiles
             image.scale((int) (image.getWidth() * 2), (int) (image.getHeight() * 2));
             fireBallSprites[i] = image;
         }
-        // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
-        small = new GreenfootSound[3];
-        for(int i = 0; i < small.length; i++){
-            small[i] = new GreenfootSound("SmallFireBall.mp3");
-        }
-        big = new GreenfootSound[3];
-        for(int i = 0; i < big.length; i++){
-            big[i] = new GreenfootSound("BigFireBall.mp3");
-        }
+    
         setImage(fireBallSprites[0]);
     }
 
@@ -91,6 +81,6 @@ public class Fireball extends Projectiles
           e.takeDamage(damage);// adjust to mage's damage
           //explode animations?
       }
-      getWorld().addObject(new Explosion(7), getX(), getY() - 40);
+      getWorld().addObject(new Explosion(6), getX(), getY() - 40);
     }
 }

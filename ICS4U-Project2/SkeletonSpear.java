@@ -14,7 +14,9 @@ public class SkeletonSpear extends Enemy
     private static final int DELAY = 30;
     private static final int DAMAGE = 6;
     private static final int ATTACK_RANGE = 115;
-
+    
+    private GreenfootSound s;
+    
     private int animationTracker; // odd = running, even = not running
     private int attackTracker; // 0, 1, 2 to decide which attack animation to use
     //Animation   
@@ -52,6 +54,8 @@ public class SkeletonSpear extends Enemy
     public SkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
+        s = new GreenfootSound("KnightSlash.mp3");
+        s.setVolume(40);
     }
 
     protected void action(Party targetPlayer){
@@ -93,12 +97,14 @@ public class SkeletonSpear extends Enemy
                     }
                 }
                 p.takeDamage(DAMAGE);
+                s.play();
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                s.play();
             }
         }
     }

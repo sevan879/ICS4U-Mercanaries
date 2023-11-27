@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class speakKnight here.
+ * Provides the Knight picture for the Backstory world
  * 
  * @author Justin Wu
- * @version (a version number or a date)
+ * @version V0
  */
 public class speakKnight extends SuperSmoothMover
 {

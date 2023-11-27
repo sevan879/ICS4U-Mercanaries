@@ -41,6 +41,8 @@ public class Wolf extends Enemy
     private int attackThreeAnimationIndex;
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
+    
+    private GreenfootSound c;
 
     private int runningYpos = 605;
     
@@ -50,6 +52,9 @@ public class Wolf extends Enemy
     public Wolf() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
+        animationConstructor();
+        c = new GreenfootSound("claw.mp3");
+        c.setVolume(40);
     }
     
     //act method
@@ -62,12 +67,14 @@ public class Wolf extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                c.play();
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                c.play();
             }
         }
     }
