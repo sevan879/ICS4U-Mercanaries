@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Mage2 extends Party
+public class DarkMage extends Party
 {
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 80;
@@ -65,7 +65,7 @@ public class Mage2 extends Party
     private int spellDelay;
     private int spellCDCounter;
 
-    public Mage2()
+    public DarkMage()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
         smallSpellMana = 15;
