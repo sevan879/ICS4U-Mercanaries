@@ -26,6 +26,8 @@ public abstract class Entity extends SuperSmoothMover
     protected int attackTracker; // 0, 1, 2 to decide which attack animation to use
     protected int ogX, ogY;
     private int track;
+
+    protected int y;
     /**
      * Main Constructor for Entity Class
      *
@@ -35,6 +37,7 @@ public abstract class Entity extends SuperSmoothMover
      * @param dmg damage that entity does
      * @param moveable can the entity move around
      */
+
     public Entity(int hp, double spd, int delay, boolean movable)
     {
         maxHealth = hp;
@@ -48,18 +51,29 @@ public abstract class Entity extends SuperSmoothMover
         hpBarExists = true;
         animationConstructor();
         ogX = 0;
-        ogY = 0;
+        ogY = 605;
         track = 0;
+        y = 605;
     }
+
     public void act() {
         if (track == 0) {
             ogX = getX();
-            ogY = getY();
+            ogY = y;
             track++;
         }
     }
 
+    protected void resetTrack() {
+        track = 0;
+    }
+
+    protected void setY(int n) {
+        y = n;
+    }
+
     protected abstract void death();
+
     protected abstract void animationConstructor();
 
     /**
@@ -76,7 +90,7 @@ public abstract class Entity extends SuperSmoothMover
         return animationTracker %2 == 1; //this means that the animation is running, 
     }
 
-        protected ArrayList<Party> partyMembersInWorld() {
+    protected ArrayList<Party> partyMembersInWorld() {
         ArrayList<Party> partyList = (ArrayList<Party>) (getWorld().getObjects(Party.class));
         return partyList;
     }
@@ -112,23 +126,22 @@ public abstract class Entity extends SuperSmoothMover
     {
         return health;
     }
-    
+
     /**
-    * Check Max HP for Entity
-    *
-    * @return int
-    */
+     * Check Max HP for Entity
+     *
+     * @return int
+     */
     public int getMaxHP()
     {
         return maxHealth;
     }
-    
-    
+
     /**
-    * Check if Entity is at Max HP
-    *
-    * @return boolean
-    */
+     * Check if Entity is at Max HP
+     *
+     * @return boolean
+     */
     public boolean checkFullHP()
     {
         if (health - maxHealth != 0)
@@ -140,7 +153,7 @@ public abstract class Entity extends SuperSmoothMover
             return true;
         }
     }
-    
+
     public boolean checkDying()
     {
         return isDying;

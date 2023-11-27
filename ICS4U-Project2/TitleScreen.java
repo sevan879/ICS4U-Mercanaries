@@ -22,8 +22,8 @@ public class TitleScreen extends World
         titleScreenMusic = new GreenfootSound("TitleMusic.mp3");
         volume = 34;
         titleScreenMusic.setVolume(volume);
-        background = new GreenfootImage("titleBackground.png");
-        //etBackground(background);
+        background = new GreenfootImage("titleBackground.png.png");
+        setBackground(background);
 
         start = new Button(0);
         settings = new Button(1);

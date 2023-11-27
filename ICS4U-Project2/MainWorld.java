@@ -38,6 +38,10 @@ public class MainWorld extends World
     private int fadeTime = 120;
     private int worldLvl;
 
+    //a timer
+    private int delayCounter; // Assuming 60 acts per second, adjust as needed
+    private boolean delayInProgress;
+
     private int tempSpeed = 0;
 
     private GreenfootSound mainWorldMusic; //level 1 and 2 music
@@ -50,7 +54,9 @@ public class MainWorld extends World
         super(1068, 720, 1); 
         spawningXEnemy = getWidth();
         background = new Background();
-
+        
+        delayInProgress = true;
+        delayCounter = 60;
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
         volume = 0;
@@ -68,7 +74,6 @@ public class MainWorld extends World
         numOfMages = Settings.getNumOfMages();
 
         spawnParty();
-        //spawnEnemies();
     }
 
     //act method
@@ -210,8 +215,21 @@ public class MainWorld extends World
                     wave = wave + 1;
                     transitionCounter = transitionDelay;
                     worldLvl = 2;
-
+                    worldYLevel = 550;
                     addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
+
+                    if (delayInProgress) {
+                        delayCounter--;
+                        if (delayCounter <= 0) {
+                            System.out.println("asddas");
+                            delayInProgress = false;
+                            ArrayList<Party> pList = (ArrayList<Party>) (getObjects(Party.class));
+                            for (Party p : pList) {
+                                p.resetTrack();
+                                p.setY(worldYLevel);
+                            }
+                        }
+                    }
                 }
             }
         }else if(wave == 2){
@@ -224,8 +242,14 @@ public class MainWorld extends World
                     enemiesSpawned = 0;
                     wave = wave + 1;
                     worldLvl = 3;
+                    worldYLevel = 500;
                     transitionCounter = transitionDelay; 
                     addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
+                    ArrayList<Party> pList = (ArrayList<Party>) (getObjects(Party.class));
+                    for (Party p : pList) {
+                        p.resetTrack();
+                        p.setY(worldYLevel);
+                    }
                 }                
             }
         }else if(wave == 3){
@@ -241,6 +265,12 @@ public class MainWorld extends World
                     worldLvl = 4;
                     addObject(new LoadingScreen(false, 60, false, background, this, worldLvl), getWidth()/2,getHeight()/2);
                     addObject(new Cohen(), 463, 311);
+                    worldYLevel = 605;
+                    ArrayList<Party> pList = (ArrayList<Party>) (getObjects(Party.class));
+                    for (Party p : pList) {
+                        p.resetTrack();
+                        p.setY(worldYLevel);
+                    }
                     stopped();
                     started();
                 }
@@ -308,7 +338,7 @@ public class MainWorld extends World
             bossMusic.stop();
         }
     }
-    
+
     /**
      * Returns the worldYLevel of the given world
      * @return int
