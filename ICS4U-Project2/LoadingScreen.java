@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class LoadingScreen here.
  * 
- * @author (your name) 
+ * @author Evan Ma, Arthur Tian 
  * @version (a version number or a date)
  */
 public class LoadingScreen extends Effects
@@ -23,7 +23,12 @@ public class LoadingScreen extends Effects
 
     private GreenfootImage image1;
     private boolean loadingFinished;
-
+    /**
+     * Main constructor for LoadingScreen
+     * @param totalFadeTime the duration of the fade
+     * @param imageChooser Specific Image array to select from
+     * @param l 
+     */
     public LoadingScreen(int totalFadeTime, int imageChooser, boolean l) {
         image1 = new GreenfootImage(1400, 1000);
         image1.setColor(Color.BLACK);
@@ -93,12 +98,14 @@ public class LoadingScreen extends Effects
             }
         }
     }
-
+    /**
+     * Returns if the loading has been completed
+     * @return boolean
+     */
     public boolean getLoadingFinished() {
         return loadingFinished;
     }
-
-    public void actualLoadAnimation() {
+    private void actualLoadAnimation() {
         if (loadingAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             loadingAnimationCounter = loadingAnimationDelay; // reset counter to max 
             loadingAnimationIndex++; // this will be used to set the image to the next frame

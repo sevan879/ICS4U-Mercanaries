@@ -6,7 +6,7 @@ import java.util.*;
  * Enemy class, superclass for all enemie classes
  * 
  * @author Kenneth Jin
- * @version V0
+ * @version V1
  */
 public abstract class Enemy extends Entity
 {
@@ -39,12 +39,18 @@ public abstract class Enemy extends Entity
         canAttack = true;
         reloadTimer = (2*actionDelay)/3;
     }
-
+    /**
+    * Returns an List<Party> of all players in range
+    * @return List<Party>
+    */
     protected List<Party> playersUpClose(){
         List<Party> fullDamage = getObjectsInRange(attackRange, Party.class);
         return fullDamage;
     }
-
+    /**
+    * Returns an List<Party> of all players 25 pixels out of range.
+    * @return List<Party>
+    */
     protected List<Party> playersFurtherAway(){
         List<Party> halfDamage = getObjectsInRange(attackRange + 25, Party.class);
         return halfDamage;
@@ -94,9 +100,11 @@ public abstract class Enemy extends Entity
             }
         }
     }
-    // if boolean is set to true, dont move if player is in range
+    /**
+    * Move the enemy forwards. 
+    * @param compareRange if set to false, stop walking if too close to a Party member.
+    */
     public void move(boolean compareRange){
-        //if no player is detected within attack range, move 
         if (compareRange)
         {
             if(targetPlayer() == null){
@@ -120,13 +128,22 @@ public abstract class Enemy extends Entity
             running();
         }
     }
-
+    /**
+    * Main action of Enemy class. Typically an attack.
+    * @param targetPlayer The player the enemy plans on attacking
+    */
     protected abstract void action(Party targetPlayer);
-
+    /**
+    * Play running animation for class.
+    */
     protected abstract void running();
-
+    /**
+    * Play animation for all attacks
+    */
     protected abstract void attackAnimation();
-
+    /**
+    * Primary attack loop for enemy, attacks when cooldown is off.
+    */
     protected void attack(){
         if(targetPlayer() != null){
             Party target = targetPlayer();
@@ -141,7 +158,9 @@ public abstract class Enemy extends Entity
             attackAnimation();
         }
     }
-    
+    /**
+    * Primary attack for ranged enemies. Always targets random players.
+    */
     protected void rangedAttack()
     {
         Party target = targetRandomPlayer();
@@ -165,13 +184,18 @@ public abstract class Enemy extends Entity
             attacking = false;
         }
     }
-
+    /**
+    * Runs when added to world. Adds HP bar.
+    */
     public void addedToWorld(World w)
     {
         hpBar = new SuperStatBar(maxHealth, maxHealth, this, 40, 5, 60, Color.YELLOW, Color.RED, true);
         getWorld().addObject(hpBar, 0, 0);
     }
-
+    /**
+    * Finds the nearest player that can be attacked.
+    * Returns @Party
+    */
     protected Party targetPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);
         
@@ -197,7 +221,10 @@ public abstract class Enemy extends Entity
 
         return target;
     }
-    
+    /**
+    * Finds a random player.
+    * Returns @Party
+    */
     protected Party targetRandomPlayer() {
         List<Party> players = getObjectsInRange(attackRange, Party.class);
         if (!players.isEmpty())
@@ -207,6 +234,4 @@ public abstract class Enemy extends Entity
 
         return null;
     }
-    
-    protected abstract void repelOtherEnemies();
 }

@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.List;
+import java.util.*;
 
 /**
- * SkeletonSpear is an enemy class that deals melee damage and has a longer attack range.
+ * BigSkeletonSpear is an enemy class that deals melee damage and has a longer attack range.
  * 
  * @author Arthur Tian
  * @version V1
  */
-public class SkeletonSpear extends Enemy
+public class BigSkeletonSpear extends Enemy
 {
-    private static final int HP = 10;
+    private static final int HP = 30;
     private static final double SPEED = 2;
     private static final int DELAY = 60;
     private static final int DAMAGE = 6;
@@ -37,6 +37,8 @@ public class SkeletonSpear extends Enemy
     private int attackTwoAnimationIndex;
     private int attackTwoAnimationDelay;
     private int attackTwoAnimationCounter;
+    
+    private int specialRange;
 
     /**
      * Act - do whatever the Spear wants to do. This method is called whenever
@@ -45,11 +47,12 @@ public class SkeletonSpear extends Enemy
     public void act()
     {
         super.act();
+        specialRange = 300;
     }
     /**
      * Main constructor for SkeltonSpear
      */
-    public SkeletonSpear(){
+    public BigSkeletonSpear(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
     }
@@ -87,6 +90,7 @@ public class SkeletonSpear extends Enemy
                 }
                 else if (attackTracker == 1) { //attack two
                     attackTwo();
+                    specialAttack();
                     //stuff about dealing damage, whatever
                     if (!animationIsRunning()) {
                         attackTracker = 0;
@@ -102,6 +106,15 @@ public class SkeletonSpear extends Enemy
             }
         }
     }
+    
+    private void specialAttack()
+    {
+        for (Party p : (ArrayList<Party>)(getObjectsInRange(specialRange, Party.class)))
+        {
+            p.takeDamage(DAMAGE * 2);
+        }
+        getWorld().addObject(new BigSkeletonSlash(0.9), getX()-20, getY());
+    }
 
     public void animationConstructor() {
         animationTracker = 0;
@@ -111,7 +124,7 @@ public class SkeletonSpear extends Enemy
         runningPics = new GreenfootImage[6];
         for (int i = 0; i < runningPics.length; i++) {
             runningPics[i] = new GreenfootImage("SSR" + (i+1) + ".png");
-            runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
+            runningPics[i].scale(runningPics[i].getWidth()*3, runningPics[i].getHeight()*3);
         }
         runningAnimationIndex = 0;
         runningAnimationDelay = 10;
@@ -121,7 +134,7 @@ public class SkeletonSpear extends Enemy
         deathPics = new GreenfootImage[5];
         for (int i = 0; i < deathPics.length; i++) {
             deathPics[i] = new GreenfootImage("SSD" + (i+1) + ".png");
-            deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
+            deathPics[i].scale(deathPics[i].getWidth()*3, deathPics[i].getHeight()*3);
         }
         deathAnimationIndex = 0;
         deathAnimationDelay = 10;
@@ -131,7 +144,7 @@ public class SkeletonSpear extends Enemy
         attackOnePics = new GreenfootImage[4];
         for (int i = 0; i < attackOnePics.length; i++) {
             attackOnePics[i] = new GreenfootImage("SSA1" + (i+1) + ".png");
-            attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
+            attackOnePics[i].scale(attackOnePics[i].getWidth()*3, attackOnePics[i].getHeight()*3);
         }
         attackOneAnimationIndex = 0;
         attackOneAnimationDelay = 10;
@@ -141,7 +154,7 @@ public class SkeletonSpear extends Enemy
         attackTwoPics = new GreenfootImage[4];
         for (int i = 0; i < attackTwoPics.length; i++) {
             attackTwoPics[i] = new GreenfootImage("SSA2" + (i+1) + ".png");
-            attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
+            attackTwoPics[i].scale(attackTwoPics[i].getWidth()*3, attackTwoPics[i].getHeight()*3);
         }
         attackTwoAnimationIndex = 0;
         attackTwoAnimationDelay = 10;

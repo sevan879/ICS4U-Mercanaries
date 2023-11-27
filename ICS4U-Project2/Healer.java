@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Healer here.
+ * Healer class. Descendant of party class. Healer uses mana to heal their teammates. Healer has two heal spells, one that is single target, and one that affects all teammates.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Arthur Tian
+ * @version V1
  */
 public class Healer extends Party
 {
@@ -13,7 +13,7 @@ public class Healer extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 120; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 580;
+    private static final int ATTACK_RANGE = 620;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;
@@ -52,7 +52,17 @@ public class Healer extends Party
     private int runningAnimationIndex;
     private int runningAnimationDelay;
     private int runningAnimationCounter;
-
+    
+    private GreenfootImage[] idlePics;
+    private int idleAnimationIndex;
+    private int idleAnimationDelay;
+    private int idleAnimationCounter;
+    
+    private boolean casting;
+    
+    /**
+    * Main Constructor for Knight Class
+    */
     public Healer()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
@@ -63,10 +73,11 @@ public class Healer extends Party
             healing[i] = new GreenfootSound("Heal.mp3");
         }
 
-        smallSpellMana = 15;
-        bigSpellMana = 30;
+        smallSpellMana = 15; // 15
+        bigSpellMana = 40; // 30
         setImage(runningPics[0]);
         animationConstructor();
+        casting = false;
     }
 
     public void act()
@@ -74,7 +85,10 @@ public class Healer extends Party
         super.act();
         //inCombat = false;
     }
-
+    /**
+    * The main action for a Party member. Either an attack or spell;
+    * @param target The target of the Party member's main action. Use null if no target is given
+    */
     protected void mainAction(Enemy target)
     {
         Party healTarget = findHealTarget();
@@ -84,18 +98,32 @@ public class Healer extends Party
             if (Greenfoot.getRandomNumber(6) == 0)
             {
                 bigHeal();
+                casting = true;
             }
             else
             {
                 smallHeal(healTarget);
+                casting = true;
             }
         }
     }
-
+    /**
+    * Play all the action animations for a class.
+    */
     protected void mainAnimation() {
-        attackOne();
+        if (casting)
+        {
+            attackOne();
+        }
+        else
+        {
+            idle();
+        }
+        
     }
-
+    /**
+    * Level up all stats for a party class
+    */    
     protected void levelUpStats()
     {
         maxHealth += HEALTH_INCREASE;
@@ -164,10 +192,31 @@ public class Healer extends Party
 
         return target;
     }
-
+    /**
+    * Plays idle animation.
+    */
     public void idle() {
-    }
+        /*
+        if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            idleAnimationCounter = idleAnimationDelay; // reset counter to max 
+            idleAnimationIndex++; // this will be used to set the image to the next frame
 
+            // If the image index has passed the last image, go back to first image
+            if (idleAnimationIndex == idlePics.length){
+                idleAnimationIndex = 0;
+            }
+            // Apply new image to this Actor
+            setImage (idlePics[idleAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            idleAnimationCounter--;
+        }
+        */
+       setImage(idlePics[1]);
+    }
+    /**
+    * Plays first attack animation.
+    */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -180,6 +229,7 @@ public class Healer extends Party
             if (attackOneAnimationIndex == attackOnePics.length){
                 attackOneAnimationIndex = 0;
                 animationTracker++;
+                casting = false;
             }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
@@ -188,7 +238,9 @@ public class Healer extends Party
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+    * Plays second attack animation.
+    */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -209,7 +261,9 @@ public class Healer extends Party
             attackTwoAnimationCounter--;
         }
     }
-
+    /**
+    * Plays death animation and remove object from world.
+    */
     public void death() {
         boolean remove = false;
         isDying = true;
@@ -233,7 +287,9 @@ public class Healer extends Party
             getWorld().removeObject(this);
         }
     }
-
+    /**
+    * Plays running animation
+    */
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -250,7 +306,7 @@ public class Healer extends Party
             runningAnimationCounter--;
         }
     }
-
+    
     public void animationConstructor() {
         animationTracker = 0;
         attackTracker = 0;
@@ -262,7 +318,7 @@ public class Healer extends Party
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
         attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 8;
+        attackOneAnimationDelay = 8; // 8
         attackOneAnimationCounter = attackOneAnimationDelay;
 
         attackTwoPics = new GreenfootImage[4];
@@ -293,5 +349,16 @@ public class Healer extends Party
         runningAnimationIndex = 0;
         runningAnimationDelay = 8;
         runningAnimationCounter = runningAnimationDelay;
+        
+        //idle
+        idlePics = new GreenfootImage[7];
+        for (int i = 0; i < idlePics.length; i++) {
+            idlePics[i] = new GreenfootImage("HI" + (i+1) + ".png");
+            idlePics[i].scale(idlePics[i].getWidth()*2, idlePics[i].getHeight()*2);
+        }
+        idleAnimationIndex = 0;
+        idleAnimationDelay = 8;
+        idleAnimationCounter = idleAnimationDelay;
+        setImage(idlePics[0]);
     }
 }

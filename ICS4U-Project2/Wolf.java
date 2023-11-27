@@ -42,7 +42,9 @@ public class Wolf extends Enemy
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
 
-    //constructor
+    /**
+     * Main constructor for Wolf class.
+     */
     public Wolf() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
@@ -114,7 +116,9 @@ public class Wolf extends Enemy
             runningAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for first attack.
+     */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -141,7 +145,9 @@ public class Wolf extends Enemy
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for second attack.
+     */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -168,7 +174,9 @@ public class Wolf extends Enemy
             attackTwoAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for third attack.
+     */
     public void attackThree() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -216,10 +224,6 @@ public class Wolf extends Enemy
         if (remove) {
             getWorld().removeObject(this);
         }
-    }
-
-    protected void pickUp() {
-        movable = false;
     }
 
     public void animationConstructor() {
@@ -272,17 +276,4 @@ public class Wolf extends Enemy
         attackThreeAnimationDelay = 8;
         attackThreeAnimationCounter = attackThreeAnimationDelay;
     }
-    protected void repelOtherEnemies(){
-        List<Wolf> wolves = getObjectsAtOffset(-attackRange, 0, Wolf.class);
-        if(wolves.size() > 3){
-            movable = false;
-        }
-        movable = true;
-    }
-    /*
-    protected void action(Party targetPlayer){
-        targetPlayer.takeDamage(DAMAGE + Greenfoot.getRandomNumber(1));
-        //attack animations
-    }
-    */
 }

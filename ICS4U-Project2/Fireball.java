@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Fireball here.
+ * Special attack for Mage class. Large fireball that deals AOE damage.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Kenneth Jin
+ * @version V1
  */
 public class Fireball extends Projectiles
 {
@@ -24,8 +24,9 @@ public class Fireball extends Projectiles
     private int animationIndex;
     
     /**
-     * Act - do whatever the Fireball wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Main constructor for Fireball class.
+     * @param explosionRange The size of the AOE of the fireball
+     * @param damage The damage the explosion deals.
      */
     public Fireball(int explosionRange, int damage){
         super(SET_SPEED, SET_DIRECTION, SET_YVEL, false);
@@ -74,7 +75,7 @@ public class Fireball extends Projectiles
         setImage(fireBallSprites[animationIndex]);
     }
     
-    public void checkHitEnemy(){
+    private void checkHitEnemy(){
         Actor enemy = getOneIntersectingObject(Enemy.class);
         if(enemy != null){
           explode();
@@ -82,12 +83,12 @@ public class Fireball extends Projectiles
         }
     }
     
-    public void explode(){
+    private void explode(){
       List<Enemy> enemies = getObjectsInRange(explosionRange, Enemy.class);
       for(Enemy e: enemies){
           e.takeDamage(damage);// adjust to mage's damage
           //explode animations?
       }
-      getWorld().addObject(new Explosion(5), getX(), getY() - 40);
+      getWorld().addObject(new Explosion(7), getX(), getY() - 40);
     }
 }

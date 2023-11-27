@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class MyWorld here.
+ * Main world where all the action takes place. This is the main world where the simulation occurs.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Arthur Tian, Justin Wu
+ * @version V1
  */
 public class MainWorld extends World
 {    
@@ -18,16 +18,17 @@ public class MainWorld extends World
     private int worldYLevel = 605;
 
     //Spawning Party Variables
-    private int numOfKnights = 2;
-    private int numOfMages = 2;
-    private int numOfHealers = 1;
+    private int numOfKnights;
+    private int numOfMages;
+    private int numOfHealers;
+    private int numOfDarkMages;
     private int spacingBetween = 70;
     private int spawningXParty = 50;
     
     //Spawning Enemies Variables
-    private int waveOneEnemies = 5;
-    private int waveTwoEnemies = 12;
-    private int waveThreeEnemies = 22;
+    private int waveOneEnemies;
+    private int waveTwoEnemies;
+    private int waveThreeEnemies;
     private int spawningXEnemy;
     
     //Transition Variables
@@ -42,7 +43,9 @@ public class MainWorld extends World
     private GreenfootSound mainWorldMusic; //level 1 and 2 music
     private GreenfootSound bossMusic; //boss music
 
-    //constructor
+    /**
+     * Constructor for MainWorld
+     */
     public MainWorld()
     {   
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -60,6 +63,11 @@ public class MainWorld extends World
         numOfKnights = Settings.getNumOfKnights();
         numOfHealers = Settings.getNumOfHealers();
         numOfMages = Settings.getNumOfMages();
+        numOfDarkMages = Settings.getNumOfDarkMages();
+        
+        waveOneEnemies = Settings.getWaveOne();
+        waveTwoEnemies = Settings.getWaveTwo();
+        waveThreeEnemies = Settings.getWaveThree();
         
         spawnParty();
         //spawnEnemies();
@@ -70,7 +78,9 @@ public class MainWorld extends World
         bossMusic.setVolume(44);
     }
 
-    //act method
+    /**
+     * Act method.
+     */
     public void act() {
         partyActions();
         spawnWaves();
@@ -103,7 +113,7 @@ public class MainWorld extends World
     }
 
     //tells us if the party members are running or not, if one member stops running, all members stop also
-    public boolean partyIsRunning() {
+    private boolean partyIsRunning() {
         boolean continueRunning = true; //true by default
         for (Party member : partyMembersInWorld()) {
             if (member.getRunningSpeed() == 0) { //speed of running is 0, there is an enemy, stop all party members from running
@@ -113,20 +123,24 @@ public class MainWorld extends World
         return continueRunning;
     }
 
-    public ArrayList<Party> partyMembersInWorld() {
+    private ArrayList<Party> partyMembersInWorld() {
         ArrayList<Party> partyList = (ArrayList<Party>) (getObjects(Party.class));
         return partyList;
     }
 
-    public ArrayList<Enemy> enemiesInWorld() {
+    private ArrayList<Enemy> enemiesInWorld() {
         ArrayList<Enemy> enemyList = (ArrayList<Enemy>) (getObjects(Enemy.class));
         return enemyList;
     }
 
-    public void spawnParty(){
+    private void spawnParty(){
         for (int i = 0; i < numOfHealers; i++)
         {
             addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
+        }
+        for (int i = 0; i < numOfDarkMages; i++)
+        {
+            //addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfMages; i++)
         {
@@ -168,8 +182,11 @@ public class MainWorld extends World
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 3){
-                        //addObject(new Flying(), 0, 0); //ylocation should be higher
-                        //enemiesSpawned++;
+                        if (Greenfoot.getRandomNumber(2)==0)
+                        {
+                            addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel-30); //modify placement after
+                            enemiesSpawned++;
+                        }
                     } else if(enemyType == 4){
                         //addObject(new Wolf(), 0,0); 
                         //enemiesSpawned++;
@@ -271,12 +288,20 @@ public class MainWorld extends World
             Greenfoot.setWorld(new EndScreen(true));
         }
     }
-
+    /**
+     * Gets the distance between two actors
+     * @param a First Actor
+     * @param b Second Actor
+     * @return double
+     */
     public static double getDistance (Actor a, Actor b)
     {
         return Math.hypot (a.getX() - b.getX(), a.getY() - b.getY());
     }
     //to start playing the music when pressed run
+    /**
+     * Method that plays music when start button is clicked.
+     */
     public void started(){
         if(worldLvl == 1 || worldLvl == 2){
             mainWorldMusic.playLoop();
@@ -286,6 +311,9 @@ public class MainWorld extends World
         }
     }
     //to stop playing the music when pressed pause or reset
+    /**
+     * Method that stops music when end button is clicked.
+     */
     public void stopped(){
         mainWorldMusic.stop();
         bossMusic.stop();

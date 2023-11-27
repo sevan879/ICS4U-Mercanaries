@@ -3,15 +3,15 @@ import java.util.concurrent.Phaser;
 import java.util.List;
 
 /**
- * Write a description of class Archer here.
+ * SkeletonArcher is a ranged enemy class that fires arrows at players. Low HP, high damage, high range.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma, Kenneth Jin
+ * @version V1
  */
 public class SkeletonArcher extends Enemy
 {
     private static final int HP = 2;
-    private static final double SPEED = 3;
+    private static final double SPEED = 2.2;
     private static final int DELAY = 90;
     private static final int DAMAGE = 10;
     private static final int ATTACK_RANGE = 580;
@@ -44,13 +44,15 @@ public class SkeletonArcher extends Enemy
     {
         super.act();    
     }
-
+    /**
+     * Main constructor for SkeletonArcher
+     */
     public SkeletonArcher(){
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         rangedEnemy = true;
         setImage(runningPics[1]);
     }
-
+    
     protected void action(Party targetPlayer){
         int distance = Math.abs(targetPlayer.getX() - getX());
         
@@ -75,20 +77,6 @@ public class SkeletonArcher extends Enemy
         }
     }
 
-    public Party targetPastTanks(){
-        List<Party> players = getObjectsInRange(attackRange, Party.class);
-
-        if (!players.isEmpty()) {
-            if(targetPlayer() instanceof Knight){
-                players.remove(0);
-            }
-            return players.get(0); 
-        }
-
-        return null;
-
-    }
-
     public void running() {
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
@@ -105,7 +93,9 @@ public class SkeletonArcher extends Enemy
             runningAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for first attack.
+     */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -126,7 +116,9 @@ public class SkeletonArcher extends Enemy
             attackOneAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for second attack.
+     */
     public void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -218,6 +210,4 @@ public class SkeletonArcher extends Enemy
         attackTwoAnimationDelay = 5;
         attackTwoAnimationCounter = attackTwoAnimationDelay;
     }
-    
-    protected void repelOtherEnemies(){}
 }

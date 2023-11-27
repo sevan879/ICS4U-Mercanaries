@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Superclass for all player character classes
+ * Party class is the superclass for all player character classes.
  * 
- * @author Evan Ma
- * @version V0
+ * @author Evan Ma, Arthur Tian
+ * @version V1
  */
 public abstract class Party extends Entity
 {
@@ -25,7 +25,7 @@ public abstract class Party extends Entity
     protected boolean cohenExists;
 
     private int manaRegenCounter;
-    private static final int MANA_REGEN_DELAY = 30;
+    private static final int MANA_REGEN_DELAY = 10;
     
     private SuperStatBar hpBar;
     private SuperStatBar manaBar;
@@ -61,13 +61,45 @@ public abstract class Party extends Entity
         cohenExists = false;
         usesMana = manaClass;
     }
-
+    /**
+    * Runs when party is added to world. Adds HP and Mana bars.
+    */
+    public void addedToWorld(World w)
+    {
+        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, false);
+        getWorld().addObject(hpBar, 0, 0);
+        
+        if (usesMana)
+        {
+            manaBar = new SuperStatBar(maxMana, maxMana, this, 50, 7, 70, Color.BLUE, Color.BLACK, false);
+            getWorld().addObject(manaBar, 0, 0);
+        }
+    }
+    /**
+    * The main action for a Party member. Either an attack or spell;
+    * @param target The target of the Party member's main action. Use null if no target is given
+    */
     protected abstract void mainAction(Enemy target);
-
+    /**
+    * Level up all stats for a party class
+    */
     protected abstract void levelUpStats();
-
+    /**
+    * Play all the action animations for a class.
+    */
     protected abstract void mainAnimation();
-
+    /**
+    * Play running animation for class.
+    */    
+    protected abstract void running();
+    /**
+    * Play idle animation for class
+    */
+    protected abstract void idle();
+    
+    /**
+    * Act Method for Party Class
+    */
     public void act()
     {
         if (health <= 0) { //remove hp bar if dying (dying animation)
@@ -161,10 +193,20 @@ public abstract class Party extends Entity
         
     }
     
+    /**
+    * Setter method for 'cohenExists' variable
+    * 
+    * @param b Set to true or false
+    */
     public void setCohenExists(boolean b) {
         cohenExists = b;
     }
 
+    /**
+    * Checks if Party member is in combat or not. If in combat, don't go idle. If in combat, go idle.
+    * 
+    * 
+    */
     public void setIdle() {
         if (!inCombat) {
             idle = true;
@@ -173,40 +215,44 @@ public abstract class Party extends Entity
             idle = false;
         }
     }
-    
+    /**
+    * Returns the value of idle
+    * 
+    * @return boolean
+    */
     public boolean isIdle() {
         return idle;
     }
-    
-    public void addedToWorld(World w)
-    {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, this, 50, 7, 60, Color.GREEN, Color.RED, false);
-        getWorld().addObject(hpBar, 0, 0);
-        
-        if (usesMana)
-        {
-            manaBar = new SuperStatBar(maxMana, maxMana, this, 50, 7, 70, Color.BLUE, Color.BLACK, false);
-            getWorld().addObject(manaBar, 0, 0);
-        }
-    }
-
-    protected abstract void running();
-
-    protected abstract void idle();
-
+    /**
+    * Returns if the Party member is in combat.
+    * return @boolean
+    */
     protected boolean getInCombat() {
         return inCombat;
     }
+    /**
+    * Set party member to be in combat
+    * @param b Value of isCombat
+    */
     protected void setInCombat(boolean b) {
         inCombat = b;
     }
 
-    //speed getter
+    /**
+    * Returns Party member's running speed
+    * 
+    * @return int
+    */
+   
     public int getRunningSpeed() {
         return runningSpeed;
     }
-
-    //speed setter  
+    
+    /**
+    * Set Party member's running speed
+    * 
+    * @param speed The speed that the party member should be given.
+    */
     public void setRunningSpeed(int speed) {
         runningSpeed = speed;
     }
@@ -232,6 +278,25 @@ public abstract class Party extends Entity
         }
     }
 
+    /**
+     * Spend mana for entity. Returns false if mana cost is too high.
+     *
+     * @param how much mana is taken away
+     * @return boolean
+     */
+    public boolean spendMana(int cost)
+    {
+        if ((mana - cost) < 0)
+        {
+            return false;
+        }
+        else
+        {
+            mana -= cost;
+            return true;
+        }
+    }
+    
     /**
      * Method for finding the closest enemy in attack range.
      *
@@ -263,29 +328,6 @@ public abstract class Party extends Entity
         }
 
         return target;
-    }
-    
-    public int getCohenAttackXPos() {
-        return cohenAttackXPos;
-    }
-
-    /**
-     * Spend mana for entity. Returns false if mana cost is too high.
-     *
-     * @param how much mana is taken away
-     * @return boolean
-     */
-    public boolean spendMana(int cost)
-    {
-        if (mana - cost < 0)
-        {
-            return false;
-        }
-        else
-        {
-            mana -= cost;
-            return true;
-        }
     }
 
     private void passiveManaRegen()

@@ -1,12 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Cohen here.
- * Performs actions for 10 seconds, then break for 5 seconds, thats when party members deal damage
- * ultimate attack at 20 seconds, 40 seconds...
+ * Main boss for simulation. Has multiple attacks that cycle. Has a downphase where he takes 1/5 of his HP.
  * 
  * 
- * @Arthur
+ * @author Arthur Tian
  * @version (a version number or a date)
  */
 public class Cohen extends Boss
@@ -49,6 +47,9 @@ public class Cohen extends Boss
 
     private int introCount;
     private int introTotalWait;
+    /**
+     * Main constructor for Cohen Class.
+     */
     public Cohen()
     {
         super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
@@ -58,7 +59,6 @@ public class Cohen extends Boss
         introTotalWait = 220;
         fallen = false;
     }
-
     public void act()
     {
         if (introCount < introTotalWait) {
@@ -69,7 +69,8 @@ public class Cohen extends Boss
         }
         else { //actual act method
             //knock down
-            if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) {
+            if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) 
+            {
                 if (downTimeCounter == 0) {
                     cohenDownAndHit();
                     for (Enemy e : enemiesInWorld()) {
@@ -111,19 +112,6 @@ public class Cohen extends Boss
         }
     }
 
-    /**
-     * POSSIBLE ACTIONS
-     * summons wave 
-     *  - karel the dog
-     *  - minicohen
-     * attack one party member
-     *  - 
-     * ultimate attack (say voicelines)
-     *  - laser eyes
-     *  - laser beam from mouth
-     * 
-     * 
-     */
     public void action(int attackNum)
     {
         attacking = true;
@@ -150,7 +138,7 @@ public class Cohen extends Boss
         Greenfoot.setWorld(new EndScreen(false));
     }
 
-    public void summon() {
+    private void summon() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -201,7 +189,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void attackOne() {
+    private void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -229,7 +217,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void attackTwo() {
+    private void attackTwo() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -241,11 +229,16 @@ public class Cohen extends Boss
                     int n = getWorld().getObjects(Party.class).size();
                     int random = Greenfoot.getRandomNumber(n);
                     Party m = partyMembersInWorld().get(random);
+                    
                     if (Greenfoot.getRandomNumber(2) == 1) {
                         getWorld().removeObject(m);
                     }
                     else {
                         m.takeDamage(m.getMaxHP()/2);
+                    }
+                    
+                    for (Party member : partyMembersInWorld()) {
+                        member.takeDamage(4);
                     }
                 }
             }
@@ -266,7 +259,7 @@ public class Cohen extends Boss
         }
     }
 
-    public void cohenDownAndHit() {
+    private void cohenDownAndHit() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }

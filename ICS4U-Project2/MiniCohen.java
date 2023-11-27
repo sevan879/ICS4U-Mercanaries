@@ -1,16 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MiniCohen here.
+ * Simple melee enemy summoned by Cohen.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arthur Tian
+ * @version V1
  */
 public class MiniCohen extends Enemy
 {
-    private static final int HP = 15;
+    private static final int HP = 30;
     private static final double SPEED = 2;
-    private static final int DELAY = 10;
+    private static final int DELAY = 40;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 115;
     private static boolean movable = true;
@@ -31,6 +31,9 @@ public class MiniCohen extends Enemy
     private int attackOneAnimationDelay;
     private int attackOneAnimationCounter;
     //constructor
+    /**
+     * Main constructor for MiniCohen
+     */
     public MiniCohen() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
@@ -77,7 +80,9 @@ public class MiniCohen extends Enemy
             runningAnimationCounter--;
         }
     }
-
+    /**
+     * Play animation for first attack.
+     */
     public void attackOne() {
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
@@ -161,6 +166,4 @@ public class MiniCohen extends Enemy
         attackOneAnimationDelay = 8;
         attackOneAnimationCounter = attackOneAnimationDelay;
     }
-    
-    protected void repelOtherEnemies(){}
 }
