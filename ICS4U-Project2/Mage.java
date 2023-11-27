@@ -61,7 +61,7 @@ public class Mage extends Party
 
     private boolean canAttack;
     private boolean manaSpent;
-    
+
     private int spellDelay;
     private int spellCDCounter;
     /**
@@ -88,13 +88,13 @@ public class Mage extends Party
         /*
         if (Greenfoot.getRandomNumber(3) == 0)
         {
-            bigSpell();
+        bigSpell();
         }
         else
         {
-            smallSpell();
+        smallSpell();
         }
-        */
+         */
     }
 
     protected void mainAnimation() {
@@ -128,7 +128,7 @@ public class Mage extends Party
                     attackTracker = 0;
                 }
             }
-            
+
         }
         else
         {
@@ -142,9 +142,8 @@ public class Mage extends Party
                 spellCDCounter --;
             }
         }
-        
-    }
 
+    }
 
     protected void levelUpStats()
     {
@@ -205,6 +204,7 @@ public class Mage extends Party
                 smallSpell();
                 canAttack = false;
                 manaSpent = false;
+                setLocation(ogX, ogY);
             }
             if (attackOneAnimationIndex == 2) {
                 setLocation(getX()-5, getY());
@@ -237,15 +237,15 @@ public class Mage extends Party
                 canAttack = false;
                 manaSpent = false;
             }
-            if (attackTwoAnimationIndex == 3) {
-                setLocation(getX()+0, getY());
-            }
             if (attackTwoAnimationIndex == 8)
             {
                 bigSpell();
             }
             // Apply new image to this Actor
             setImage (attackTwoPics[attackTwoAnimationIndex]);
+            if (attackTwoAnimationIndex > 4 && attackTwoAnimationIndex < 7) {
+                setLocation(getX()+11, getY()-5); 
+            }
         } else {// not ready to animate yet, still waiting
             // so just decrement the counter          
             attackTwoAnimationCounter--;
@@ -298,6 +298,26 @@ public class Mage extends Party
     }
     
     public void animationConstructor() {
+        runningAnimationIndex = 0;
+        runningAnimationDelay = 8;
+        runningAnimationCounter = runningAnimationDelay;
+
+        deathAnimationIndex = 0;
+        deathAnimationDelay = 8;
+        deathAnimationCounter = deathAnimationDelay;
+
+        attackOneAnimationIndex = 0;
+        attackOneAnimationDelay = 8;
+        attackOneAnimationCounter = attackOneAnimationDelay;
+
+        attackTwoAnimationIndex = 0;
+        attackTwoAnimationDelay = 5;
+        attackTwoAnimationCounter = attackTwoAnimationDelay;
+
+        idleAnimationIndex = 0;
+        idleAnimationDelay = 8;
+        idleAnimationCounter = idleAnimationDelay;
+
         animationTracker = 0;
         attackTracker = 0;
         //running
@@ -306,9 +326,6 @@ public class Mage extends Party
             runningPics[i] = new GreenfootImage("MR" + (i+1) + ".png");
             runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
         }
-        runningAnimationIndex = 0;
-        runningAnimationDelay = 8;
-        runningAnimationCounter = runningAnimationDelay;
 
         //death
         deathPics = new GreenfootImage[6];
@@ -316,9 +333,6 @@ public class Mage extends Party
             deathPics[i] = new GreenfootImage("MD" + (i+1) + ".png");
             deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
         }
-        deathAnimationIndex = 0;
-        deathAnimationDelay = 8;
-        deathAnimationCounter = deathAnimationDelay;
 
         //attack one
         attackOnePics = new GreenfootImage[8];
@@ -326,9 +340,6 @@ public class Mage extends Party
             attackOnePics[i] = new GreenfootImage("MA1" + (i+1) + ".png");
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
-        attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 8;
-        attackOneAnimationCounter = attackOneAnimationDelay;
 
         //attack two
         attackTwoPics = new GreenfootImage[14];
@@ -336,9 +347,6 @@ public class Mage extends Party
             attackTwoPics[i] = new GreenfootImage("MA2" + (i+1) + ".png");
             attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
         }
-        attackTwoAnimationIndex = 0;
-        attackTwoAnimationDelay = 8;
-        attackTwoAnimationCounter = attackTwoAnimationDelay;
 
         //idle
         idlePics = new GreenfootImage[7];
@@ -346,9 +354,6 @@ public class Mage extends Party
             idlePics[i] = new GreenfootImage("MI" + (i+1) + ".png");
             idlePics[i].scale(idlePics[i].getWidth()*2, idlePics[i].getHeight()*2);
         }
-        idleAnimationIndex = 0;
-        idleAnimationDelay = 8;
-        idleAnimationCounter = idleAnimationDelay;
         setImage(idlePics[0]);
     }
 }

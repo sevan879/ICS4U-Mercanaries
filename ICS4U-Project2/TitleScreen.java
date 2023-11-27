@@ -11,28 +11,29 @@ public class TitleScreen extends World
     private GreenfootSound titleScreenMusic; // title screen music asset
     private GreenfootImage background;
     private Button start;
-
-    private MainWorld m;
-    private Backstory b;
-    private Settings s;
-
-    /**
-     * Main constructor for TitleScreen
-     */
+    private Button settings;
+    private Button backstory;
+    private TitleWords titleWords;
+    private int volume;
+    //construction
     public TitleScreen()
     {    
         super(1068, 720, 1); 
         titleScreenMusic = new GreenfootSound("TitleMusic.mp3");
-        titleScreenMusic.setVolume(40);
+        volume = 34;
+        titleScreenMusic.setVolume(volume);
         background = new GreenfootImage("titleBackground.png");
-        setBackground(background);
+        //etBackground(background);
 
         start = new Button(0);
+        settings = new Button(1);
+        backstory = new Button(2);
+        titleWords = new TitleWords();
         //buttons
         addObject(start, 534, 400);
-        addObject(new Button(1), 534, 520);
-        addObject(new Button(2), 534, 640);
-        addObject(new TitleWords(), 534, 190);
+        addObject(settings, 534, 520);
+        addObject(backstory, 534, 640);
+        addObject(titleWords, 534, 190);
     }
 
     /**
@@ -41,43 +42,20 @@ public class TitleScreen extends World
     public void started() {
         titleScreenMusic.playLoop();
     }
-    /**
-     * Plays code when the end button is clicked. 
-     */
-    public void stopped() {
-        if (titleScreenMusic != null) {
-            titleScreenMusic.stop();
-        }
-    }
-    /**
-     * Act method.
-     */
-    public void act() {
-        if (Greenfoot.mouseClicked(start)) {
-            stopped();
-        }
-    }
-    /**
-     * Transitions to a new world.
-     * @param n Integer representing the specific world to change to.
-     */
     public void transitionToNewWorld(int n) {
         if (n == 0) {
-            m = new MainWorld();
-            LoadingScreen load = new LoadingScreen(180, 1, false);
-            addObject(load, getWidth()/2, getHeight()/2);
-            Greenfoot.setWorld(m);
-            if (load.getLoadingFinished()) {
-            }
-
-        }
+                titleScreenMusic.stop();
+                //remove objects
+                removeObject(start);
+                removeObject(settings);
+                removeObject(backstory);
+                removeObject(titleWords);
+        }        
         else if (n == 1) {
-            s = new Settings();
-            Greenfoot.setWorld(s);
+            Greenfoot.setWorld(new Settings());
         }
         else if (n == 2) {
-            b = new Backstory();
-            Greenfoot.setWorld(b);
+            Greenfoot.setWorld(new Backstory());
         }
     }
 

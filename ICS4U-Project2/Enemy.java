@@ -62,6 +62,7 @@ public abstract class Enemy extends Entity
      */
     public void act()
     {
+        super.act();
         if (health <= 0) {
             death();
             if (hpBarExists) {
@@ -89,7 +90,6 @@ public abstract class Enemy extends Entity
                 
                 if (!attacking)
                 {
-                    //System.out.println("moving");
                     move(false);
                 }
             }

@@ -113,27 +113,12 @@ public class Arrow extends Projectiles
         }
     }
     
-    /*
     public void checkHitParty(){
-      Actor party = getOneIntersectingObject(Party.class);
-      if (party != null) {
-          //if (party instanceof Party) {
-              System.out.println("hit");
-              ((Party) party).takeDamage(3);
-              getWorld().removeObject(this);  // Remove the arrow after hitting an enemy
-          //}
-      }
-      
-    }
-    */
-    
-    private void checkHitParty(){
     {
         if(isTouching(Party.class))
         {
             Actor party = getOneIntersectingObject(Party.class);
-            ((Party)party).takeDamage(damage);
-            
+            ((Party)party).takeDamage(damage);          
             removeProjectile();
             
         }

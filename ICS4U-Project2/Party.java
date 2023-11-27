@@ -17,7 +17,7 @@ public abstract class Party extends Entity
     protected int mana;
     protected int maxMana;
     protected boolean usesMana;
-    
+
     protected int runningSpeed;
     protected boolean inCombat;
     protected boolean idle;
@@ -29,19 +29,19 @@ public abstract class Party extends Entity
     
     private SuperStatBar hpBar;
     private SuperStatBar manaBar;
-    
+
     /**
-    * Main Constructor for Player Class
-    *
-    * @param hp entity's health
-    * @param spd entity's speed
-    * @param delay delay between actions
-    * @param dmg damage that entity does
-    * @param moveable can the entity move around
-    * @param xpIncreaseRate how much the required XP to level increases after each Level
-    * @param attackRange Range of attacking enemies
-    * @param plrMana Max mana for player character
-    */
+     * Main Constructor for Player Class
+     *
+     * @param hp entity's health
+     * @param spd entity's speed
+     * @param delay delay between actions
+     * @param dmg damage that entity does
+     * @param moveable can the entity move around
+     * @param xpIncreaseRate how much the required XP to level increases after each Level
+     * @param attackRange Range of attacking enemies
+     * @param plrMana Max mana for player character
+     */
     public Party(int hp, double spd, int delay, boolean movable, int xpIncreaseRate, int attackRange, int maxMana, int maxLevel, boolean manaClass)
     {
         super(hp, spd, delay, false);
@@ -102,6 +102,7 @@ public abstract class Party extends Entity
     */
     public void act()
     {
+        super.act();
         if (health <= 0) { //remove hp bar if dying (dying animation)
             death();
             if(hpBarExists) {
@@ -116,65 +117,33 @@ public abstract class Party extends Entity
                 manaBar.update(mana);
             }
             passiveManaRegen();
-            
-            Enemy targetEnemy = detectEnemy();
-            if (targetEnemy != null) {
-                mainAnimation();
-            }
-            else
-            {
-                inCombat = false;
-            }
-            
-            // IF WE RANDOMLY START GETTING BUGS ABOUT PARTY MEMBERS IN COMBAT, FEEL FREE TO DELETE THIS BLOCK OF CODE
-            // AND UNCOMMENT THE IDENTICAL VERSION BELOW
-            if (!inCombat) {
-                for (Party member : partyMembersInWorld()) {
-                    if (member.getInCombat() == true) {
-                        idle = true;
-                    }
-                }
-                if (!idle) { //party members not idle, and not in combat, so run
-                    runningSpeed = (int) speed;
-                    running();
-                }
-                else { //party member is idle and not in combat. run idle animation
-                    if (enemiesInWorld().size() == 0) {
-                        idle = false;
-                    }
-                    idle();
-                }
-            }
-            
             if (cohenExists) {
-                    runningSpeed = 0;
-                    inCombat = true;
-                    actionCounter = actionDelay;
-                    mainAnimation();    
+                runningSpeed = 0;
+                inCombat = true;
+                actionCounter = actionDelay;
+                mainAnimation();    
             }
-            if (actionCounter <= 0) 
-            {
-
-                if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
+            else {
+                Enemy targetEnemy = detectEnemy();
+                if (targetEnemy != null) {
+                    mainAnimation();
+                }
+                else
                 {
-                    runningSpeed = 0;
-                    inCombat = true;
-                    actionCounter = actionDelay;
-                    mainAction(targetEnemy);
-                }
-                else { // no enemy detected by this party member
                     inCombat = false;
+                    setLocation(ogX, ogY);
                 }
-                /*
                 if (!inCombat) {
                     for (Party member : partyMembersInWorld()) {
                         if (member.getInCombat() == true) {
                             idle = true;
+                            setLocation(ogX, ogY);
                         }
                     }
                     if (!idle) { //party members not idle, and not in combat, so run
                         runningSpeed = (int) speed;
                         running();
+                        setLocation(ogX, ogY);
                     }
                     else { //party member is idle and not in combat. run idle animation
                         if (enemiesInWorld().size() == 0) {
@@ -183,14 +152,27 @@ public abstract class Party extends Entity
                         idle();
                     }
                 }
-                */
-            }
-            else
-            {
-                actionCounter--;
+                if (actionCounter <= 0) 
+                {
+
+                    if (targetEnemy != null) //enemy detected, pause background scrolling and enter combat
+                    {
+                        runningSpeed = 0;
+                        inCombat = true;
+                        actionCounter = actionDelay;
+                        mainAction(targetEnemy);
+                    }
+                    else { // no enemy detected by this party member
+                        inCombat = false;
+                        setLocation(ogX, ogY);
+                    }
+                }
+                else
+                {
+                    actionCounter--;
+                }
             }
         }
-        
     }
     
     /**
@@ -302,7 +284,7 @@ public abstract class Party extends Entity
      *
      * @return Enemy 
      */
-    private Enemy detectEnemy()
+    protected Enemy detectEnemy()
     {
         ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
         Enemy target = null;

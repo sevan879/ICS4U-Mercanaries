@@ -27,8 +27,8 @@ public class Button extends Actor
         buttons[5] = new GreenfootImage("h.png");
         buttons[6] = new GreenfootImage("m.png");
         for(int i = 0; i < 9; i++){
-             buttons[i+7] = new GreenfootImage(i + ".png");
-             buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
+            buttons[i+7] = new GreenfootImage(i + ".png");
+            buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
         }
         buttons[16] = new GreenfootImage("back.png");
         buttons[17] = new GreenfootImage("Wave1.png");
@@ -36,6 +36,7 @@ public class Button extends Actor
         buttons[19] = new GreenfootImage("Wave3.png");
         buttons[20] = new GreenfootImage("d.png");
     
+
         setImage(buttons[buttonChooser]);
         image = buttons[buttonChooser];
         setImage(image);
@@ -48,22 +49,35 @@ public class Button extends Actor
     public void act()
     {
         if (Greenfoot.mouseMoved(this)) { //hover effect
-            
+            if (buttonChooser == 0) {
+                setImage(new GreenfootImage("hoverStart.png"));
+            }
+            else if (buttonChooser == 1) {
+                setImage(new GreenfootImage("hoverSettings.png"));
+            }
+            else if (buttonChooser == 2) {
+                setImage(new GreenfootImage("hoverBackstory.png"));
+            }
+        }
+        else {
+            setImage(image);
         }
         if (Greenfoot.mouseClicked(this)) {
-            t = new TitleScreen();
             if (buttonChooser == 0) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(0);
+                t.addObject(new LoadingScreen(false, 60, true, new Background(), new MainWorld(), 1), 534, 360);
             }
             if (buttonChooser == 1) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(1);
             }
             if (buttonChooser == 2) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(2);
             }    
             if(buttonChooser == 3 || buttonChooser == 16){
-                t = new TitleScreen();
-                Greenfoot.setWorld(t);
+                Greenfoot.setWorld(new TitleScreen());
             }
         }
     }

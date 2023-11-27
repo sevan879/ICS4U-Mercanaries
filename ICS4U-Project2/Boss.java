@@ -12,7 +12,7 @@ public abstract class Boss extends Entity
     private int attackCount;
     protected boolean attacking;
     protected int numOfActionsSoFar;
-    
+    protected boolean audioPlaying;
     private SuperStatBar hpBar;
     /**
      * Main constructor for Boss Class
@@ -26,23 +26,22 @@ public abstract class Boss extends Entity
         this.attackCount = attackCount;
         actionChooser = -1;
         attacking = false;
+        audioPlaying = false;
     }
     /**
      * Do the main actions for the boss.
      * @param attackNum the specific attack to do.
      */
     protected abstract void action(int attackNum);
-    /**
-     * Play the idle animation for boss.
-     */
+    protected abstract void playAudio();
     protected abstract void idle();
     /**
      * Runs when added to world. Create HP bar.
      */
     public void addedToWorld(World w)
     {
-        hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 60, Color.YELLOW, Color.RED, false);
-        getWorld().addObject(hpBar, getWorld().getWidth()/2, getWorld().getHeight()*2/7);
+        hpBar = new SuperStatBar(maxHealth, maxHealth, null, 400, 25, 180, Color.YELLOW, Color.RED, false);
+        getWorld().addObject(hpBar, getWorld().getWidth()/2, 50);
     }
     /**
      * act method for Boss.
@@ -64,7 +63,7 @@ public abstract class Boss extends Entity
         {
             if (actionChooser == -1)
             {
-
+                playAudio();
                 actionChooser = Greenfoot.getRandomNumber(attackCount);
                 action(actionChooser);
             }

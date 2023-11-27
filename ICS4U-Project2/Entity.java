@@ -24,6 +24,8 @@ public abstract class Entity extends SuperSmoothMover
     protected boolean hpBarExists;
     protected int animationTracker; // odd = running, even = not running
     protected int attackTracker; // 0, 1, 2 to decide which attack animation to use
+    protected int ogX, ogY;
+    private int track;
     /**
      * Main Constructor for Entity Class
      *
@@ -45,6 +47,16 @@ public abstract class Entity extends SuperSmoothMover
         isDying = false;
         hpBarExists = true;
         animationConstructor();
+        ogX = 0;
+        ogY = 0;
+        track = 0;
+    }
+    public void act() {
+        if (track == 0) {
+            ogX = getX();
+            ogY = getY();
+            track++;
+        }
     }
     /**
     * Plays death animation and remove object from world.
