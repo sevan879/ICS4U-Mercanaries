@@ -20,9 +20,9 @@ javadoc
 windows-1252
 -charset
 windows-1252
-/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/SuperStatBar.java
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java
 <---- end of javadoc command ---->
-Loading source file /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/SuperStatBar.java...
+Loading source file /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java...
 Constructing Javadoc information...
 warning: unknown enum constant Tag.Any
   reason: class file for threadchecker.Tag not found
@@ -31,13 +31,43 @@ warning: unknown enum constant Tag.Any
 warning: unknown enum constant Tag.Any
 Standard Doclet version 17.0.4.1+1
 Building tree for all the packages and classes...
-Generating /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/SuperStatBar.html...
-/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/SuperStatBar.java:182: warning: @param argument "maxVal" is not a parameter name.
-     *  @param  maxVal[]  the maximum values for each stat
-        ^
-/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/SuperStatBar.java:183: warning: @param argument "currVal" is not a parameter name.
-     *  @param currVal[]  the starting values for each stat
-        ^
+Generating /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/MainWorld.html...
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:19: warning: invalid input: '&count'
+ * https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/?num=1&count=85&sq=forest&pos=11
+                                                                            ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:19: warning: invalid input: '&sq'
+ * https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/?num=1&count=85&sq=forest&pos=11
+                                                                                     ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:19: warning: invalid input: '&pos'
+ * https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/?num=1&count=85&sq=forest&pos=11
+                                                                                               ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:21: warning: invalid input: '&count'
+ * <br>https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art/?num=1&count=4&sq=villager&pos=0
+                                                                                  ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:21: warning: invalid input: '&sq'
+ * <br>https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art/?num=1&count=4&sq=villager&pos=0
+                                                                                          ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:21: warning: invalid input: '&pos'
+ * <br>https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art/?num=1&count=4&sq=villager&pos=0
+                                                                                                      ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:22: warning: invalid input: '&count'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                 ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:22: warning: invalid input: '&sq'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                          ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:22: warning: invalid input: '&pos'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                                  ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:23: warning: invalid input: '&count'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                 ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:23: warning: invalid input: '&sq'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                          ^
+/Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/MainWorld.java:23: warning: invalid input: '&pos'
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
+                                                                                                  ^
 Generating /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/package-summary.html...
 Generating /Users/justinwu/Documents/GitHub/ICS4U-Project-2/ICS4U-Project2/doc/index.html...
-6 warnings
+16 warnings
