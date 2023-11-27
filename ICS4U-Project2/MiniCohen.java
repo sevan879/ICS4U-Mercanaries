@@ -31,7 +31,7 @@ public class MiniCohen extends Enemy
     private int attackOneAnimationDelay;
     private int attackOneAnimationCounter;
     
-    private GreenfootSound s;
+    private GreenfootSound s = new GreenfootSound("splat.mp3");
     
     //constructor
     /**

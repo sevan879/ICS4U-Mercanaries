@@ -33,7 +33,7 @@ public class DarkBurst extends Effects
         this.imageScale = imageScale;
         // play sound effect
         effectSound = new GreenfootSound("ExplosionSound.wav");
-        effectSound.setVolume(35);
+        effectSound.setVolume(60);
         effectSound.play();
         images = new GreenfootImage[16];
         for (int i = 0; i < 16; i++)
