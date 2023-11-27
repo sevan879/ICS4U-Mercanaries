@@ -80,6 +80,7 @@ public class Fireball extends Projectiles
       for(Enemy e: enemies){
           e.takeDamage(damage);// adjust to mage's damage
           //explode animations?
+          MainWorld.increaseDamageTaken(damage);
       }
       getWorld().addObject(new Explosion(6), getX(), getY() - 40);
     }

@@ -150,6 +150,24 @@ public class MainWorld extends World
 
     private GreenfootSound mainWorldMusic; //level 1 and 2 music
     private GreenfootSound bossMusic; //boss music
+    
+    //scoreboard variables
+    private static int kills;
+    private static Label scoreLabel;
+    private static Label label1;
+    
+    private static int damageDealt;
+    private static Label damageDealtLabel;
+    private static Label label2;
+    
+    private static int damageTaken;
+    private static Label damageTakenLabel;
+    private static Label label3;
+    
+    private static int time;
+    private static Label timeLabel;
+    private static Label label4;
+    private int frameCounter = 0;
 
     /**
      * Constructor for MainWorld
@@ -184,6 +202,43 @@ public class MainWorld extends World
         
         spawnParty();
         //spawnEnemies();
+
+        mainWorldMusic = new GreenfootSound("RegWorld.mp3");
+        mainWorldMusic.setVolume(44);
+        bossMusic = new GreenfootSound("BossMusic.mp3");
+        bossMusic.setVolume(44);
+        
+        int scoreBoardYPos = 140;
+        
+        kills = 0;
+        scoreLabel = new Label(0, 50);
+        addObject(scoreLabel, 135, scoreBoardYPos); 
+        scoreLabel.setValue(0);
+        label1 = new Label("Kills: ", 50);
+        addObject(label1, 65, scoreBoardYPos);
+        
+        damageDealt = 0;
+        damageDealtLabel = new Label(0, 50);
+        addObject(damageDealtLabel, 495, scoreBoardYPos);
+        damageDealtLabel.setValue(0);
+        label2 = new Label("Damage Dealt: ", 50);
+        addObject(label2, 330, scoreBoardYPos);
+        
+        damageTaken = 0;
+        damageTakenLabel = new Label(0, 50);
+        addObject(damageTakenLabel, 885, scoreBoardYPos);
+        damageTakenLabel.setValue(0);
+        label3 = new Label("Damage Taken: ", 50);
+        addObject(label3, 700, scoreBoardYPos);
+        
+        time = 0;
+        timeLabel = new Label(0, 50);
+        addObject(timeLabel, 995, scoreBoardYPos);
+        damageTakenLabel.setValue(0);
+        label4 = new Label("S", 50);
+        addObject(label4, 1035, scoreBoardYPos);
+        
+        
     }
 
     /**
@@ -193,6 +248,46 @@ public class MainWorld extends World
         partyActions();
         spawnWaves();
         checkGameOver();
+        frameCounter++;
+        increaseTime();
+    }
+    
+    /**
+     * increases the kill number of the score label
+     */
+    public static void increaseScore()
+    {
+        kills++;
+        scoreLabel.setValue(kills);
+    }
+    
+    /**
+     * increases the damage dealt number of the damageDealt label
+     * @param damage damage dealt to the enemies
+     */
+    public static void increaseDamageDealt(int damage){
+        damageDealt = damageDealt + damage;
+        damageDealtLabel.setValue(damageDealt);
+    }
+    
+    /**
+     * increases the damage taken number of the damageTaken label
+     * @param damage damage taken from the enemies
+     */
+    public static void increaseDamageTaken(int damage){
+        damageTaken = damageTaken + damage;
+        damageTakenLabel.setValue(damageTaken);
+    }
+    
+    /**
+     * increases the time numer of the time label
+     */
+    public void increaseTime(){
+        if(frameCounter >= 60){
+            time++;
+            frameCounter = 0;
+        }
+        timeLabel.setValue(time);
     }
 
     private void partyActions()

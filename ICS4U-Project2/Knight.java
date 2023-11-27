@@ -80,6 +80,7 @@ public class Knight extends Party
     {
         int dealtDamage = damage + Greenfoot.getRandomNumber(2);
         target.takeDamage(dealtDamage);
+        MainWorld.increaseDamageDealt(dealtDamage);
         //Make Enemy take damage
     }
 

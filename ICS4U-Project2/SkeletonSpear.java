@@ -98,6 +98,7 @@ public class SkeletonSpear extends Enemy
                 }
                 p.takeDamage(DAMAGE);
                 s.play();
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
 
@@ -105,6 +106,7 @@ public class SkeletonSpear extends Enemy
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
                 s.play();
+                MainWorld.increaseDamageTaken(DAMAGE - 1);
             }
         }
     }
@@ -246,6 +248,7 @@ public class SkeletonSpear extends Enemy
             deathAnimationCounter--;
         }
         if (remove) {
+            MainWorld.increaseScore();
             getWorld().removeObject(this);
         }
     }

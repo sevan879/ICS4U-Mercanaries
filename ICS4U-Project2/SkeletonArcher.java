@@ -168,8 +168,12 @@ public class SkeletonArcher extends Enemy
             deathAnimationCounter--;
         }
         if (remove) {
+            MainWorld.increaseScore();
             getWorld().removeObject(this);
+            
+        
         }
+        
     }
 
     public void animationConstructor() {

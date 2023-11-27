@@ -68,6 +68,7 @@ public class Wolf extends Enemy
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
                 c.play();
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
 
@@ -75,6 +76,7 @@ public class Wolf extends Enemy
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
                 c.play();
+                MainWorld.increaseDamageTaken(DAMAGE - 1);
             }
         }
     }
@@ -217,7 +219,9 @@ public class Wolf extends Enemy
             deathAnimationCounter--;
         }
         if (remove) {
+            MainWorld.increaseScore();
             getWorld().removeObject(this);
+            
         }
     }
 

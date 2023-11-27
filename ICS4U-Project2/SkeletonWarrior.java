@@ -64,6 +64,7 @@ public class SkeletonWarrior extends Enemy
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
                 s.play();
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
 
@@ -71,6 +72,7 @@ public class SkeletonWarrior extends Enemy
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
                 s.play();
+                MainWorld.increaseDamageTaken(DAMAGE - 1);
             }
         }
     }
@@ -224,7 +226,10 @@ public class SkeletonWarrior extends Enemy
             deathAnimationCounter--;
         }
         if (remove) {
+            MainWorld.increaseScore();
             getWorld().removeObject(this);
+            
+            
         }
     }
 

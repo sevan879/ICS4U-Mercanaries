@@ -99,6 +99,7 @@ public abstract class Enemy extends Entity
                 attack();
             }
         }
+        
     }
     /**
     * Move the enemy forwards. 
