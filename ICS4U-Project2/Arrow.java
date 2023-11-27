@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Arrow here.
+ * Projectile fired by Skeleton Archer. Damages Party. Arcs in curve.
  * 
  * @author Evan Ma, Kenneth Jin
- * @version (a version number or a date)
+ * @version V1
  */
 public class Arrow extends Projectiles
 {
@@ -118,7 +118,7 @@ public class Arrow extends Projectiles
                 ((Party)party).takeDamage(damage);
                 l.play();
                 removeProjectile();
-                
+                MainWorld.increaseDamageTaken(damage);
             }
         }
     }

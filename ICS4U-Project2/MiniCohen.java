@@ -53,6 +53,7 @@ public class MiniCohen extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                MainWorld.increaseDamageTaken(DAMAGE);
                 s.play();
             }
         }
@@ -60,6 +61,7 @@ public class MiniCohen extends Enemy
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                MainWorld.increaseDamageTaken(DAMAGE);
                 s.play();
             }
         }

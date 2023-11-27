@@ -23,7 +23,13 @@ public class DarkSpell extends Projectiles
     private int animationIndex;
     private int animationDelay;
     private int animationCounter;
-    
+    /**
+     * Main Constructor for DarkSpell. Includes speed, direction, YVelocity, and Damage.
+     * @param speed Speed of arrow
+     * @param direction Direction of arrow
+     * @param yVel Initial vertical velocity of the arrow
+     * @param damage Damage the arrow deals
+     */    
     public DarkSpell(double speed, int direction, double yVel, int damage){
         super(speed, direction, yVel, true);
         this.damage = damage;
@@ -45,17 +51,17 @@ public class DarkSpell extends Projectiles
             images[i] = frame;
         }
     }
-    
+    /**
+     * Unique constructor that uses Kinematic formulas to aim the Spell at a specified distance away.
+     * @param aimedDistance Horozontal distance the arrow should travel.
+     * @param damage The damage of the spell
+     */
     public DarkSpell(int aimedDistance, int damage){
         this (SET_SPEED, SET_DIRECTION, SET_YVEL, damage);
         double baseSpeedUnit = (aimedDistance * acceleration)/(-48);
         setSpeed(2*baseSpeedUnit);
         setYVelocity(6*baseSpeedUnit);
         
-    }
-    
-    public DarkSpell(){
-        this (SET_SPEED, SET_DIRECTION, SET_YVEL, SET_DAMAGE);
     }
     
     /**
@@ -84,7 +90,7 @@ public class DarkSpell extends Projectiles
         }
     }
     
-    public void checkHitEnemy(){
+    private void checkHitEnemy(){
         List<Enemy> eList = getObjectsInRange(150, Enemy.class); 
         if(eList.size() != 0){
             explode();
@@ -92,12 +98,13 @@ public class DarkSpell extends Projectiles
         }
     }
 
-    public void explode(){
+    private void explode(){
         List<Enemy> enemies = getObjectsInRange(explosionRange, Enemy.class);
         if (enemies.size() != 0) {
             for(Enemy e: enemies){
                 e.takeDamage(damage);// adjust to mage's damage
                 //explode animations?
+                MainWorld.increaseDamageDealt(damage);
             }
             getWorld().addObject(new DarkBurst(4), getX(), getY() - 40);
         }

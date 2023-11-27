@@ -2,14 +2,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
- * BigSkeletonSpear is an enemy class that deals melee damage and has a longer attack range.
+ * BigSkeletonSpear is an enemy class that deals melee damage and has a longer attack range. Has a special AOE attack.
  * 
  * @author Arthur Tian
  * @version V1
  */
 public class BigSkeletonSpear extends Enemy
 {
-    private static final int HP = 30;
+    private static final int HP = 40;
     private static final double SPEED = 2;
     private static final int DELAY = 60;
     private static final int DAMAGE = 6;
@@ -97,12 +97,14 @@ public class BigSkeletonSpear extends Enemy
                     }
                 }
                 p.takeDamage(DAMAGE);
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
     }
@@ -112,6 +114,7 @@ public class BigSkeletonSpear extends Enemy
         for (Party p : (ArrayList<Party>)(getObjectsInRange(specialRange, Party.class)))
         {
             p.takeDamage(DAMAGE * 2);
+            MainWorld.increaseDamageTaken(DAMAGE);
         }
         getWorld().addObject(new BigSkeletonSlash(0.9), getX()-20, getY());
     }

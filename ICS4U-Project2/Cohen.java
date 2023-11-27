@@ -56,6 +56,9 @@ public class Cohen extends Boss
     private int introCount;
     private static final int introTotalWait = 180;
     
+    /**
+     * Main Constructor for Cohen class.
+     */
     public Cohen()
     {
         super(SET_HP, ACTION_DELAY, ATTACK_COUNT);
@@ -127,7 +130,8 @@ public class Cohen extends Boss
                         }
                         else {
                             setImage(new GreenfootImage("CohenDown5-removebg-preview.png"));
-                            health--;
+                            this.takeDamage(1);
+                            hpBar.update(health);
                         }
                         downTimeCounter++;
                     }
@@ -172,6 +176,13 @@ public class Cohen extends Boss
     }
 
     public void death() {
+        if (getWorld() instanceof MainWorld)
+        {
+            System.out.println("died");
+            MainWorld mainWorld = (MainWorld)getWorld();
+            mainWorld.stopMusic();
+        }
+        
         getWorld().setBackground(new GreenfootImage("BackstoryBackground.png"));
         Greenfoot.setWorld(new EndScreen(false));
     }
@@ -247,6 +258,7 @@ public class Cohen extends Boss
                 setImage (attackOnePics[attackOneAnimationIndex]);
                 for (Party member : partyMembersInWorld()) {
                     member.takeDamage(2);
+                    MainWorld.increaseDamageTaken(2);
                 }
             }
         } else {// not ready to animate yet, still waiting
@@ -273,6 +285,7 @@ public class Cohen extends Boss
                     }
                     else {
                         m.takeDamage(m.getMaxHP()/2);
+                        MainWorld.increaseDamageTaken(m.getMaxHP()/2);
                     }
                     
                     for (Party member : partyMembersInWorld()) {

@@ -59,7 +59,7 @@ public class Knight extends Party
     private static final int MANA_INCREASE = 0;
 
     private int spellLevel = 0;
-    private int damage = 2;
+    private int damage = 7;
     
     
     /**

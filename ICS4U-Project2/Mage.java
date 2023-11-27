@@ -11,7 +11,7 @@ public class Mage extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 100;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 50; // amount of acts
+    private static final int ACTION_DELAY = 70; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 550;
     private static final int MAX_MANA = 100;
@@ -55,7 +55,7 @@ public class Mage extends Party
     private int spellLevel = 0;
 
     private int smallDamage = 10;
-    private int bigDamage = 20;
+    private int bigDamage = 12;
     private int smallRange = 100;
     private int bigRange = 200;
 
@@ -73,8 +73,8 @@ public class Mage extends Party
     public Mage()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
-        smallSpellMana = 15;
-        bigSpellMana = 25;
+        smallSpellMana = 25;
+        bigSpellMana = 55;
         canAttack = true;
         manaSpent = false;
         spellDelay = ACTION_DELAY;

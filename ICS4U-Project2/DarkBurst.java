@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class DarkBurst here.
+ * A darkside explosion effect caused by the DarkMage.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma
+ * @version V1
  */
 public class DarkBurst extends Effects
 {

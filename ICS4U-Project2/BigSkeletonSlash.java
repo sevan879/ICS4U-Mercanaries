@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Brief explosion effect. Purely visual.
+ * Brief slash effect, purely visual.
  * 
  * @author Evan Ma
  * @version V1

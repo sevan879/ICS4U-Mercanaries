@@ -69,7 +69,7 @@ public class Healer extends Party
 
         // note to make sure when implementing the sound to check if it reaches index out of bounds for counter
         healing =  new GreenfootSound("Heal.mp3");
-        healing.setVolume(80);
+        healing.setVolume(65);
 
         smallSpellMana = 15; // 15
         bigSpellMana = 40; // 30

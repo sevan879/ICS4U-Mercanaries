@@ -16,37 +16,54 @@ import java.util.*;
  *  
  * <h1>Assets:</h1>
  * <p>
- * https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/?num=1&count=85&sq=forest&pos=11
- * <br>https://craftpix.net/freebies/free-rpg-battleground-asset-pack/
- * <br>https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art/?num=1&count=4&sq=villager&pos=0
- * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
- * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2
- * <br>https://www.youtube.com/watch?v=AIS8KbfVIcE
- * <br>https://www.youtube.com/watch?v=k895zKWPEIg
- * <br>https://www.youtube.com/watch?v=V77xa-SDI-I
- * <br>https://elements.envato.com/large-fireball-special-effect-5TL4Z6Q
- * <br>https://elements.envato.com/heal-64KWBLR
- * <br>https://elements.envato.com/arrow-whoosh-bow-release-BXJTFKM
- * <br>https://www.youtube.com/watch?v=1rwAvUvvQzQ
- * <br>https://craftpix.net/freebies/free-skeleton-pixel-art-sprite-sheets/
- * <br>https://craftpix.net/freebies/free-knight-character-sprites-pixel-art/
- * <br>https://craftpix.net/freebies/free-wizard-sprite-sheets-pixel-art/
- * <br>https://xyezawr.itch.io/gif-free-pixel-effects-pack-12-mini-magick-shoots-3
- * <br>https://untiedgames.itch.io/super-pixel-effects-mini-pack-1?download
+ * https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/?num=1&count=85&sq=forest&pos=11 Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-rpg-battleground-asset-pack/ Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art/?num=1&count=4&sq=villager&pos=0 Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2 Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-werewolf-sprite-sheets-pixel-art/?num=1&count=13&sq=wolf&pos=2 Author: Craftpix
+ * <br>https://www.youtube.com/watch?v=AIS8KbfVIcE - The author is not provided.
+ * <br>https://www.youtube.com/watch?v=k895zKWPEIg - The author is not provided.
+ * <br>https://www.youtube.com/watch?v=VAZtWrGGZHo By Naktigonis
+ * <br> https://www.youtube.com/watch?v=KD4O02BYlpQ By Naktigonis
+ * <br> 
+ * <br>https://www.youtube.com/watch?v=V77xa-SDI-I - The author is not provided.
+ * <br>https://elements.envato.com/large-fireball-special-effect-5TL4Z6Q 
+ * <br>https://elements.envato.com/heal-64KWBLR - The author is not provided.
+ * <br>https://elements.envato.com/arrow-whoosh-bow-release-BXJTFKM - The author is not provided.
+ * <br>https://www.youtube.com/watch?v=1rwAvUvvQzQ - The author is not provided.
+ * <br>https://craftpix.net/freebies/free-skeleton-pixel-art-sprite-sheets/ Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-knight-character-sprites-pixel-art/ Author: Craftpix
+ * <br>https://craftpix.net/freebies/free-wizard-sprite-sheets-pixel-art/ Author: Craftpix
+ * <br>https://xyezawr.itch.io/gif-free-pixel-effects-pack-12-mini-magick-shoots-3 Author: xyezawr
+ * <br>https://untiedgames.itch.io/super-pixel-effects-mini-pack-1?download Author: untiedgames
+ * <br>https://sanctumpixel.itch.io/lightning-lines-pixel-art-effect?download Author: sanctumpixel
+ * <br>https://spikerman.itch.io/sword-slashes?download Author: spikerman
+ * <br>https://nyknck.itch.io/pixelarteffectfx017 Author: nyknck
+ * <br> https://www.youtube.com/watch?v=8m7i4GdYycs
+ * <br>https://xyezawr.itch.io/free-pixel-effects-pack-4-explosions?download Author: XYEzawr
+ * <br> SuperTextBox, SuperStatBar, SuperSmoothMover classes by: Mr Cohen
+ * <br> Label class by Amjad Altadmri 
  * </p>
  * 
  * <title>Key Features </title>
  * <h1>MainWorld (gameplay loop)</h1>
  * <p>
- * //add
+ * There are 4 Main Worlds (Forest, Cave, Dungeon, Boss fight). 
+ * Party members travel through each world on the left while enemies run towards them on the right. 
+ * When either side enters combat, both parties stop running, background object stop scrolling and combat ensues. 
+ * Method “spawningWaves()” manages enemy spawns. The world waits until all enemies have been spawned and defeated before transitioning to the next world. 
+ * <br>Each world has unique spawning enemies. 
+ * <br>A faded loading screen is correctly timed to allow for a clean transition. 
+ * <br>“spawnParty()” method is a modular method that allows for any size of party to be spawned. 
+
  * </p>
  * 
  * <h1>Backstory</h1>
  * <p>Pressing spacebar activates a new sentence spoken by either the villager or the knight about the situation at hand
- * Uses Mr. Cohenï¿½s SuperTextBox</p>
+ * Uses Mr. Cohens SuperTextBox</p>
  * 
  * <h1>Settings</h1>
- * <p>Controls the number of enemies and party members (party composition)
+ * <p>Controls the number of enemies and party members (party composition). 
  * Controls the difficulty of the enemy waves</p>
  * 
  * <h1>Entities</h1>
@@ -57,31 +74,32 @@ import java.util.*;
  * Mage, Dark Mage, and Healer consume mana. Knight does not.
  * </p>
  * <h3>PARTY TYPES</p3>
- * <h4>Knight</p4>
+ * <h4>Knight</h4>
  * <p> Close quarters combat 
  * The tank of the party (most hp, attracts enemy attacks)</p>
  * <h4>Mage</h4>
- * <p>Attacks with small or big fireball</p>
+ * <p>Attacks with small or big fireball. Small fireball is single target. Big fireball is AOE, that spawns an explosion. ALL SPELLS ARE FULL ANIMATED</p>
  * <h4>Dark Mage</h4>
- * <p>Same as mage, but with different attacks (different projectiles)</p>
+ * <p>Similar to Mage. Uses different spells. Casts a Lightning Bolt pierces two enemies. Also uses a DarkSphere that does AOE damage. DarkSphere arcs in the air.  ALL SPELLS ARE FULL ANIMATED</p>
  * <h4>Healer</h4>
- * <p>Heals party members, can either heal just one member or all of them</p>
+ * <p>Heals party members, can either heal just one member or all of them.</p>
  * <h2>Enemy</h2>
  * <p>All enemies have attack animations, death animations, and running animations</p>
  * <h3>ENEMY TYPES</h3>
  * <h4>Karel</h4>
- * <p>Karel The Dog</p>
- * <p>Burns when it dies</p>
+ * <p>Karel The Dog. Summoned by Boss Cohen. Burns when it dies</p>
+ * <p> Custom Sprite <p>
  * <h4>MiniCohen</h4>
- * <p>Some sort of squid monster</p>
- * <p>Custom made sprite</p>
+ * <p>Some sort of squid monster. Melee attacker</p>
+ * <p>Custom made sprite. FULLY UNIQUE ANIMATIONS FOR ATTACK, IDLE, AND DEATH</p>
  * <p>Standard enemy otherwise</p>
  * <h4>SkeletonArcher</h4>
- * <p>Long range enemy type</p>
+ * <p>Long range enemy type. Fires arrows that curve in a parabola. Uses Kinematic Forumlas and Projectile Motion equations to calculate trajectory.</p>
  * <h4>SkeletonSpear</h4>
  * <p>Close range, but can deal piercing damage</p>
+ * <h4> Stronger version of SkeletonSpear but has a special attack that does AOE damage to the party. </h4>
  * <h4>SkeletonWarrior</h4>
- * <p>Standard enemy</p>
+ * <p>Standard melee enemy</p>
  * <h4>Wolf</h4>
  * <p>Standard enemy </p>
  * <h2>Boss</h2>
@@ -94,16 +112,18 @@ import java.util.*;
  * <br>After Mr. Cohen dies, the simulation ends
  * <h2>Projectiles</h2>
  * <h3>Arrow</h3>
- * <p>Animations and sound for arrow flying through the sky using speed direction and velocity</p>
+ * <p>Animations and sound for arrow flying through the sky using speed direction and velocity. Uses projectile motion learned in Physics</p>
  * <h3>Fireball</h3>
  * <p>Explodes and gives off damage to enemies that get hit in range</p>
  * <h3>smallFireball</h3>
  * <p>Smaller version of fireball, but no splash damage is applied</p>
- * <h2>Effects</h2>
+ * <h3>ThunderBolt</h3>
+ * <p>Pierces two-three enemies before destroying</p>
+ * <h3>DarkSpell</h3>
+ * <p>AOE splash damage spell. Uses same projectile motion from Arrow</p>
+ * <h3>Effects</h3>
  * <h3>Explosion</h3>
- * <p> //
- * 
- * 
+ * <p> Visual Explosion. Size is configurable</p>   
  * <h3>LoadingScreen</h3>
  * <p>Fade in and fade out effect
  * <br>Acts as a transition between worlds and background (main world levels)</p>
@@ -112,6 +132,8 @@ import java.util.*;
  * <br>Background image is based on what level </p>
  * <h2>Button</h2>
  * <p>Each button has its own image and function, determined in constructor and act method</p>
+ * <h2> Known Bugs </h2>
+ * <p>Not exactly a bug, but some sprites looked really strange due to each frame having different sizes. Thus, all Party members are shifted in order to accomodate</p>
  */
 public class MainWorld extends World
 {    
@@ -496,6 +518,7 @@ public class MainWorld extends World
         ArrayList<Party> memberList = (ArrayList<Party>) (getObjects(Party.class));
         if (memberList.isEmpty())
         {
+            mainWorldMusic.stop();
             Greenfoot.setWorld(new EndScreen(true));
         }
     }
@@ -547,6 +570,20 @@ public class MainWorld extends World
         }
         if (bossMusic.getVolume() <= 0) {
             bossMusic.stop();
+        }
+    }
+    
+    /**
+     * Method that stops music.
+     */
+    public void stopMusic(){
+        if (bossMusic != null)
+        {
+            bossMusic.stop();
+        }
+        if (mainWorldMusic != null)
+        {
+            mainWorldMusic.stop();
         }
     }
     

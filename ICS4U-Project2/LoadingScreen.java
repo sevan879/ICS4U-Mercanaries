@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class LoadingScreen here.
  * 
  * @author Evan Ma, Arthur Tian 
- * @version (a version number or a date)
+ * @version V1
  */
 public class LoadingScreen extends Effects
 {
@@ -23,7 +23,15 @@ public class LoadingScreen extends Effects
     private boolean changeWorldOrLevel;//true means change world, false means change level
     private Background b;
     private MainWorld w;
-
+    /**
+     * Main constructor for LoadingScreen
+     * @param fadeStyle Determines fade in or fade out. True = fade out, False = fade in.
+     * @param totalFadeTime Total time for fading.
+     * @param changeWorldOrLevel Determines if world or background should be changed
+     * @param b Background to change to.
+     * @param w The current MainWorld
+     * @param levelToChange Integer represent the integer to change to.
+     */
     public LoadingScreen(boolean fadeStyle, int totalFadeTime, boolean changeWorldOrLevel, Background b, MainWorld w, int levelToChange) {
         images = new GreenfootImage[3];
         for (int i = 0; i < images.length; i++) {
@@ -49,7 +57,7 @@ public class LoadingScreen extends Effects
         this.levelToChange = levelToChange;
         this.fadeStyle = fadeStyle;
     }
-
+    
     public void act()
     {
         setImage(image);
@@ -105,7 +113,7 @@ public class LoadingScreen extends Effects
         }
     }
 
-    public GreenfootImage actualLoadAnimation() {
+    private GreenfootImage actualLoadAnimation() {
         if (loadingAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             loadingAnimationCounter = loadingAnimationDelay; // reset counter to max 
             loadingAnimationIndex++; // this will be used to set the image to the next frame

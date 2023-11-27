@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The up and down arrows for creating settings.
  * 
  * @author Justin Wu
- * @version (a version number or a date)
+ * @version V1
  */
 public class SettingsButton extends Actor
 {

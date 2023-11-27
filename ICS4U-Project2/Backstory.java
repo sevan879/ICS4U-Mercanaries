@@ -31,8 +31,14 @@ public class Backstory extends World
     private TitleScreen w;
     private int resize;
     
-    //add background music too
     
+    /**
+     * When simulation is stopped
+     */
+    public void stopped()
+    {
+        Button.stopped();
+    }
     /**
      * Main Constructor for Backstory
      */
@@ -52,11 +58,11 @@ public class Backstory extends World
         counter = 0;
         w = new TitleScreen();
         b = new Button(3);
-    
+        
         sentence1 = new String[4];
         sentence1[0] = "Village Chief! There appears to be another death";
         sentence1[1] = "in our village! It seems like the";
-        sentence1[2] = "coding-maniac-exile, Sir Cohen, is causing";
+        sentence1[2] = "coding-maniac-sorcerer-exile, Sir Cohen, is causing";
         sentence1[3] = "trouble again from the forest! What do we do?!";
         p1 = new SuperTextBox(sentence1, Color.WHITE, Color.BLACK, f, false, 400,  10, Color.BLACK);
         
@@ -80,7 +86,7 @@ public class Backstory extends World
         sentence4[0] = "I've had enough of him!";
         sentence4[1] = "We must find him and end this!";
         sentence4[2] = "I will send mercenaries in the forest.";
-        sentence4[3] = "Knights! Mages! Healers! GO FIGHT!";
+        sentence4[3] = "Knights! Mages! Dark Mages! Healers! GO FIGHT!";
         sentence4[4] = "KILL THE ENEMIES AND SIR COHEN";
         p4 = new SuperTextBox(sentence4, Color.WHITE, Color.BLACK, f, false, 400,  10, Color.BLACK);
         

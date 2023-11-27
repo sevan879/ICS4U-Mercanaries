@@ -23,7 +23,7 @@ public class TitleScreen extends World
         volume = 34;
         titleScreenMusic.setVolume(volume);
         background = new GreenfootImage("titleBackground.png");
-        //etBackground(background);
+        setBackground(background);
 
         start = new Button(0);
         settings = new Button(1);
@@ -42,6 +42,17 @@ public class TitleScreen extends World
     public void started() {
         titleScreenMusic.playLoop();
     }
+    
+    /**
+     * Plays code when the stop button is clicked. 
+     */
+    public void stopped() {
+        titleScreenMusic.stop();
+    }
+    /**
+     * Transitions the simulation to a new wrold
+     * @param n Integer representing the world to move to.
+     */
     public void transitionToNewWorld(int n) {
         if (n == 0) {
                 titleScreenMusic.stop();
@@ -52,9 +63,11 @@ public class TitleScreen extends World
                 removeObject(titleWords);
         }        
         else if (n == 1) {
+            titleScreenMusic.stop();
             Greenfoot.setWorld(new Settings());
         }
         else if (n == 2) {
+            titleScreenMusic.stop();
             Greenfoot.setWorld(new Backstory());
         }
     }

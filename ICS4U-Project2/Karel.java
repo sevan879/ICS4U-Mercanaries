@@ -61,6 +61,7 @@ public class Karel extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                MainWorld.increaseDamageTaken(DAMAGE);
                 m.play();
             }
         }
@@ -68,6 +69,7 @@ public class Karel extends Enemy
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                MainWorld.increaseDamageTaken(DAMAGE);
                 m.play();
             }
         }

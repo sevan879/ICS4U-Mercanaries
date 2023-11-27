@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
- * Write a description of class ThunderBolt here.
+ * Projectile fired by Dark Mage, pierces multiple enemies before disappearing.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Evan Ma 
+ * @version V1
  */
 public class ThunderBolt extends Projectiles
 {
@@ -24,8 +24,8 @@ public class ThunderBolt extends Projectiles
     private ArrayList<Enemy> hitTargets;
 
     /**
-     * Act - do whatever the ThunderBolt wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Main ThunderBolt constructor
+     * @param damage The damage the thunder does.
      */
     public ThunderBolt(int damage){
         super(SET_SPEED, SET_DIRECTION, SET_YVEL, false);
@@ -71,7 +71,7 @@ public class ThunderBolt extends Projectiles
         setImage(sprites[animationIndex]);
     }
     
-    public void checkHitEnemy(){
+    private void checkHitEnemy(){
         
         List<Enemy> enemies = getObjectsInRange(100, Enemy.class);
         if (enemies.size() != 0) {
@@ -89,6 +89,7 @@ public class ThunderBolt extends Projectiles
                 {
                     hitTargets.add(e);
                     e.takeDamage(damage);
+                    MainWorld.increaseDamageDealt(damage);
                 }
                 
                 if (hitTargets.size() > totalTargets)

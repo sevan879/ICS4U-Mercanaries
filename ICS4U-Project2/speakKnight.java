@@ -17,6 +17,9 @@ public class speakKnight extends SuperSmoothMover
     {
         // Add your action code here.
     }
+    /**
+     * Main Constructor for speakKnight
+     */
     public speakKnight(){
         k = new GreenfootImage("KA14.png");
         int percent = 300; 

@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Settings for simulation changes
+ * Settings for simulation changes.
  * 
  * @author Justin Wu 
  * @version V0
@@ -48,6 +48,13 @@ public class Settings extends World
     private SettingsButton threeU;
     private SettingsButton threeD;
     
+    /**
+     * When simulation is stopped
+     */
+    public void stopped()
+    {
+        Button.stopped();
+    }
     /**
      * Getter for the amount of Knights to add.
      * @return int

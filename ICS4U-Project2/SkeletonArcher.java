@@ -13,7 +13,7 @@ public class SkeletonArcher extends Enemy
     private static final int HP = 2;
     private static final double SPEED = 2.2;
     private static final int DELAY = 90;
-    private static final int DAMAGE = 10;
+    private static final int DAMAGE = 12;
     private static final int ATTACK_RANGE = 580;
 
     private GreenfootImage[] deathPics;

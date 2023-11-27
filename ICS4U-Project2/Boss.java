@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Boss here.
+ * Abstract Superclass for boss entities. Bosses include entities that dont move and have an attack pattern.
  * 
  * @author Arthur Tian, Evan Ma
  * @version V1
@@ -13,7 +13,7 @@ public abstract class Boss extends Entity
     protected boolean attacking;
     protected int numOfActionsSoFar;
     protected boolean audioPlaying;
-    private SuperStatBar hpBar;
+    protected SuperStatBar hpBar;
     /**
      * Main constructor for Boss Class
      * @param hp Health of boss
@@ -33,7 +33,13 @@ public abstract class Boss extends Entity
      * @param attackNum the specific attack to do.
      */
     protected abstract void action(int attackNum);
+    /**
+     * Play the general audio.
+     */
     protected abstract void playAudio();
+    /**
+     * Plays idle animation
+     */
     protected abstract void idle();
     /**
      * Runs when added to world. Create HP bar.

@@ -29,7 +29,11 @@ public class Background extends Actor
     
         worldTracker = 0;
     }
-
+    /**
+     * Returns the current world background image
+     * @param world Integer representing the World
+     * @return GreenfootImage
+     */
     public GreenfootImage getWorldBackground(int world) {
         if (world == 1)
         {

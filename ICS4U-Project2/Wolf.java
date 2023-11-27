@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Wolf here.
+ * Simple Melee enemy for World 1.
  * 
  * @author Justin Wu  
  * @version (a version number or a date)

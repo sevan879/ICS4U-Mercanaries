@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SkeletonWarrior extends Enemy
 {
-    private static final int HP = 5;
+    private static final int HP = 10;
     private static final double SPEED = 4;
     private static final int DELAY = 40;
     private static final int DAMAGE = 8;
