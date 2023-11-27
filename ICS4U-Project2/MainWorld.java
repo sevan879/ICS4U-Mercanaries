@@ -95,17 +95,17 @@ public class MainWorld extends World
         
         damageDealt = 0;
         damageDealtLabel = new Label(0, 50);
-        addObject(damageDealtLabel, 485, 60);
+        addObject(damageDealtLabel, 495, 60);
         damageDealtLabel.setValue(0);
         label2 = new Label("Damage Dealt: ", 50);
         addObject(label2, 330, 60);
         
         damageTaken = 0;
         damageTakenLabel = new Label(0, 50);
-        addObject(damageTakenLabel, 845, 60);
+        addObject(damageTakenLabel, 885, 60);
         damageTakenLabel.setValue(0);
         label3 = new Label("Damage Taken: ", 50);
-        addObject(label3, 680, 60);
+        addObject(label3, 700, 60);
     }
 
     //act method
