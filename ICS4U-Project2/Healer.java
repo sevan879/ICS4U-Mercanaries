@@ -112,8 +112,8 @@ public class Healer extends Party
         if (spendMana(smallSpellMana))
         {
             healTarget.healDmg(damage);
+            healing.play();
         }
-        healing.play();
     }
 
     private void bigHeal()
@@ -124,9 +124,9 @@ public class Healer extends Party
             for (Party p : pList)
             {
                 p.healDmg(damage);
+                healing.play();
             }
         }
-        healing.play();
     }
 
     private Party findHealTarget()

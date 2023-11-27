@@ -40,10 +40,13 @@ public class Karel extends Enemy
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
     private GreenfootImage karel;
+    
+    private GreenfootSound m;
 
     //constructor
     public Karel() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
+        m = new GreenfootSound("munch.mp3");
     }
 
     //act method
@@ -56,12 +59,14 @@ public class Karel extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                m.play();
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                m.play();
             }
         }
     }
@@ -74,7 +79,7 @@ public class Karel extends Enemy
     }
 
     public void death() {
-                isDying = true;
+        isDying = true;
         boolean remove = false;
         if (deathAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             deathAnimationCounter = deathAnimationDelay; // reset counter to max 

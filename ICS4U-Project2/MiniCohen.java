@@ -30,10 +30,14 @@ public class MiniCohen extends Enemy
     private int attackOneAnimationIndex;
     private int attackOneAnimationDelay;
     private int attackOneAnimationCounter;
+    
+    private GreenfootSound s;
+    
     //constructor
     public MiniCohen() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
+        s.setVolume(30);
     }
 
     //act method
@@ -46,12 +50,14 @@ public class MiniCohen extends Enemy
         if(playersUpClose() != null){
             for(Party p: playersUpClose()){
                 p.takeDamage(DAMAGE);
+                s.play();
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                s.play();
             }
         }
     }
