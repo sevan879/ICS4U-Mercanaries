@@ -43,9 +43,9 @@ public class MainWorld extends World
     private GreenfootSound bossMusic; //boss music
     
     //scoreboard variables
-    public static int kills = 0;
-    public static Label scoreLabel;
-    public static Label label;
+    private static int kills;
+    private static Label scoreLabel;
+    private static Label label;
 
     //constructor
     public MainWorld()
@@ -74,8 +74,10 @@ public class MainWorld extends World
         bossMusic = new GreenfootSound("BossMusic.mp3");
         bossMusic.setVolume(44);
         
+        kills = 0;
         scoreLabel = new Label(0, 75);
         addObject(scoreLabel, 210, 60); 
+        scoreLabel.setValue(0);
         label = new Label("kills: ", 75);
         addObject(label, 100, 60);
     }

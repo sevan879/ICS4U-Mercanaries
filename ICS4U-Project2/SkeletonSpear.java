@@ -234,8 +234,8 @@ public class SkeletonSpear extends Enemy
             deathAnimationCounter--;
         }
         if (remove) {
-            getWorld().removeObject(this);
             MainWorld.increaseScore();
+            getWorld().removeObject(this);
         }
     }
     
