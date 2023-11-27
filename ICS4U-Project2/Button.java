@@ -38,13 +38,20 @@ public class Button extends Actor
     //act method
     public void act()
     {
-        //setImage(image);
-        //if (Greenfoot.mouseMoved(this)) { //hover effect
-        //    image.scale(600, 144);
-        //}
-        //else {
-        //    image.scale(500, 120);
-        //}
+        if (Greenfoot.mouseMoved(this)) { //hover effect
+            if (buttonChooser == 0) {
+                setImage(new GreenfootImage("hoverStart.png"));
+            }
+            else if (buttonChooser == 1) {
+                setImage(new GreenfootImage("hoverSettings.png"));
+            }
+            else if (buttonChooser == 2) {
+                setImage(new GreenfootImage("hoverBackstory.png"));
+            }
+        }
+        else {
+            setImage(image);
+        }
         if (Greenfoot.mouseClicked(this)) {
             if (buttonChooser == 0) {
                 t = (TitleScreen) getWorld();

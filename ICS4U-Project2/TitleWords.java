@@ -15,12 +15,12 @@ public class TitleWords extends Actor
 
     //constructor
     public TitleWords() {
-        images = new GreenfootImage[6];
+        images = new GreenfootImage[13];
         for (int i = 0; i < images.length; i++) {
-            images[i] = new GreenfootImage("title" + i + ".png");
+            images[i] = new GreenfootImage("t" + (i+1) + ".png");
         }
         animationIndex = 0;
-        animationDelay = 30;
+        animationDelay = 15;
         animationCounter = animationDelay;
         setImage(images[0]);
     }

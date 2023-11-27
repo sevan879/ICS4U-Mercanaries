@@ -23,7 +23,7 @@ public class TitleScreen extends World
         volume = 34;
         titleScreenMusic.setVolume(volume);
         background = new GreenfootImage("titleBackground.png");
-        setBackground(background);
+        //etBackground(background);
 
         start = new Button(0);
         settings = new Button(1);
