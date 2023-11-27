@@ -91,12 +91,14 @@ public class SkeletonSpear extends Enemy
                     }
                 }
                 p.takeDamage(DAMAGE);
+                MainWorld.increaseDamageTaken(DAMAGE);
             }
         }
 
         if(playersFurtherAway() != null){
             for(Party p: playersFurtherAway()){
                 p.takeDamage(DAMAGE - 1);
+                MainWorld.increaseDamageTaken(DAMAGE - 1);
             }
         }
     }

@@ -74,6 +74,7 @@ public class SmallFireball extends Projectiles
         Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
         if(enemy != null){
           enemy.takeDamage(damage);
+          MainWorld.increaseDamageTaken(damage);
           removeProjectile();
         }
     }

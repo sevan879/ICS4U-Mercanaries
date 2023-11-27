@@ -45,7 +45,19 @@ public class MainWorld extends World
     //scoreboard variables
     private static int kills;
     private static Label scoreLabel;
-    private static Label label;
+    private static Label label1;
+    
+    private static int damageDealt;
+    private static Label damageDealtLabel;
+    private static Label label2;
+    
+    private static int damageTaken;
+    private static Label damageTakenLabel;
+    private static Label label3;
+    
+    private static int damageHealed;
+    private static Label damageHealedLabel;
+    private static Label label4;
 
     //constructor
     public MainWorld()
@@ -75,11 +87,25 @@ public class MainWorld extends World
         bossMusic.setVolume(44);
         
         kills = 0;
-        scoreLabel = new Label(0, 75);
-        addObject(scoreLabel, 210, 60); 
+        scoreLabel = new Label(0, 50);
+        addObject(scoreLabel, 135, 60); 
         scoreLabel.setValue(0);
-        label = new Label("kills: ", 75);
-        addObject(label, 100, 60);
+        label1 = new Label("Kills: ", 50);
+        addObject(label1, 65, 60);
+        
+        damageDealt = 0;
+        damageDealtLabel = new Label(0, 50);
+        addObject(damageDealtLabel, 485, 60);
+        damageDealtLabel.setValue(0);
+        label2 = new Label("Damage Dealt: ", 50);
+        addObject(label2, 330, 60);
+        
+        damageTaken = 0;
+        damageTakenLabel = new Label(0, 50);
+        addObject(damageTakenLabel, 845, 60);
+        damageTakenLabel.setValue(0);
+        label3 = new Label("Damage Taken: ", 50);
+        addObject(label3, 680, 60);
     }
 
     //act method
@@ -89,10 +115,31 @@ public class MainWorld extends World
         checkGameOver();
     }
     
+    /**
+     * increases the kill number of the score label
+     */
     public static void increaseScore()
     {
         kills++;
         scoreLabel.setValue(kills);
+    }
+    
+    /**
+     * increases the damage dealt number of the damageDealt label
+     * @param damage damage dealt to the enemies
+     */
+    public static void increaseDamageDealt(int damage){
+        damageDealt = damageDealt + damage;
+        damageDealtLabel.setValue(damageDealt);
+    }
+    
+    /**
+     * increases the damage taken number of the damageTaken label
+     * @param damage damage taken from the enemies
+     */
+    public static void increaseDamageTaken(int damage){
+        damageTaken = damageTaken + damage;
+        damageTakenLabel.setValue(damageTaken);
     }
 
     private void partyActions()

@@ -121,6 +121,7 @@ public class Arrow extends Projectiles
         {
             Actor party = getOneIntersectingObject(Party.class);
             ((Party)party).takeDamage(damage);
+            MainWorld.increaseDamageTaken(damage);
             
             removeProjectile();
             
