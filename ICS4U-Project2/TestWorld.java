@@ -24,11 +24,12 @@ public class TestWorld extends World
         super(1068, 720, 1); 
          b = new Background();
         addObject(b, 1068, 360);
-        b.setWorldBackground(4);
+        b.setWorldBackground(3);
         //addObject(new Cohen(), 463, 311);
-        addObject(new Karel(), 700, 650);
-        //addObject(new MiniCohen(), 900, 650);
-        addObject(new Mage(), 150, 650);
+        //addObject(new Karel(), 700, 650);
+        addObject(new MiniCohen(), 900, 650);
+        addObject(new Mage2(), 150, 650);
+        //addObject(new Mage(true), 250, 650);
         //addObject(new Healer(), 100, 650);
         //addObject(new Knight(), 300, 650);
         //addObject(new Knight(), 200, 650);

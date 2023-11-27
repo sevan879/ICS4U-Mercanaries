@@ -12,7 +12,7 @@ public abstract class Boss extends Entity
     private int attackCount;
     protected boolean attacking;
     protected int numOfActionsSoFar;
-    
+    protected boolean audioPlaying;
     private SuperStatBar hpBar;
 
     public Boss(int hp, int delay, int attackCount)
@@ -21,10 +21,11 @@ public abstract class Boss extends Entity
         this.attackCount = attackCount;
         actionChooser = -1;
         attacking = false;
+        audioPlaying = false;
     }
 
     protected abstract void action(int attackNum);
-
+    protected abstract void playAudio();
     protected abstract void idle();
 
     public void addedToWorld(World w)
@@ -50,7 +51,7 @@ public abstract class Boss extends Entity
         {
             if (actionChooser == -1)
             {
-
+                playAudio();
                 actionChooser = Greenfoot.getRandomNumber(attackCount);
                 action(actionChooser);
             }

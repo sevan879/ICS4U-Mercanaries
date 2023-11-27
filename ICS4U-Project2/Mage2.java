@@ -1,12 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Mage here.
+ * Write a description of class CopyOfMage here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Mage extends Party
+public class Mage2 extends Party
 {
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 80;
@@ -65,7 +65,7 @@ public class Mage extends Party
     private int spellDelay;
     private int spellCDCounter;
 
-    public Mage()
+    public Mage2()
     {
         super(SET_HP, SET_SPEED, ACTION_DELAY, false, XP_INCREASE_PER_LEVEL, ATTACK_RANGE, MAX_MANA, MAX_LEVEL, MANA_CLASS);
         smallSpellMana = 15;
@@ -317,35 +317,35 @@ public class Mage extends Party
         //running
         runningPics = new GreenfootImage[8];
         for (int i = 0; i < runningPics.length; i++) {
-            runningPics[i] = new GreenfootImage("MR" + (i+1) + ".png");
+            runningPics[i] = new GreenfootImage("M2R" + (i+1) + ".png");
             runningPics[i].scale(runningPics[i].getWidth()*2, runningPics[i].getHeight()*2);
         }
 
         //death
-        deathPics = new GreenfootImage[6];
+        deathPics = new GreenfootImage[4];
         for (int i = 0; i < deathPics.length; i++) {
-            deathPics[i] = new GreenfootImage("MD" + (i+1) + ".png");
+            deathPics[i] = new GreenfootImage("M2D" + (i+1) + ".png");
             deathPics[i].scale(deathPics[i].getWidth()*2, deathPics[i].getHeight()*2);
         }
 
         //attack one
-        attackOnePics = new GreenfootImage[8];
+        attackOnePics = new GreenfootImage[6];
         for (int i = 0; i < attackOnePics.length; i++) {
-            attackOnePics[i] = new GreenfootImage("MA1" + (i+1) + ".png");
+            attackOnePics[i] = new GreenfootImage("M2A2" + (i+1) + ".png");
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
 
         //attack two
-        attackTwoPics = new GreenfootImage[14];
+        attackTwoPics = new GreenfootImage[16];
         for (int i = 0; i < attackTwoPics.length; i++) {
-            attackTwoPics[i] = new GreenfootImage("MA2" + (i+1) + ".png");
+            attackTwoPics[i] = new GreenfootImage("M2A1" + (i+1) + ".png");
             attackTwoPics[i].scale(attackTwoPics[i].getWidth()*2, attackTwoPics[i].getHeight()*2);
         }
 
         //idle
-        idlePics = new GreenfootImage[7];
+        idlePics = new GreenfootImage[8];
         for (int i = 0; i < idlePics.length; i++) {
-            idlePics[i] = new GreenfootImage("MI" + (i+1) + ".png");
+            idlePics[i] = new GreenfootImage("M2I" + (i+1) + ".png");
             idlePics[i].scale(idlePics[i].getWidth()*2, idlePics[i].getHeight()*2);
         }
         setImage(idlePics[0]);

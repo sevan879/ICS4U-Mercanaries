@@ -46,20 +46,21 @@ public class Button extends Actor
         //    image.scale(500, 120);
         //}
         if (Greenfoot.mouseClicked(this)) {
-            t = (TitleScreen) getWorld();
             if (buttonChooser == 0) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(0);
-                
                 t.addObject(new LoadingScreen(false, 60, true, new Background(), new MainWorld(), 1), 534, 360);
             }
             if (buttonChooser == 1) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(1);
             }
             if (buttonChooser == 2) {
+                t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(2);
             }    
             if(buttonChooser == 3 || buttonChooser == 16){
-                Greenfoot.setWorld(t);
+                Greenfoot.setWorld(new TitleScreen());
             }
         }
     }

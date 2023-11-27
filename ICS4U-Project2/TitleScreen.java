@@ -14,12 +14,14 @@ public class TitleScreen extends World
     private Button settings;
     private Button backstory;
     private TitleWords titleWords;
+    private int volume;
     //construction
     public TitleScreen()
     {    
         super(1068, 720, 1); 
         titleScreenMusic = new GreenfootSound("TitleMusic.mp3");
-        titleScreenMusic.setVolume(40);
+        volume = 34;
+        titleScreenMusic.setVolume(volume);
         background = new GreenfootImage("titleBackground.png");
         setBackground(background);
 
@@ -38,26 +40,16 @@ public class TitleScreen extends World
     public void started() {
         titleScreenMusic.playLoop();
     }
-    //to stop playing the music when pressed pause or reset
-    public void stopped() {
-        if (titleScreenMusic != null) {
-            titleScreenMusic.stop();
-        }
-    }
-
-    public void act() {
-        if (Greenfoot.mouseClicked(start)) {
-            stopped();
-        }
-    }
 
     public void transitionToNewWorld(int n) {
         if (n == 0) {
-            removeObject(start);
-            removeObject(settings);
-            removeObject(backstory);
-            removeObject(titleWords);
-        }
+                titleScreenMusic.stop();
+                //remove objects
+                removeObject(start);
+                removeObject(settings);
+                removeObject(backstory);
+                removeObject(titleWords);
+        }        
         else if (n == 1) {
             Greenfoot.setWorld(new Settings());
         }

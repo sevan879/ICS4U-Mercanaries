@@ -16,6 +16,7 @@ public class MainWorld extends World
     private int enemiesSpawned = 0;
 
     private int worldYLevel = 605;
+    private int volume;
 
     //Spawning Party Variables
     private int numOfKnights = 2;
@@ -52,10 +53,11 @@ public class MainWorld extends World
 
         //starts the level (there are a total of 3 levels) at level 1
         worldLvl = 1;
+        volume = 0;
         mainWorldMusic = new GreenfootSound("RegWorld.mp3");
-        mainWorldMusic.setVolume(44);
+        mainWorldMusic.setVolume(volume);
         bossMusic = new GreenfootSound("BossMusic.mp3");
-        bossMusic.setVolume(44);
+        bossMusic.setVolume(volume);
         addObject(background, 1086, 360); //add background first, so its behind everything
         started();
 
@@ -275,15 +277,35 @@ public class MainWorld extends World
     //to start playing the music when pressed run
     public void started(){
         if(worldLvl == 4){
+            if (bossMusic.getVolume() < 70) {
+                bossMusic.setVolume(volume);
+                volume++;
+            }
             bossMusic.playLoop();
         }
         else {
+            if (mainWorldMusic.getVolume() < 70) {
+                mainWorldMusic.setVolume(volume);
+                volume++;
+            }
             mainWorldMusic.playLoop();
         }
     }
     //to stop playing the music when pressed pause or reset
     public void stopped(){
-        mainWorldMusic.stop();
-        bossMusic.stop();
+        if (bossMusic.getVolume() > 0) {
+            bossMusic.setVolume(volume);
+            volume--;
+        }
+        if (mainWorldMusic.getVolume() >0) {
+            mainWorldMusic.setVolume(volume);
+            volume--;
+        }
+        if (mainWorldMusic.getVolume() <= 0) {
+            mainWorldMusic.stop();
+        }
+        if (bossMusic.getVolume() <= 0) {
+            bossMusic.stop();
+        }
     }
 }

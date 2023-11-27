@@ -55,6 +55,7 @@ public class LoadingScreen extends Effects
         setImage(image);
         if (!fadeStyle) //fade in to world
         {
+            w.started();
             if (!(fadeCounter > fadeTime-8)) //continue fading in
             {
                 fadeCounter++; 

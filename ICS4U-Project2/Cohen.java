@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class Cohen here.
@@ -52,6 +53,7 @@ public class Cohen extends Boss
     private GreenfootSound no;
     private GreenfootSound modular;
     private GreenfootSound modular2;
+    private GreenfootSound modular3;
 
     private int introCount;
     private static final int introTotalWait = 180;
@@ -69,6 +71,26 @@ public class Cohen extends Boss
         no.setVolume(90);
         modular = new GreenfootSound("modular.mp3");
         modular2 = new GreenfootSound("modular2.mp3");
+        modular3 = new GreenfootSound("modular - Copy.mp3");
+    }
+    
+    public void playAudio() {
+        int random = Greenfoot.getRandomNumber(10);
+        if (random == 0 || random == 3 || random == 9) {
+            coffee.play();
+        }
+        else if (random == 1 || random == 4 || random == 7 || random == 8) {
+            vendingMachine.play();
+        }
+        else if (random == 2){
+            modular.play();
+        }
+        else if (random == 5) {
+            modular2.play();
+        }
+        else if (random == 6) {
+            modular3.play();
+        }
     }
 
     public void act()
@@ -84,17 +106,23 @@ public class Cohen extends Boss
             if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) {
                 if (downTimeCounter == 0) {
                     cohenDownAndHit();
+                    no.play();
                     for (Enemy e : enemiesInWorld()) {
                         getWorld().removeObject(e);
                     }
                     for (Party member : partyMembersInWorld()) {
-                        //member.setLocation(member.getCohenAttackXPos(), member.getY());
                         member.setCohenExists(true);
                     }
                     
                 }
                 //start loop
                 if (fallen) {
+                    ArrayList<Projectiles> p = (ArrayList<Projectiles>) getWorld().getObjects(Projectiles.class);
+                    for (Projectiles proj : p) {
+                        if (proj.getX() > 600) {
+                            proj.removeProjectile();
+                        }
+                    }
                     if (downTimeCounter < downTimeDelay) {
                         if (downTimeCounter%2 == 0) {
                             setImage(new GreenfootImage("CohenDown4-removebg-preview.png"));
@@ -164,7 +192,6 @@ public class Cohen extends Boss
     }
 
     public void summon() {
-        modular2.play();  
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -216,7 +243,6 @@ public class Cohen extends Boss
     }
 
     public void attackOne() {
-        coffee.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -245,7 +271,6 @@ public class Cohen extends Boss
     }
 
     public void attackTwo() {
-        modular.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
@@ -283,7 +308,6 @@ public class Cohen extends Boss
     }
 
     public void cohenDownAndHit() {
-        no.play();
         if (!animationIsRunning()) { //animationTracker is even, so we add one cuz we are starting animation
             animationTracker++;
         }
