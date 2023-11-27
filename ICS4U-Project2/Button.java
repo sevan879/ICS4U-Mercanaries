@@ -96,7 +96,7 @@ public class Button extends Actor
                 sound.play();
                 music = new GreenfootSound("TitleScreen.mp3");
                 music.playLoop();
-                music.setVolume(70);
+                music.setVolume(50);
                 t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(1);
             }
@@ -104,7 +104,7 @@ public class Button extends Actor
                 sound.play();
                 music = new GreenfootSound("Naktigonis - A Light In The Sky (Deepwoken OST).mp3");
                 music.playLoop();
-                music.setVolume(70);
+                music.setVolume(50);
                 t = (TitleScreen) getWorld();
                 t.transitionToNewWorld(2);
             }    

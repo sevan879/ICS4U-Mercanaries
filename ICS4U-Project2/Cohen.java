@@ -74,7 +74,13 @@ public class Cohen extends Boss
         modular2 = new GreenfootSound("modular2.mp3");
         modular3 = new GreenfootSound("modular - Copy.mp3");
     }
-    
+    public void stopAudio() {
+        coffee.stop();
+        vendingMachine.stop();
+        modular.stop();
+        modular2.stop();
+        modular3.stop();
+    }
     public void playAudio() {
         int random = Greenfoot.getRandomNumber(10);
         if (random == 0 || random == 3 || random == 9) {
@@ -108,6 +114,7 @@ public class Cohen extends Boss
                 if (downTimeCounter == 0) {
                     cohenDownAndHit();
                     no.play();
+                    stopAudio();
                     for (Enemy e : enemiesInWorld()) {
                         getWorld().removeObject(e);
                     }

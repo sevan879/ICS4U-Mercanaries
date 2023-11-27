@@ -25,7 +25,8 @@ import java.util.*;
  * <br>https://www.youtube.com/watch?v=k895zKWPEIg - The author is not provided.
  * <br>https://www.youtube.com/watch?v=VAZtWrGGZHo By Naktigonis
  * <br> https://www.youtube.com/watch?v=KD4O02BYlpQ By Naktigonis
- * <br> 
+ * <br> https://www.youtube.com/watch?v=9ePSW8ojlA0 By Naktigonis
+ * <br> https://www.youtube.com/watch?v=6T5AYTLedLo By Naktigonis
  * <br>https://www.youtube.com/watch?v=V77xa-SDI-I - The author is not provided.
  * <br>https://elements.envato.com/large-fireball-special-effect-5TL4Z6Q 
  * <br>https://elements.envato.com/heal-64KWBLR - The author is not provided.

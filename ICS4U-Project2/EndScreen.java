@@ -36,11 +36,13 @@ public class EndScreen extends World
         img2.scale(1068, 720);
         if (cohenWon) {
             music = new GreenfootSound("Naktigonis - The End. (Deepwoken OST).mp3");
+            music.setVolume(60);
             music.playLoop();
             setBackground(img1);
         }
         else {
             music = new GreenfootSound("Naktigonis - A Memory Of Tides (Deepwoken OST).mp3");
+            music.setVolume(60);
             music.playLoop();
             setBackground(img2);
         }
