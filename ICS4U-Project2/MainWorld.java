@@ -55,9 +55,10 @@ public class MainWorld extends World
     private static Label damageTakenLabel;
     private static Label label3;
     
-    private static int damageHealed;
-    private static Label damageHealedLabel;
+    private static int time;
+    private static Label timeLabel;
     private static Label label4;
+    private int frameCounter = 0;
 
     //constructor
     public MainWorld()
@@ -106,6 +107,15 @@ public class MainWorld extends World
         damageTakenLabel.setValue(0);
         label3 = new Label("Damage Taken: ", 50);
         addObject(label3, 700, 60);
+        
+        time = 0;
+        timeLabel = new Label(0, 50);
+        addObject(timeLabel, 995, 60);
+        damageTakenLabel.setValue(0);
+        label4 = new Label("S", 50);
+        addObject(label4, 1035, 60);
+        
+        
     }
 
     //act method
@@ -113,6 +123,8 @@ public class MainWorld extends World
         partyActions();
         spawnWaves();
         checkGameOver();
+        frameCounter++;
+        increaseTime();
     }
     
     /**
@@ -140,6 +152,17 @@ public class MainWorld extends World
     public static void increaseDamageTaken(int damage){
         damageTaken = damageTaken + damage;
         damageTakenLabel.setValue(damageTaken);
+    }
+    
+    /**
+     * increases the time numer of the time label
+     */
+    public void increaseTime(){
+        if(frameCounter >= 60){
+            time++;
+            frameCounter = 0;
+        }
+        timeLabel.setValue(time);
     }
 
     private void partyActions()
