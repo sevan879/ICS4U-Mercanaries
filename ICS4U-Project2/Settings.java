@@ -28,7 +28,7 @@ public class Settings extends World
     private SettingsButton mU;
     private SettingsButton mD;
     
-    private static int numDarkMages = 1;
+    private static int numDarkMages = 0;
     private Button darkMagesLabel;
     private SettingsButton dU;
     private SettingsButton dD;
