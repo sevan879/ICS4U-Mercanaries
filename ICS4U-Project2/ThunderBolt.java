@@ -20,7 +20,7 @@ public class ThunderBolt extends Projectiles
     private GreenfootImage[] sprites;
     
     private int animationIndex;
-    private int totalTargets = 3;
+    private int totalTargets = 1;
     private ArrayList<Enemy> hitTargets;
 
     /**
@@ -73,7 +73,7 @@ public class ThunderBolt extends Projectiles
     
     public void checkHitEnemy(){
         
-        List<Enemy> enemies = getObjectsInRange(50, Enemy.class);
+        List<Enemy> enemies = getObjectsInRange(100, Enemy.class);
         if (enemies.size() != 0) {
             for(Enemy e: enemies){
                 boolean dealDmg = true;
@@ -93,7 +93,6 @@ public class ThunderBolt extends Projectiles
                 
                 if (hitTargets.size() > totalTargets)
                 {  
-                    System.out.println("deleted");
                     removeProjectile();
                     return;
                 }
