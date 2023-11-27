@@ -11,7 +11,7 @@ public class DarkMage extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 80;
     private static final double SET_SPEED = 2;
-    private static final int ACTION_DELAY = 150; // amount of acts
+    private static final int ACTION_DELAY = 120; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 550;
     private static final int MAX_MANA = 100;
@@ -51,7 +51,7 @@ public class DarkMage extends Party
 
     private int spellLevel = 0;
 
-    private int smallDamage = 4;
+    private int smallDamage = 8;
     private int bigDamage = 20;
     private int smallRange = 100;
     private int bigRange = 150;

@@ -11,7 +11,7 @@ public class Mage extends Party
     //BASE STATS AT LEVEL ONE
     private static final int SET_HP = 100;
     private static final double SET_SPEED = 3;
-    private static final int ACTION_DELAY = 70; // amount of acts
+    private static final int ACTION_DELAY = 50; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
     private static final int ATTACK_RANGE = 550;
     private static final int MAX_MANA = 100;

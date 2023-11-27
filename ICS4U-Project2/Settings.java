@@ -124,8 +124,8 @@ public class Settings extends World
         numHealers = 1;
         numMages = 1;
         numDarkMages = 0;
-        current = 8;
-        waveOne = 10;
+        current = 6;
+        waveOne = 8;
         waveTwo = 15;
         waveThree = 20;
         addObject(new Button(16), 534, 650);

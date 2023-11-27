@@ -138,7 +138,12 @@ public class Cohen extends Boss
                         else {
                             setImage(new GreenfootImage("CohenDown5-removebg-preview.png"));
                             this.takeDamage(1);
-                            hpBar.update(health);
+                            if (health > 0)
+                            {
+                                MainWorld.increaseDamageDealt(1);
+                                hpBar.update(health);
+                            }
+                            
                         }
                         downTimeCounter++;
                     }
@@ -297,6 +302,7 @@ public class Cohen extends Boss
                     
                     for (Party member : partyMembersInWorld()) {
                         member.takeDamage(4);
+                        MainWorld.increaseDamageTaken(4);
                     }
                 }
             }
