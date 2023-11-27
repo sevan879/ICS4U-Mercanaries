@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Special attack for Mage class. Large fireball that deals AOE damage.
  * 
- * @author Evan Ma, Kennith Jin
+ * @author Evan Ma, Kenneth Jin
  * @version V1
  */
 public class Fireball extends Projectiles
@@ -89,6 +89,6 @@ public class Fireball extends Projectiles
           e.takeDamage(damage);// adjust to mage's damage
           //explode animations?
       }
-      getWorld().addObject(new Explosion(5), getX(), getY() - 40);
+      getWorld().addObject(new Explosion(7), getX(), getY() - 40);
     }
 }

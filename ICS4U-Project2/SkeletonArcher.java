@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * SkeletonArcher is a ranged enemy class that fires arrows at players. Low HP, high damage, high range.
  * 
- * @author Evan Ma, Kennith Jin
+ * @author Evan Ma, Kenneth Jin
  * @version V1
  */
 public class SkeletonArcher extends Enemy

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Button here.
+ * A class representing all button assets in the game
  * 
  * @author Arthur 
- * @version (a version number or a date)
+ * @version V1
  */
 public class Button extends Actor
 {
@@ -18,7 +18,7 @@ public class Button extends Actor
      * @param buttonChooser The specific button variation to create.
      */
     public Button(int buttonChooser) {
-        buttons = new GreenfootImage[17];
+        buttons = new GreenfootImage[21];
         buttons[0] = new GreenfootImage("startButton.png");
         buttons[1] = new GreenfootImage("settingsButton.png");
         buttons[2] = new GreenfootImage("backstoryButton.png");
@@ -31,6 +31,10 @@ public class Button extends Actor
              buttons[i+7].scale(buttons[i+7].getHeight()/30, buttons[i+7].getWidth()/30);
         }
         buttons[16] = new GreenfootImage("back.png");
+        buttons[17] = new GreenfootImage("Wave1.png");
+        buttons[18] = new GreenfootImage("Wave2.png");
+        buttons[19] = new GreenfootImage("Wave3.png");
+        buttons[20] = new GreenfootImage("d.png");
     
         setImage(buttons[buttonChooser]);
         image = buttons[buttonChooser];

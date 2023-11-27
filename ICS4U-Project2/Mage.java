@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Mage extends Party
 {
     //BASE STATS AT LEVEL ONE
-    private static final int SET_HP = 80;
+    private static final int SET_HP = 100;
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 50; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
@@ -54,7 +54,7 @@ public class Mage extends Party
     private int smallDamage = 10;
     private int bigDamage = 20;
     private int smallRange = 100;
-    private int bigRange = 150;
+    private int bigRange = 250;
 
     private int smallSpellMana;
     private int bigSpellMana;

@@ -62,6 +62,7 @@ public abstract class Entity extends SuperSmoothMover
      */
     public void takeDamage(int dmg)
     {
+        getWorld().addObject(new DamageNumbers(dmg, true), getX() - 25 + Greenfoot.getRandomNumber(50), getY() - 50);
         health -= dmg;
     }
     /**
@@ -95,6 +96,8 @@ public abstract class Entity extends SuperSmoothMover
      */
     public void healDmg(int heal)
     {
+        
+        getWorld().addObject(new DamageNumbers(heal, false), getX() - 10 + Greenfoot.getRandomNumber(20), getY() - 50);
         if (health + heal > maxHealth)
         {
             health = maxHealth;

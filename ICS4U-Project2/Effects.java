@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Evan Ma
  * @version V1
  */
-public abstract class Effects extends Actor
+public abstract class Effects extends SuperSmoothMover
 {
     protected GreenfootImage image;
     

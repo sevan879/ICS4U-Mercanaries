@@ -28,6 +28,11 @@ public class Settings extends World
     private SettingsButton mU;
     private SettingsButton mD;
     
+    private static int numDarkMages = 1;
+    private Button darkMagesLabel;
+    private SettingsButton dU;
+    private SettingsButton dD;
+    
     private static int waveOne = 5;
     private Button waveOneLabel;
     private SettingsButton oneU;
@@ -58,6 +63,14 @@ public class Settings extends World
     public static int getNumOfMages()
     {
         return numMages;
+    }
+    /**
+     * Getter for the amount of Dark Mages to add.
+     * @return int
+     */
+    public static int getNumOfDarkMages()
+    {
+        return numDarkMages;
     }
     /**
      * Getter for the amount of Healers to add.
@@ -119,6 +132,9 @@ public class Settings extends World
         mD = new SettingsButton(false);
         mU = new SettingsButton(true);
         
+        dD = new SettingsButton(false);
+        dU = new SettingsButton(true);
+        
         oneU = new SettingsButton(true);
         oneD = new SettingsButton(false);
         
@@ -128,27 +144,31 @@ public class Settings extends World
         threeU = new SettingsButton(true);
         threeD = new SettingsButton(false);
         
-        addObject(knightsLabel = new Button(4), 500, 100);
+        addObject(knightsLabel = new Button(4), 534, 100);
         addObject(kD, knightsLabel.getX() - 150, knightsLabel.getY());
         addObject(kU, knightsLabel.getX() + 200, knightsLabel.getY());
         
-        addObject(healersLabel = new Button(5), 500, 170);
+        addObject(healersLabel = new Button(5), 534, 170);
         addObject(hD, healersLabel.getX() - 150, healersLabel.getY());
         addObject(hU, healersLabel.getX() + 200, healersLabel.getY());
         
-        addObject(magesLabel = new Button(6), 500, 240);
+        addObject(magesLabel = new Button(6), 534, 240);
         addObject(mD, magesLabel.getX() - 150, magesLabel.getY());
         addObject(mU, magesLabel.getX() + 200, magesLabel.getY());
         
-        addObject(waveOneLabel = new Button(5), 500, 310);
+        addObject(darkMagesLabel = new Button(20), 534, 310);
+        addObject(dD, darkMagesLabel.getX() - 150, darkMagesLabel.getY());
+        addObject(dU, darkMagesLabel.getX() + 200, darkMagesLabel.getY());
+        
+        addObject(waveOneLabel = new Button(17), 534, 380);
         addObject(oneD, waveOneLabel.getX() - 150, waveOneLabel.getY());
         addObject(oneU, waveOneLabel.getX() + 200, waveOneLabel.getY());
         
-        addObject(waveTwoLabel = new Button(5), 500, 380);
+        addObject(waveTwoLabel = new Button(18), 534, 450);
         addObject(twoD, waveTwoLabel.getX() - 150, waveTwoLabel.getY());
         addObject(twoU, waveTwoLabel.getX() + 200, waveTwoLabel.getY());
         
-        addObject(waveThreeLabel = new Button(5), 500, 450);
+        addObject(waveThreeLabel = new Button(19), 534, 520);
         addObject(threeD, waveThreeLabel.getX() - 150, waveThreeLabel.getY());
         addObject(threeU, waveThreeLabel.getX() + 200, waveThreeLabel.getY());
         
@@ -158,6 +178,7 @@ public class Settings extends World
         set(3);
         set(4);
         set(5);
+        set(6);
     }
     
     public void act(){
@@ -203,6 +224,21 @@ public class Settings extends World
                 numMages--;
                 current--;
                 set(2);
+            }
+        }
+        
+        if (Greenfoot.mouseClicked(dU)) {
+            if(current < MAX_PARTY){
+                numDarkMages++;
+                current++;
+                set(6);
+            }
+        }
+        if (Greenfoot.mouseClicked(dD)) {
+            if(current > 0 && numDarkMages >0){
+                numDarkMages--;
+                current--;
+                set(6);
             }
         }
         
@@ -259,6 +295,9 @@ public class Settings extends World
         }
         else if (type == 5) {
             addObject(new SuperTextBox(Integer.toString(waveThree), new Font("OptimusPrinceps", true, false , 20), 50), waveThreeLabel.getX() + 135, waveThreeLabel.getY());
+        }
+        else if (type == 6){
+            addObject(new Button(7+numDarkMages),darkMagesLabel.getX() + 135, darkMagesLabel.getY());
         }
     }
 }

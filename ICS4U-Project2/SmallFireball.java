@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Main damage spell for the mage class. Single target.
  * 
- * @author Evan Ma
+ * @author Evan Ma, Kenneth Jin
  * @version V1
  */
 public class SmallFireball extends Projectiles

@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Creates the background that needs to be scrolled.
  * 
  * @author Arthur Tian 
- * @version (a version number or a date)
+ * @version V1
  */
 public class Background extends Actor
 {

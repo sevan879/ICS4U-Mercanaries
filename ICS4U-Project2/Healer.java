@@ -13,7 +13,7 @@ public class Healer extends Party
     private static final double SET_SPEED = 3;
     private static final int ACTION_DELAY = 120; // amount of acts
     private static final int XP_INCREASE_PER_LEVEL = 1;
-    private static final int ATTACK_RANGE = 580;
+    private static final int ATTACK_RANGE = 620;
     private static final int MAX_MANA = 100;
     private static final int MAX_LEVEL = 4;
     private static final boolean MANA_CLASS = true;
@@ -53,6 +53,13 @@ public class Healer extends Party
     private int runningAnimationDelay;
     private int runningAnimationCounter;
     
+    private GreenfootImage[] idlePics;
+    private int idleAnimationIndex;
+    private int idleAnimationDelay;
+    private int idleAnimationCounter;
+    
+    private boolean casting;
+    
     /**
     * Main Constructor for Knight Class
     */
@@ -70,6 +77,7 @@ public class Healer extends Party
         bigSpellMana = 40; // 30
         setImage(runningPics[0]);
         animationConstructor();
+        casting = false;
     }
 
     public void act()
@@ -90,10 +98,12 @@ public class Healer extends Party
             if (Greenfoot.getRandomNumber(6) == 0)
             {
                 bigHeal();
+                casting = true;
             }
             else
             {
                 smallHeal(healTarget);
+                casting = true;
             }
         }
     }
@@ -101,7 +111,15 @@ public class Healer extends Party
     * Play all the action animations for a class.
     */
     protected void mainAnimation() {
-        attackOne();
+        if (casting)
+        {
+            attackOne();
+        }
+        else
+        {
+            idle();
+        }
+        
     }
     /**
     * Level up all stats for a party class
@@ -178,6 +196,23 @@ public class Healer extends Party
     * Plays idle animation.
     */
     public void idle() {
+        /*
+        if (idleAnimationCounter == 0){ // counter reaches 0 means ready for next frame
+            idleAnimationCounter = idleAnimationDelay; // reset counter to max 
+            idleAnimationIndex++; // this will be used to set the image to the next frame
+
+            // If the image index has passed the last image, go back to first image
+            if (idleAnimationIndex == idlePics.length){
+                idleAnimationIndex = 0;
+            }
+            // Apply new image to this Actor
+            setImage (idlePics[idleAnimationIndex]);
+        } else {// not ready to animate yet, still waiting
+            // so just decrement the counter          
+            idleAnimationCounter--;
+        }
+        */
+       setImage(idlePics[1]);
     }
     /**
     * Plays first attack animation.
@@ -194,6 +229,7 @@ public class Healer extends Party
             if (attackOneAnimationIndex == attackOnePics.length){
                 attackOneAnimationIndex = 0;
                 animationTracker++;
+                casting = false;
             }
             // Apply new image to this Actor
             setImage (attackOnePics[attackOneAnimationIndex]);
@@ -282,7 +318,7 @@ public class Healer extends Party
             attackOnePics[i].scale(attackOnePics[i].getWidth()*2, attackOnePics[i].getHeight()*2);
         }
         attackOneAnimationIndex = 0;
-        attackOneAnimationDelay = 8;
+        attackOneAnimationDelay = 8; // 8
         attackOneAnimationCounter = attackOneAnimationDelay;
 
         attackTwoPics = new GreenfootImage[4];
@@ -313,5 +349,16 @@ public class Healer extends Party
         runningAnimationIndex = 0;
         runningAnimationDelay = 8;
         runningAnimationCounter = runningAnimationDelay;
+        
+        //idle
+        idlePics = new GreenfootImage[7];
+        for (int i = 0; i < idlePics.length; i++) {
+            idlePics[i] = new GreenfootImage("HI" + (i+1) + ".png");
+            idlePics[i].scale(idlePics[i].getWidth()*2, idlePics[i].getHeight()*2);
+        }
+        idleAnimationIndex = 0;
+        idleAnimationDelay = 8;
+        idleAnimationCounter = idleAnimationDelay;
+        setImage(idlePics[0]);
     }
 }

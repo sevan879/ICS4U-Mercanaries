@@ -7,10 +7,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Karel extends Enemy
 {
-    private static final int HP = 5;
+    private static final int HP = 20;
     private static final double SPEED = 4;
     private static final int DELAY = 10;
-    private static final int DAMAGE = 2;
+    private static final int DAMAGE = 4;
     private static final int ATTACK_RANGE = 75;
     private static boolean movable = true;
 

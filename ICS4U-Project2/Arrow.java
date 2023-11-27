@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Arrow here.
  * 
- * @author Evan Ma, Kennith Jin
+ * @author Evan Ma, Kenneth Jin
  * @version (a version number or a date)
  */
 public class Arrow extends Projectiles

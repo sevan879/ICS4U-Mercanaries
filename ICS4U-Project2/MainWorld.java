@@ -21,6 +21,7 @@ public class MainWorld extends World
     private int numOfKnights;
     private int numOfMages;
     private int numOfHealers;
+    private int numOfDarkMages;
     private int spacingBetween = 70;
     private int spawningXParty = 50;
     
@@ -62,6 +63,7 @@ public class MainWorld extends World
         numOfKnights = Settings.getNumOfKnights();
         numOfHealers = Settings.getNumOfHealers();
         numOfMages = Settings.getNumOfMages();
+        numOfDarkMages = Settings.getNumOfDarkMages();
         
         waveOneEnemies = Settings.getWaveOne();
         waveTwoEnemies = Settings.getWaveTwo();
@@ -136,6 +138,10 @@ public class MainWorld extends World
         {
             addObject(new Healer(), spawningXParty += spacingBetween, worldYLevel);
         }
+        for (int i = 0; i < numOfDarkMages; i++)
+        {
+            //addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
+        }
         for (int i = 0; i < numOfMages; i++)
         {
             addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
@@ -176,8 +182,11 @@ public class MainWorld extends World
                         addObject(new SkeletonWarrior(), spawningXEnemy, worldYLevel); // modify placement after
                         enemiesSpawned++;
                     } else if(enemyType == 3){
-                        //addObject(new Flying(), 0, 0); //ylocation should be higher
-                        //enemiesSpawned++;
+                        if (Greenfoot.getRandomNumber(2)==0)
+                        {
+                            addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel-30); //modify placement after
+                            enemiesSpawned++;
+                        }
                     } else if(enemyType == 4){
                         //addObject(new Wolf(), 0,0); 
                         //enemiesSpawned++;

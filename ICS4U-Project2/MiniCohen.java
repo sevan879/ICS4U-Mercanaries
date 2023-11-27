@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MiniCohen extends Enemy
 {
-    private static final int HP = 15;
+    private static final int HP = 30;
     private static final double SPEED = 2;
-    private static final int DELAY = 10;
+    private static final int DELAY = 40;
     private static final int DAMAGE = 2;
     private static final int ATTACK_RANGE = 115;
     private static boolean movable = true;

@@ -3,15 +3,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * SkeletonWarrior is the basic melee enemy. Runs up to Party members and deals melee damage.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arthur Tian
+ * @version V1
  */
 public class SkeletonWarrior extends Enemy
 {
     private static final int HP = 5;
     private static final double SPEED = 4;
-    private static final int DELAY = 10;
-    private static final int DAMAGE = 2;
+    private static final int DELAY = 40;
+    private static final int DAMAGE = 8;
     private static final int ATTACK_RANGE = 95;
     private static boolean movable = true;
 

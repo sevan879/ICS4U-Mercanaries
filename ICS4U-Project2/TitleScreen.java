@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TitleScreen here.
+ * Title Screen for simulation
  * 
- * @Arthur
- * @version (a version number or a date)
+ * @author Arthur
+ * @version V1
  */
 public class TitleScreen extends World
 {
@@ -16,7 +16,9 @@ public class TitleScreen extends World
     private Backstory b;
     private Settings s;
 
-    //construction
+    /**
+     * Main constructor for TitleScreen
+     */
     public TitleScreen()
     {    
         super(1068, 720, 1); 
@@ -33,23 +35,32 @@ public class TitleScreen extends World
         addObject(new TitleWords(), 534, 190);
     }
 
-    //to start playing the music when pressed run
+    /**
+     * Plays code when the start button is clicked. 
+     */
     public void started() {
         titleScreenMusic.playLoop();
     }
-    //to stop playing the music when pressed pause or reset
+    /**
+     * Plays code when the end button is clicked. 
+     */
     public void stopped() {
         if (titleScreenMusic != null) {
             titleScreenMusic.stop();
         }
     }
-
+    /**
+     * Act method.
+     */
     public void act() {
         if (Greenfoot.mouseClicked(start)) {
             stopped();
         }
     }
-
+    /**
+     * Transitions to a new world.
+     * @param n Integer representing the specific world to change to.
+     */
     public void transitionToNewWorld(int n) {
         if (n == 0) {
             m = new MainWorld();

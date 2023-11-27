@@ -1,12 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Cohen here.
- * Performs actions for 10 seconds, then break for 5 seconds, thats when party members deal damage
- * ultimate attack at 20 seconds, 40 seconds...
+ * Main boss for simulation. Has multiple attacks that cycle. Has a downphase where he takes 1/5 of his HP.
  * 
  * 
- * @Arthur
+ * @author Arthur Tian
  * @version (a version number or a date)
  */
 public class Cohen extends Boss
@@ -71,7 +69,8 @@ public class Cohen extends Boss
         }
         else { //actual act method
             //knock down
-            if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) {
+            if (numOfActionsSoFar%5 == 0 && numOfActionsSoFar != 0) 
+            {
                 if (downTimeCounter == 0) {
                     cohenDownAndHit();
                     for (Enemy e : enemiesInWorld()) {
@@ -236,6 +235,10 @@ public class Cohen extends Boss
                     }
                     else {
                         m.takeDamage(m.getMaxHP()/2);
+                    }
+                    
+                    for (Party member : partyMembersInWorld()) {
+                        member.takeDamage(4);
                     }
                 }
             }

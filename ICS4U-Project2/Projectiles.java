@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Abstract superclass for all moving projectiles. Accomodates for parabolic motion and linear motion.
  * 
- * @author Kennith Jin
+ * @author Kenneth Jin
  * @version V1
  */
 public abstract class Projectiles extends SuperSmoothMover
