@@ -33,7 +33,7 @@ public class Settings extends World
     private SettingsButton dU;
     private SettingsButton dD;
     
-    private static int waveOne = 5;
+    private static int waveOne = 8;
     private Button waveOneLabel;
     private SettingsButton oneU;
     private SettingsButton oneD;
@@ -124,8 +124,8 @@ public class Settings extends World
         numHealers = 1;
         numMages = 1;
         numDarkMages = 0;
-        current = 6;
-        waveOne = 5;
+        current = 8;
+        waveOne = 10;
         waveTwo = 15;
         waveThree = 20;
         addObject(new Button(16), 534, 650);

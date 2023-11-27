@@ -22,6 +22,8 @@ public class ThunderBolt extends Projectiles
     private int animationIndex;
     private int totalTargets = 1;
     private ArrayList<Enemy> hitTargets;
+    
+    private GreenfootSound sfx;
 
     /**
      * Main ThunderBolt constructor
@@ -29,7 +31,9 @@ public class ThunderBolt extends Projectiles
      */
     public ThunderBolt(int damage){
         super(SET_SPEED, SET_DIRECTION, SET_YVEL, false);
-        
+        sfx = new GreenfootSound("thunder.mp3");
+        sfx.setVolume(75);
+        sfx.play();
         animationIndex = 0;
         
         sprites = new GreenfootImage[12];

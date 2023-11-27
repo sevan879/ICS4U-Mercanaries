@@ -47,6 +47,11 @@ public class EndScreen extends World
             setBackground(img2);
         }
         addObject(new Button(16), 534, 360);
+        
+        addObject(new SuperTextBox("Total Kills: " + MainWorld.getKills(), new Font("OptimusPrinceps", true, false , 20), 240), 150, 550);
+        addObject(new SuperTextBox("Damage Dealt: " + MainWorld.getDamageDealt(), new Font("OptimusPrinceps", true, false , 20), 240), 450, 550);
+        addObject(new SuperTextBox("Damage Taken: " + MainWorld.getDamageTaken(), new Font("OptimusPrinceps", true, false , 20), 240), 150, 610);
+        addObject(new SuperTextBox("Total Time: " + MainWorld.getTime(), new Font("OptimusPrinceps", true, false , 20), 240), 450, 610);
     }
     
     /**

@@ -285,6 +285,33 @@ public class MainWorld extends World
     }
     
     /**
+     * Returns totalKills
+     */
+    public static int getKills()
+    {
+        return kills; 
+    }/**
+     * Return time
+     */
+    public static int getTime()
+    {
+        return time; 
+    }
+    /**
+     * Return damageTaken
+     */
+    public static int getDamageTaken()
+    {
+        return damageTaken; 
+    }
+    /**
+     * Return damageDone
+     */
+    public static int getDamageDealt()
+    {
+        return damageDealt; 
+    }
+    /**
      * increases the damage dealt number of the damageDealt label
      * @param damage damage dealt to the enemies
      */
@@ -398,8 +425,16 @@ public class MainWorld extends World
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
                     if (Greenfoot.getRandomNumber(20)%3 == 0) { // 
                         if (worldLvl == 1) {
-                            addObject(new Wolf(), spawningXEnemy, worldYLevel);
-                            enemiesSpawned++;
+                            int enemyType = Greenfoot.getRandomNumber(2);
+                            if (enemyType == 0) {
+                                addObject(new Wolf(), spawningXEnemy, worldYLevel);
+                                enemiesSpawned++;
+                            }
+                            else
+                            {
+                                addObject(new SkeletonArcher(), spawningXEnemy, worldYLevel); // modify placement after
+                                enemiesSpawned++;
+                            }
                         }
                         else if(worldLvl == 2){
                             int enemyType = Greenfoot.getRandomNumber(4);
@@ -418,12 +453,12 @@ public class MainWorld extends World
                             else if (enemyType == 3) {
                                 if (Greenfoot.getRandomNumber(2) == 0)
                                 {
-                                    addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel - 30); // modify placement after
+                                    addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel - 25); // modify placement after
                                     enemiesSpawned++;
                                 }
                             }
                         } else if(worldLvl == 3){
-                            int enemyType = Greenfoot.getRandomNumber(3);
+                            int enemyType = Greenfoot.getRandomNumber(4);
                             if (enemyType == 0) {
                                 addObject(new SkeletonSpear(), spawningXEnemy, worldYLevel); //modify placement after
                                 enemiesSpawned++;
@@ -439,7 +474,7 @@ public class MainWorld extends World
                             else if (enemyType == 3) {
                                 if (Greenfoot.getRandomNumber(2) == 0)
                                 {
-                                    addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel - 30); // modify placement after
+                                    addObject(new BigSkeletonSpear(), spawningXEnemy, worldYLevel - 25); // modify placement after
                                     enemiesSpawned++;
                                 }
                             }
