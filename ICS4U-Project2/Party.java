@@ -220,7 +220,7 @@ public abstract class Party extends Entity
      *
      * @return Enemy 
      */
-    private Enemy detectEnemy()
+    protected Enemy detectEnemy()
     {
         ArrayList<Enemy> targetList = (ArrayList<Enemy>) (getWorld().getObjects(Enemy.class));
         Enemy target = null;

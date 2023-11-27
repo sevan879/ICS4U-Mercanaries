@@ -160,15 +160,21 @@ public class DarkMage extends Party
     {
         if (spendMana(smallSpellMana));
         {
-            getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
+            getWorld().addObject(new ThunderBolt(smallDamage), getX(), getY() + 50);
         }
     }
 
     private void bigSpell()
     {
-        if (spendMana(bigSpellMana));
+        Enemy target = detectEnemy();
+        if (target != null)
         {
-            getWorld().addObject(new Fireball(bigRange, bigDamage), getX(), getY());
+            int distance = Math.abs(target.getX() - getX());
+            if (spendMana(bigSpellMana));
+            {
+                
+                getWorld().addObject(new DarkSpell(distance, bigDamage), getX(), getY());
+            }
         }
     }
 

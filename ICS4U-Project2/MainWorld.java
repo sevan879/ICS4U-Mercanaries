@@ -131,7 +131,7 @@ public class MainWorld extends World
         }
         for (int i = 0; i < numOfMages; i++)
         {
-            addObject(new Mage(), spawningXParty += spacingBetween, worldYLevel);
+            addObject(new DarkMage(), spawningXParty += spacingBetween, worldYLevel);
         }
         for (int i = 0; i < numOfKnights; i++)
         {
@@ -157,7 +157,7 @@ public class MainWorld extends World
 
             if(!waveOver || wave != 4){
                 if(Greenfoot.getRandomNumber(20 - (wave + 1)) == 0){
-                    if (Greenfoot.getRandomNumber(30)%10 == 0) {
+                    if (Greenfoot.getRandomNumber(20)%2 == 0) {
                         if (worldLvl == 1) {
                             addObject(new Wolf(), spawningXEnemy, worldYLevel);
                             enemiesSpawned++;
@@ -307,5 +307,14 @@ public class MainWorld extends World
         if (bossMusic.getVolume() <= 0) {
             bossMusic.stop();
         }
+    }
+    
+    /**
+     * Returns the worldYLevel of the given world
+     * @return int
+     */
+    public int getWorldY()
+    {
+        return worldYLevel;
     }
 }

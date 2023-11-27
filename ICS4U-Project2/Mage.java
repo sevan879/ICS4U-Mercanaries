@@ -161,6 +161,7 @@ public class Mage extends Party
         if (spendMana(smallSpellMana));
         {
             getWorld().addObject(new SmallFireball(smallRange, smallDamage), getX(), getY());
+            
         }
     }
 

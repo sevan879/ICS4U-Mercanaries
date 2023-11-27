@@ -28,7 +28,7 @@ public class TestWorld extends World
         //addObject(new Cohen(), 463, 311);
         //addObject(new Karel(), 700, 650);
         addObject(new MiniCohen(), 900, 650);
-        addObject(new Mage2(), 150, 650);
+        addObject(new DarkMage(), 150, 650);
         //addObject(new Mage(true), 250, 650);
         //addObject(new Healer(), 100, 650);
         //addObject(new Knight(), 300, 650);

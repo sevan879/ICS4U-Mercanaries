@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class SkeletonSpear extends Enemy
 {
-    private static final int HP = 10;
+    private static final int HP = 20;
     private static final double SPEED = 2;
     private static final int DELAY = 30;
     private static final int DAMAGE = 2;

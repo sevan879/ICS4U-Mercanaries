@@ -42,12 +42,14 @@ public class Wolf extends Enemy
     private int attackThreeAnimationDelay;
     private int attackThreeAnimationCounter;
 
+    private int runningYpos = 605;
+    
     //constructor
     public Wolf() {
         super(HP, SPEED, DELAY, DAMAGE, true, ATTACK_RANGE);
         setImage(runningPics[1]);
     }
-
+    
     //act method
     public void act()
     {
@@ -69,6 +71,7 @@ public class Wolf extends Enemy
     }
 
     public void attackAnimation() {
+        setLocation(getX(), runningYpos);
         if (attackTracker == 0) { //attack one
             attackOne();
             //stuff about dealing damage, whatever
@@ -95,6 +98,7 @@ public class Wolf extends Enemy
 
     //ANIMATION
     public void running() {
+        setLocation(getX(), runningYpos-25);
         if (runningAnimationCounter == 0){ // counter reaches 0 means ready for next frame
             runningAnimationCounter = runningAnimationDelay; // reset counter to max 
             runningAnimationIndex++; // this will be used to set the image to the next frame
